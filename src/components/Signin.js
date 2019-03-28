@@ -59,6 +59,29 @@ const styles = theme => ({
 
 class Signin extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            username: '',
+            password: ''
+        }
+
+        this.handleLogin = this.handleLogin.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange = e => {
+        //destructuring to get the variables
+        let { name, value } = e.target
+        //setting state whith the value of "name" as the key
+        this.setState({ [name]: value })
+    }
+
+    handleLogin(event) {
+        this.props.loginUser({username: this.state.username, password: this.state.password});
+        event.preventDefault();
+    }
 
     render() {
         const { classes } = this.props;
@@ -76,21 +99,24 @@ class Signin extends Component {
                     <Typography component="h1" variant="h5" noWrap>
                         Sign in to Hibernia-Sino
                     </Typography>
-                    <form className={classes.form}>
+                    <form className={classes.form} onSubmit={this.handleLogin}>
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="username">Username</InputLabel>
-                            <Input id="username" name="username" autoComplete="username" autoFocus />
+                            <Input id="username" name="username" autoComplete="username" autoFocus
+                                value={this.state.username} onChange={this.handleChange} />
                         </FormControl>
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="password">Password</InputLabel>
-                            <Input name="password" type="password" id="password" autoComplete="current-password" />
+                            <Input name="password" type="password" id="password" 
+                            autoComplete="current-password" value={this.state.password}
+                            onChange={this.handleChange} />
                         </FormControl>
                         <FormControlLabel
                             control={<Checkbox value="remember" color="primary" />}
                             label="Remember me"
                         />
                         <Grid container spacing={16} className={classes.buttonBar}>
-                            <Grid item xs={12} sm={6} align-items-xs-flex-end >
+                            <Grid item xs={12} sm={6} align-items-xs-flex-end="true" >
                                 <Button
                                     type="button"
                                     fullWidth
@@ -100,7 +126,7 @@ class Signin extends Component {
                                     Sign up
                             </Button>
                             </Grid>
-                            <Grid item xs={12} sm={6} align-items-xs-flex-start >
+                            <Grid item xs={12} sm={6} align-items-xs-flex-start="true" >
                                 <Button
                                     type="submit"
                                     fullWidth

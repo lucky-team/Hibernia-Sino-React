@@ -3,6 +3,10 @@ import Main from './components/MainComponent';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { ConfigureStore } from './redux/configureStore';
+
+const store = ConfigureStore();
 
 const theme = createMuiTheme({
   palette: {
@@ -24,13 +28,15 @@ const theme = createMuiTheme({
 class App extends Component {
   render() {
     return (
-      <div>
-        <MuiThemeProvider theme={theme}>
-          <BrowserRouter>
-            <Main />
-          </BrowserRouter>
-        </MuiThemeProvider>
-      </div>
+      <Provider store={store}>
+        <div>
+          <MuiThemeProvider theme={theme}>
+            <BrowserRouter>
+              <Main />
+            </BrowserRouter>
+          </MuiThemeProvider>
+        </div>
+      </Provider>
     );
   }
 }

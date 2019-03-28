@@ -1,24 +1,42 @@
 import React, { Component } from 'react';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
-import Claim from './claim/ClaimComponent';
 import Signin from './Signin';
+import { loginUser, logoutUser } from '../redux/ActionCreator';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
+const mapStateToProps = state => {
+    return {
+        auth: state.auth
+    }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    loginUser: (creds) => dispatch(loginUser(creds)),
+    logoutUser: () => dispatch(logoutUser())
+});
 
 class Main extends Component {
 
+    
+
     render() {
+        const SigninPage = () => {
+            return (
+                <Signin
+                loginUser={this.props.loginUser}
+                logoutUser={this.props.logoutUser} />
+            )
+        }
         return (
             <div>
                 <Header />
-                <br />
                 <TransitionGroup>
                     <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
                         <Switch>
-                            {/* <Route path="/claims" component={Claim} /> */}
-                            <Route path="/sigin" component={Signin} />
+                            <Route path="/sigin" component={SigninPage} />
                             <Redirect to="/sigin" />
                         </Switch>
                     </CSSTransition>
@@ -29,4 +47,4 @@ class Main extends Component {
     }
 }
 
-export default withRouter(Main);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
