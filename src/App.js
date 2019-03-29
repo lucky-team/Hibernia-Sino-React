@@ -17,9 +17,9 @@ const theme = createMuiTheme({
       contrastText: '#fff',
     },
     secondary: {
-      light: '#48a999',
-      main: '#00796b',
-      dark: '#004c40',
+      light: '#ffa4a2',
+      main: '#e57373',
+      dark: '#af4448',
       contrastText: '#ffffff',
     },
   }
@@ -29,14 +29,14 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div>
           <MuiThemeProvider theme={theme}>
             <BrowserRouter>
-              <Main />
+              <div>
+                <Main />
+              </div>
             </BrowserRouter>
           </MuiThemeProvider>
-        </div>
-      </Provider>
+       </Provider>
     );
   }
 }

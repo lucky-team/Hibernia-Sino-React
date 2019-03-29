@@ -17,7 +17,6 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import DoneIcon from '@material-ui/icons/Done';
 import Fade from '@material-ui/core/Fade';
-import Back from './common/Back';
 
 const styles = theme => ({
     main: {
@@ -32,7 +31,6 @@ const styles = theme => ({
         },
     },
     paper: {
-        marginTop: theme.spacing.unit * 8,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -41,7 +39,7 @@ const styles = theme => ({
     },
     avatar: {
         margin: theme.spacing.unit,
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: theme.palette.primary.main,
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -50,10 +48,12 @@ const styles = theme => ({
     buttonBar: {
         marginTop: theme.spacing.unit * 3,
         justifyContent: 'center',
+        
     },
-    back: {
-        alignSelf: 'flex-start',
-        flexDirection: 'row',
+    signInBtn: {
+        '&:hover': {
+            backgroundColor: theme.palette.primary.light
+        }
     }
 });
 
@@ -72,13 +72,12 @@ class Signin extends Component {
     }
 
     handleChange = e => {
-        //destructuring to get the variables
         let { name, value } = e.target
-        //setting state whith the value of "name" as the key
         this.setState({ [name]: value })
     }
 
     handleLogin(event) {
+        this.props.toggleDialog();
         this.props.loginUser({username: this.state.username, password: this.state.password});
         event.preventDefault();
     }
@@ -90,9 +89,6 @@ class Signin extends Component {
             <div className={classes.main}>
                 <CssBaseline />
                 <Paper className={classes.paper}>
-                    <div className={classes.back}>
-                        <Back pathname='/home' text='Back' />
-                    </div>
                     <Avatar className={classes.avatar}>
                         <LockOutlinedIcon />
                     </Avatar>
@@ -120,7 +116,7 @@ class Signin extends Component {
                                 <Button
                                     type="button"
                                     fullWidth
-                                    variant="contained"
+                                    variant="outlined"
                                     color="secondary"
                                 >
                                     Sign up
@@ -132,6 +128,7 @@ class Signin extends Component {
                                     fullWidth
                                     variant="contained"
                                     color="primary"
+                                    className={classes.signInBtn}
                                 >
                                     Sign in
                             </Button>

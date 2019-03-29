@@ -20,27 +20,23 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Main extends Component {
 
-    
-
     render() {
-        const SigninPage = () => {
-            return (
-                <Signin
-                loginUser={this.props.loginUser}
-                logoutUser={this.props.logoutUser} />
-            )
-        }
+        
         return (
             <div>
-                <Header />
-                <TransitionGroup>
+                <Header 
+                    loginUser={this.props.loginUser}
+                    logoutUser={this.props.logoutUser}
+                    auth={this.props.auth}
+                />
+                {/* <TransitionGroup>
                     <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
                         <Switch>
                             <Route path="/sigin" component={SigninPage} />
                             <Redirect to="/sigin" />
                         </Switch>
                     </CSSTransition>
-                </TransitionGroup>
+                </TransitionGroup> */}
                 <Footer />
             </div>
         );
@@ -48,3 +44,4 @@ class Main extends Component {
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
+// export default Main;
