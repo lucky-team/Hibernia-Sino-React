@@ -48,6 +48,7 @@ export const loginUser = (creds) => (dispatch) => {
         if (response.success) {
             localStorage.setItem('token', response.token);
             localStorage.setItem('creds', JSON.stringify(creds));
+            dispatch(fetchInsurances())
             dispatch(receiveLogin(response));
         } else {
             var error = new Error('Error ' + response.status);
@@ -78,3 +79,46 @@ export const logoutUser = () => (dispatch) => {
     localStorage.removeItem('creds');
     dispatch(receiveLogout());
 }
+
+// ------- Insurances -------
+
+export const fetchInsurances = () => (dispatch) => {
+    dispatch(insurancesLoading(true));
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + 'insurances', {
+        headers: {  
+            'Authorization': bearer
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            return response;
+        } else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    }, error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response => response.json())
+    .then(insurances => dispatch(addInsurances(insurances)))
+    .catch(error => dispatch(insuranceFailed(error.message)));
+}
+
+export const addInsurances = (insurances) => ({
+    type: ActionTypes.ADD_INSURANCES,
+    payload: insurances
+});
+
+export const insurancesLoading = () => ({
+    type: ActionTypes.INSURANCES_LOADING
+});
+
+export const insuranceFailed = (errmess) => ({
+    type: ActionTypes.INSURANCES_FAILED,
+    payload: errmess
+});
