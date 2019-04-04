@@ -7,8 +7,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { NavLink } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
 import Dialog from '@material-ui/core/Dialog';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import Signin from './Signin';
+import * as BaseUrl from '../shared/BaseUrl';
 
 const styles = theme => ({
     appBar: {
@@ -39,6 +42,9 @@ const styles = theme => ({
             backgroundColor: theme.palette.secondary.light
         }
     },
+    userIcon: {
+        marginLeft: theme.spacing.unit * 5,
+    }
 });
 
 class Header extends Component {
@@ -62,7 +68,7 @@ class Header extends Component {
     }
 
     invokeNavBtn(pathname) {
-        if (pathname === window.location.pathname) {
+        if (window.location.pathname.startsWith(pathname)) {
             return this.props.classes.activeNavLink;
         } else {
             return this.props.classes.navLink;
@@ -80,21 +86,26 @@ class Header extends Component {
                         <Typography variant="h5" color="inherit" noWrap className={classes.toolbarTitle}>
                             Hibernia-Sino
                         </Typography>
-                        <Button className={`${this.invokeNavBtn('/home')}`} to="/home" component={NavLink} >
+                        <Button className={`${this.invokeNavBtn(BaseUrl.homePath)}`} to="/home" component={NavLink} >
                             Home
                         </Button>
-                        <Button className={`${this.invokeNavBtn('/product')}`} component={NavLink} to="/product">
-                            Product
+                        <Button className={`${this.invokeNavBtn(BaseUrl.myServicesPath)}`} component={NavLink} to={BaseUrl.myServicesPath}>
+                            My Services
                         </Button>
-                        <Button className={`${this.invokeNavBtn('/purchased_insurances')}`} component={NavLink} to="/purchased_insurances">
-                            Insurances
-                        </Button>
-                        <Button className={`${this.invokeNavBtn('/claims')}`} component={NavLink} to="/claims">
+                        <Button className={`${this.invokeNavBtn(BaseUrl.claimsPath)}`} component={NavLink} to={BaseUrl.claimsPath}>
                             Claims
                         </Button>
-                        <Button className={classes.loginBtn} variant="contained" onClick={this.toggleDialog}>
-                            Login
-                        </Button>
+                        {this.props.auth.isAuthenticated ? (
+                            <Fab size="small" color="primary" className={classes.userIcon} onClick={this.props.logoutUser}>
+                                <AccountCircle />
+                            </Fab>
+                        )
+                        :
+                        (
+                            <Button className={classes.loginBtn} variant="contained" onClick={this.toggleDialog}>
+                                Login
+                            </Button>
+                        )}
                     </Toolbar>
                 </AppBar>
                 <Dialog
@@ -102,9 +113,10 @@ class Header extends Component {
                     onClose={this.toggleDialog}
                 >
                     <Signin
-                    loginUser={this.props.loginUser}
-                    logoutUser={this.props.logoutUser}
-                    toggleDialog={this.toggleDialog} />
+                        loginUser={this.props.loginUser}
+                        logoutUser={this.props.logoutUser}
+                        toggleDialog={this.toggleDialog}
+                        auth={this.props.auth} />
                 </Dialog>
             </React.Fragment>
         );   

@@ -32,6 +32,11 @@ export const Auth = (state = {
                 isLoading: true,
                 isAuthenticated: true
             };
+        case ActionTypes.LOGOUT_SUCCESS:
+            return {...state,
+                isLoading: false,
+                isAuthenticated: false
+            };
         default:
             return state;
     }

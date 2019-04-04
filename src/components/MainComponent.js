@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
+import ClaimProcess from './claim/ClaimApplication';
 import Insurance from './InsuranceComponent';
 import { loginUser, logoutUser, fetchInsurances } from '../redux/ActionCreator';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import * as BaseUrl from '../shared/BaseUrl';
 
 const mapStateToProps = state => {
     return {
@@ -23,7 +25,9 @@ const mapDispatchToProps = (dispatch) => ({
 class Main extends Component {
 
     componentDidMount() {
-        this.props.fetchInsurances();
+        if (this.props.auth.isAuthenticated) {
+            this.props.fetchInsurances();
+        }
     }
 
     render() {
@@ -47,12 +51,13 @@ class Main extends Component {
                 <TransitionGroup>
                     <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
                         <Switch>
-                            <Route path="/purchased_insurances" component={InsurancesPage} />
-                            <Redirect to="/purchased_insurances" />
+                            <Route exact path={BaseUrl.myServicesPath} component={InsurancesPage} />
+                            <Route path={BaseUrl.claimApplicationPath} component={ClaimProcess} />
+                            <Redirect to={BaseUrl.myServicesPath} />
                         </Switch>
                     </CSSTransition>
                 </TransitionGroup>
-                <Footer />
+                {/* <Footer /> */}
             </div>
         );
     }

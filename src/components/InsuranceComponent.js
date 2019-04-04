@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import { NavLink } from 'react-router-dom';
+import * as BaseUrl from '../shared/BaseUrl';
 
 const styles = theme => ({
     root: {
@@ -56,7 +58,9 @@ class SimpleTable extends Component {
                                 <TableCell align="center">{insurance.plan}</TableCell>
                                 <TableCell align="center">{insurance.level}</TableCell>
                                 <TableCell align="center">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day:'2-digit'}).format(new Date(Date.parse(insurance.expireDate)))}</TableCell>
-                                <TableCell align="center"><Button variant='contained'>Claim</Button></TableCell>
+                                <TableCell align="center">
+                                    <Button key={insurance._id} variant='contained' component={NavLink} to={`${BaseUrl.claimApplicationPath}/${insurance._id}`}>Claim</Button>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

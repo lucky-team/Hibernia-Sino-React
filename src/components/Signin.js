@@ -7,7 +7,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -130,7 +130,7 @@ class Signin extends Component {
                                     className={classes.signInBtn}
                                 >
                                     Sign in
-                            </Button>
+                                </Button>
                             </Grid>
                         </Grid>
                     </form>
