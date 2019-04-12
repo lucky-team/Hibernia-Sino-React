@@ -3,11 +3,11 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import ClaimApplication from './customer/claim/ClaimApplication';
 import Insurance from './customer/InsuranceComponent';
+import EmployeeClaimPending from './employee/claim/EmployeeClaimPending';
 import { loginUser, logoutUser, fetchInsurances, fetchClaims, postClaim } from '../redux/ActionCreator';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import Table from './common/Table'
 import * as BaseUrl from '../shared/BaseUrl';
 
 const mapStateToProps = state => {
@@ -70,8 +70,6 @@ class Main extends Component {
             );
         }
 
-        const heads = ['clientId', 'location', 'amount', 'insured', 'date', 'operation'];
-        
         return (
             <div>
                 <Header 
@@ -79,13 +77,13 @@ class Main extends Component {
                     logoutUser={this.props.logoutUser}
                     auth={this.props.auth}
                 />
-                {/* <Table heads={heads} /> */}
                 <TransitionGroup>
                     <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
                         <Switch>
                             <Route exact path={BaseUrl.myServicesPath} component={InsurancesPage} />
                             <Route path={BaseUrl.claimApplicationPath} component={ClaimApplicationPage} />
-                            <Redirect to={BaseUrl.myServicesPath} />
+                            <Route path={BaseUrl.employeeClaimPending} component={EmployeeClaimPending} />
+                            <Redirect to={BaseUrl.employeeClaimPending} />
                         </Switch>
                     </CSSTransition>
                 </TransitionGroup>

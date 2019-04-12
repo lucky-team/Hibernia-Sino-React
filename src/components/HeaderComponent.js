@@ -203,9 +203,6 @@ function RenderNavigationBar({ auth, invokeNavBtn, classes, toggleDialog, logout
             return (
                 <Fragment>
                     <Typography variant="h5" color="inherit" className={classes.toolbarTitle} noWrap>Hibernia-Sino | employee</Typography>
-                    <Button className={`${invokeNavBtn(BaseUrl.homePath)}`} to="/home" component={NavLink} >Home</Button>
-                    <Button className={`${invokeNavBtn(BaseUrl.myServicesPath)}`} component={NavLink} to={BaseUrl.myServicesPath}>My Services</Button>
-                    <Button className={`${invokeNavBtn(BaseUrl.claimsPath)}`} component={NavLink} to={BaseUrl.claimsPath}>Claims</Button>
                 </Fragment>
             )
         };
@@ -214,9 +211,9 @@ function RenderNavigationBar({ auth, invokeNavBtn, classes, toggleDialog, logout
             return (
                 <Fragment>
                     <Typography variant="h5" color="inherit" noWrap className={classes.toolbarTitle}>Hibernia-Sino</Typography>
-                    <Button className={`${invokeNavBtn(BaseUrl.homePath)}`} to="/home" component={NavLink} >Home</Button>
-                    <Button className={`${invokeNavBtn(BaseUrl.myServicesPath)}`} component={NavLink} to={BaseUrl.myServicesPath}>My Services</Button>
-                    <Button className={`${invokeNavBtn(BaseUrl.claimsPath)}`} component={NavLink} to={BaseUrl.claimsPath}>Claims</Button>
+                    <Button className={`${invokeNavBtn(BaseUrl.homePath)}`} to="/home" component={NavLink} ><Typography noWrap color="inherit">Home</Typography></Button>
+                    <Button className={`${invokeNavBtn(BaseUrl.myServicesPath)}`} component={NavLink} to={BaseUrl.myServicesPath}><Typography noWrap color="inherit">My Services</Typography></Button>
+                    <Button className={`${invokeNavBtn(BaseUrl.claimsPath)}`} component={NavLink} to={BaseUrl.claimsPath}><Typography noWrap color="inherit">Claims</Typography></Button>
                 </Fragment>
             )
         };
