@@ -8,6 +8,8 @@ export const Insurances = (state = {
         switch(action.type) {
             case ActionTypes.ADD_INSURANCES:
                 return {...state, isLoading: false, errMess: null, insurances: action.payload};
+            case ActionTypes.CLEAR_INSURANCES:
+                return {...state, isLoading: false, errMess: null, insurances: []};
             case ActionTypes.INSURANCES_LOADING:
                 return {...state, isLoading: true, errMess: null, insurances: []};
             case ActionTypes.INSURANCES_FAILED:
