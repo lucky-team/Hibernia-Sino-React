@@ -2,22 +2,14 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
+import { Typography, Table, TableBody, TableCell, TableHead, TablePagination, TableRow,
+    TableSortLabel, Toolbar, Paper, Checkbox, IconButton, Tooltip, Button } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
+import * as BaseUrl from '../../shared/BaseUrl';
+import DetailedInsurance from './DetailedInsuranceComponent';
+
 
 function desc(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
@@ -128,7 +120,7 @@ const toolbarStyles = theme => ({
 });
 
 let EnhancedTableToolbar = props => {
-    const { numSelected, classes } = props;
+    const { numSelected, classes, titleText } = props;
 
     return (
         <Toolbar
@@ -143,7 +135,7 @@ let EnhancedTableToolbar = props => {
                     </Typography>
                     ) : (
                     <Typography variant="h6" id="tableTitle">
-                        Nutrition
+                        {titleText}
                     </Typography>
                     )}
             </div>
@@ -195,6 +187,7 @@ class EnhancedTable extends React.Component {
         data: this.props.data,
         page: 0,
         rowsPerPage: 5,
+        isDetailsOpen: false
     };
 
     handleRequestSort = (event, property) => {
@@ -216,7 +209,12 @@ class EnhancedTable extends React.Component {
         this.setState({ selected: [] });
     };
 
-    handleClick = (event, id) => {
+    handleItemClick = (event, insuranceId) => {
+        this.fetchInsurance(insuranceId);
+        this.setState({ isDetailsOpen: true });
+    }
+
+    handleCheckClick = (event, id) => {
         const { selected } = this.state;
         const selectedIndex = selected.indexOf(id);
         let newSelected = [];
@@ -237,6 +235,17 @@ class EnhancedTable extends React.Component {
         this.setState({ selected: newSelected });
     };
 
+    handleDetailsOpen = () => {
+        this.setState({ isDetailsOpen: true });
+    };
+
+    handleDetailsClose = () => {
+        this.setState({
+            isDetailsOpen: false,
+            insurance: null
+        });
+    };
+
     handleChangePage = (event, page) => {
         this.setState({ page });
     };
@@ -245,16 +254,50 @@ class EnhancedTable extends React.Component {
         this.setState({ rowsPerPage: event.target.value });
     };
 
+    fetchInsurance = (insuranceId) => {
+        const bearer = 'Bearer ' + localStorage.getItem('token');
+
+        fetch(BaseUrl.baseUrl + 'insurances?_id=' + insuranceId, {
+            headers: {  
+                'Authorization': bearer
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                return response;
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        }, error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
+        .then(response => response.json())
+        .then(insurance => {
+            if (insurance.length !== 0) {
+                this.setState({
+                    insurance: insurance[0]
+                });
+            } else {
+                alert(JSON.parse(insurance));
+            }
+            
+        })
+        .catch(error => alert(error.message));
+    }
+
     isSelected = id => this.state.selected.indexOf(id) !== -1;
 
     render() {
-        const { classes, rows } = this.props;
+        const { classes, rows, titleText } = this.props;
         const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
         return (
             <Paper className={classes.root}>
-                <EnhancedTableToolbar numSelected={selected.length} />
+                <EnhancedTableToolbar titleText={titleText} numSelected={selected.length} />
                 <div className={classes.tableWrapper}>
                     <Table className={classes.table} aria-labelledby="tableTitle">
                         <EnhancedTableHead
@@ -274,7 +317,7 @@ class EnhancedTable extends React.Component {
                                     return (
                                         <TableRow
                                             hover
-                                            onClick={event => this.handleClick(event, n[0])}
+                                            onClick={event => this.handleItemClick(event, n[1])}
                                             role="checkbox"
                                             aria-checked={isSelected}
                                             tabIndex={-1}
@@ -282,14 +325,17 @@ class EnhancedTable extends React.Component {
                                             selected={isSelected}
                                         >
                                             <TableCell padding="checkbox">
-                                                <Checkbox checked={isSelected} />
+                                                <Checkbox
+                                                    onChange={event => this.handleCheckClick(event, n[0])}
+                                                    checked={isSelected} />
                                             </TableCell>
                                             <TableCell component="th" scope="row" padding="none">
                                                 {n[0]}
                                             </TableCell>
                                             {n.slice(1).map((item, index) => (
-                                                <TableCell align="right">{n[index+1]}</TableCell>
+                                                <TableCell align="right" key={index}>{item}</TableCell>
                                             ))}
+                                            
                                         </TableRow>
                                     );
                                 })}
@@ -300,6 +346,12 @@ class EnhancedTable extends React.Component {
                             )}
                         </TableBody>
                     </Table>
+                    <DetailedInsurance
+                        insurance={this.state.insurance}
+                        handleClickOpen={this.handleDetailsOpen}
+                        handleClose={this.handleDetailsClose}
+                        open={this.state.isDetailsOpen}
+                    />
                 </div>
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}

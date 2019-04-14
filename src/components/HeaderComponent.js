@@ -183,7 +183,6 @@ class RenderDrawer extends Component {
                             </List>
                         </Collapse>
                     </Fragment>
-                    
                 ))}
                 </List>
 
@@ -290,14 +289,14 @@ class Header extends Component {
                 <AppBar position="static" color="primary" className={classNames(classes.appBar,
                         {[classes.appBarShift]: isDrawerOpen,})}>
                     <Toolbar>
-                        <IconButton
+                        {auth.employee && <IconButton
                             color="inherit"
                             aria-label="Open drawer"
                             onClick={() => this.toggleDrawer(true)}
                             className={classNames(classes.menuButton, isDrawerOpen && classes.hide)}
                         >
                             <MenuIcon />
-                        </IconButton>
+                        </IconButton>}
                         <RenderNavigationBar
                             classes={classes}
                             auth={auth} invokeNavBtn={this.invokeNavBtn}
@@ -315,12 +314,12 @@ class Header extends Component {
                         toggleDialog={this.toggleDialog}
                         auth={auth} />
                 </Dialog>
-                <RenderDrawer
+                {auth.employee && <RenderDrawer
                     classes={classes}
                     isDrawerOpen={isDrawerOpen}
                     toggleDrawer={this.toggleDrawer}
                     invokeNavBtn={this.invokeNavBtn}
-                    content={drawerContent} />
+                    content={drawerContent} />}
             </React.Fragment>
         );
     }

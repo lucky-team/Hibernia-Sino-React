@@ -49,8 +49,12 @@ export const loginUser = (creds) => (dispatch) => {
         if (response.success) {
             localStorage.setItem('token', response.token);
             localStorage.setItem('creds', JSON.stringify(creds));
-            localStorage.setItem('employee', response.employee)
-            dispatch(fetchInsurances())
+            localStorage.setItem('employee', response.employee);
+            if (response.employee) {
+                dispatch(fetchClaims());
+            } else {
+                dispatch(fetchInsurances());
+            }
             dispatch(receiveLogin(response));
         } else {
             var error = new Error('Error ' + response.status);
@@ -133,7 +137,64 @@ export const insuranceFailed = (errmess) => ({
 
 // ------- Claims -------
 
-export const postClaim = (claim) => ((dispatch) => {
+// employees
+
+export const getAssignClaim = claimId => dispatch => {
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    const url = baseUrl + 'claims/assign/' + claimId;
+    
+    return fetch(url, {
+        headers: {
+            'Authorization': bearer
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            return response;
+        } else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+        }
+    }, error => {
+        var errmess = new Error(error.message);
+        throw errmess;
+    })
+    .then(response => response.json())
+    .then(response => {
+        if (response.success) {
+            dispatch(requestAssignSuccess());
+        } else {
+            var error = new Error('Error ' + response.status);
+            error.response = response;
+            throw error;
+        }
+    })
+    .catch(error => dispatch(requestAssignFailure(error.message)));
+};
+
+export const requestAssignClaim = () => {
+    return {
+        type: ActionTypes.ASSIGN_CLAIMS_REQUEST
+    }
+}
+
+export const requestAssignSuccess = () => {
+    return {
+        type: ActionTypes.ASSIGN_CLAIMS_SUCCESS
+    }
+}
+
+export const requestAssignFailure = message => {
+    return {
+        type: ActionTypes.ASSIGN_CLAIMS_FAILURE,
+        payload: message
+    }
+}
+
+// customers
+
+export const postClaim = (claim) => (dispatch => {
     claim['date'] = new Date(claim['date']).toISOString();
     console.log('Claim: ', claim);
     var formdata = new FormData();
@@ -179,7 +240,7 @@ export const fetchClaims = () => ((dispatch) => {
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'insurances', {
+    return fetch(baseUrl + 'claims', {
         headers: {  
             'Authorization': bearer
         }

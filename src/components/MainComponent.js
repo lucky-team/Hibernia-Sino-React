@@ -3,8 +3,8 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import ClaimApplication from './customer/claim/ClaimApplication';
 import Insurance from './customer/InsuranceComponent';
-import EmployeeClaimPending from './employee/claim/EmployeeClaimPending';
-import { loginUser, logoutUser, fetchInsurances, fetchClaims, postClaim } from '../redux/ActionCreator';
+import EmployeeClaim from './employee/claim/EmployeeClaimComponent';
+import { loginUser, logoutUser, fetchInsurances, fetchClaims, postClaim, getAssignClaim } from '../redux/ActionCreator';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -23,7 +23,8 @@ const mapDispatchToProps = (dispatch) => ({
     logoutUser: () => dispatch(logoutUser()),
     fetchInsurances: () => dispatch(fetchInsurances()),
     fetchClaims: () => dispatch(fetchClaims()),
-    postClaim: (claim) => dispatch(postClaim(claim))
+    postClaim: (claim) => dispatch(postClaim(claim)),
+    getAssignClaim: (claimId) => dispatch(getAssignClaim(claimId))
 });
 
 class Main extends Component {
@@ -31,28 +32,42 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentInsurance: ''
+            currentInsurance: '',
+            isDetailsOpen: true,
+            insurance: null
         }
         this.changeCurrentInsurance = this.changeCurrentInsurance.bind(this);
     }
 
+    handleDetailsOpen = () => {
+        this.setState({ isDetailsOpen: true });
+    };
+
+    handleDetailsClose = () => {
+        this.setState({ isDetailsOpen: false });
+    };
+
     changeCurrentInsurance(insuranceId) {
-        this.setState(state => ({
+    this.setState(state => ({
             currentInsurance: insuranceId,
         }));
     }
 
     componentDidMount() {
         if (this.props.auth.isAuthenticated) {
-            this.props.fetchInsurances();
-            this.props.fetchClaims();
+            if (this.props.auth.employee) {
+                this.props.fetchClaims();
+            } else {
+                this.props.fetchInsurances();
+            }
         }
     }
 
     render() {
         const InsurancesPage = () => {
             return (
-                <Insurance insurances={this.props.insurances.insurances}
+                <Insurance
+                    insurances={this.props.insurances.insurances}
                     insurancesLoading={this.props.insurances.isLoading}
                     insurancesErrMess={this.props.insurances.errMess}
                     auth={this.props.auth}
@@ -70,9 +85,20 @@ class Main extends Component {
             );
         }
 
+        const EmployeeClaimPage = () => {
+            return (
+                <EmployeeClaim
+                    claims={this.props.claims}
+                    claimsLoading={this.props.claims.isLoading}
+                    claimsErrMess={this.props.claims.errMess}
+                    auth={this.props.auth}
+                />
+            );
+        }
+
         return (
             <div>
-                <Header 
+                <Header
                     loginUser={this.props.loginUser}
                     logoutUser={this.props.logoutUser}
                     auth={this.props.auth}
@@ -82,8 +108,8 @@ class Main extends Component {
                         <Switch>
                             <Route exact path={BaseUrl.myServicesPath} component={InsurancesPage} />
                             <Route path={BaseUrl.claimApplicationPath} component={ClaimApplicationPage} />
-                            <Route path={BaseUrl.employeeClaimPending} component={EmployeeClaimPending} />
-                            <Redirect to={BaseUrl.employeeClaimPending} />
+                            <Route path={BaseUrl.employeeClaim} component={EmployeeClaimPage} />
+                            <Redirect to={BaseUrl.myServicesPath} />
                         </Switch>
                     </CSSTransition>
                 </TransitionGroup>
