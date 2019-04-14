@@ -10,6 +10,7 @@
     "cross-env": "^5.2.0",
     "cross-fetch": "^3.0.1",
     "font-awesome": "^4.7.0",
+    "notistack": "^0.6.1",
     "prop-types": "15.6.0",
     "react": "^16.8.4",
     "react-animation-components": "^3.0.0",

@@ -5,6 +5,7 @@ import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ConfigureStore } from './redux/configureStore';
+import { SnackbarProvider, withSnackbar } from 'notistack';
 
 const store = ConfigureStore();
 
@@ -28,6 +29,16 @@ const theme = createMuiTheme({
   }
 });
 
+const MainApp = withSnackbar(Main);
+
+function MainWithSnackBar() {
+    return (
+      <SnackbarProvider maxSnack={3}>
+        <MainApp />
+      </SnackbarProvider>
+    );
+  }
+
 class App extends Component {
   render() {
     return (
@@ -35,7 +46,7 @@ class App extends Component {
           <MuiThemeProvider theme={theme}>
             <BrowserRouter>
               <div>
-                <Main />
+                <MainWithSnackBar />
               </div>
             </BrowserRouter>
           </MuiThemeProvider>

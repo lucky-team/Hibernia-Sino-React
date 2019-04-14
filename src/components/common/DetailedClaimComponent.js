@@ -4,8 +4,8 @@ import {
     DialogTitle, Paper, Grid, Typography, TextField
 } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
-import Draggable from 'react-draggable';
 import * as Utils from '../../shared/Utils';
+import * as BaseUrl from '../../shared/BaseUrl';
 
 const styles = theme => ({
     root: {
@@ -13,12 +13,14 @@ const styles = theme => ({
     },
     content: {
         padding: theme.spacing.unit * 10,
+    },
+    actionsBtns: {
+        margin: theme.spacing.unit * 1
     }
 })
 
-const RenderClaimInformation = ({ insurance }) => {
-    if (insurance && insurance.claim) {
-        let claim = insurance.claim;
+const RenderClaimInformation = ({ claim }) => {
+    if (claim) {
         return (
             <>
                 <Grid container item spacing={8} xs={12}>
@@ -320,14 +322,86 @@ const RenderBasicInformation = ({ insurance }) => {
     }
 }
 
+const RenderActions = ({ classes, claim, handleClose, assignClaim }) => {
+    if (claim) {
+        switch(claim.status) {
+            case 'pending':
+                return (
+                    <>
+                        <Button className={classes.actionsBtns} variant='outlined' onClick={handleClose} color="primary">
+                            BACK
+                        </Button>
+                        <Button className={classes.actionsBtns} variant='outlined' onClick={assignClaim} color="primary">
+                            TAKE CLAIM
+                        </Button>
+                    </>
+                );
+            case 'processing':
+                return (
+                    <>
+                        <Button className={classes.actionsBtns} variant='outlined' onClick={handleClose} color="primary">
+                            BACK
+                        </Button>
+                        <Button className={classes.actionsBtns} variant='outlined' onClick={handleClose} color="primary">
+                            REJECT
+                        </Button>
+                        <Button className={classes.actionsBtns} variant='outlined' onClick={handleClose} color="primary">
+                            ACCEPT
+                        </Button>
+                    </>
+                );
+            default:
+                return (
+                    <Button className={classes.actionsBtns} variant='outlined' onClick={handleClose} color="primary">
+                        BACK
+                    </Button>
+                );
+        }
+    } else {
+        return (
+            <Button variant='outlined' onClick={handleClose} color="primary">
+                BACK
+            </Button>
+        );
+    }
+}
+
+
 
 class DraggableDialog extends React.Component {
     constructor(props) {
         super(props);
     }
 
+    assignClaim = claimId => {
+        const bearer = 'Bearer ' + localStorage.getItem('token');
+    
+        fetch(BaseUrl.baseUrl + 'claims?_id=' + claimId, {
+            headers: {
+                'Authorization': bearer
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                this.props.enqueueSnackbar('Assign ');
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        }, error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
+        .then(response => response.json())
+        .then(response => {
+            alert(JSON.stringify(response));
+        })
+        .catch(error => alert(error.message));
+    }
+
     render() {
-        const { insurance, handleClose, open } = this.props;
+        const { insurance, claim, handleClose, open, classes } = this.props;
 
         return (
             <Dialog
@@ -341,7 +415,7 @@ class DraggableDialog extends React.Component {
                 <DialogContent>
                     <Grid container spacing={32}>
                         <RenderClaimInformation
-                            insurance={insurance}
+                            claim={claim}
                         />
                         <RenderBasicInformation
                             insurance={insurance}
@@ -352,12 +426,12 @@ class DraggableDialog extends React.Component {
                     </Grid>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleClose} color="primary">
-                        Subscribe
-                    </Button>
+                    <RenderActions
+                        classes={classes}
+                        claim={claim}
+                        handleClose={handleClose}
+                        assignClaim={this.assignClaim}
+                    />
                 </DialogActions>
             </Dialog>
         );

@@ -19,3 +19,12 @@
   transform: translateX(100%);
   transition: all 300ms ease-out;
 }
+
+body {
+  min-height: 1000px;
+  background-image: url('./shared/background.png'), url('./shared/background2.png');
+  background-attachment: fixed;
+  background-position: center center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: 70%, cover;
+}

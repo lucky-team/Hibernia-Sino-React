@@ -8,7 +8,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import * as BaseUrl from '../../shared/BaseUrl';
-import DetailedInsurance from './DetailedInsuranceComponent';
+import * as Utils from '../../shared/Utils';
+import DetailedClaim from './DetailedClaimComponent';
 
 
 function desc(a, b, orderBy) {
@@ -179,16 +180,40 @@ const styles = theme => ({
     },
 });
 
+const generateTableData = claims => {
+    let data = claims.map(claim => {
+        let claimDate = Utils.parseISODate(claim.date);
+        let createdAt = Utils.parseISODate(claim.createdAt);
+        let row = [claim._id, claim.insurance, claim.location, claim.amount, claimDate, createdAt, claim.status ]
+        return row;
+    })
+    return data;
+}
+
+
+
 class EnhancedTable extends React.Component {
-    state = {
-        order: 'asc',
-        orderBy: 0,
-        selected: [],
-        data: this.props.data,
-        page: 0,
-        rowsPerPage: 5,
-        isDetailsOpen: false
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            order: 'asc',
+            orderBy: 0,
+            selected: [],
+            page: 0,
+            rowsPerPage: 5,
+            isDetailsOpen: false,
+            claims: this.props.claims,
+            data: null
+        };
+    }
+
+    componentDidMount() {
+        if (this.state.claims) {
+            this.setState({
+                data: generateTableData(this.state.claims.claims)
+            });
+        }
+    }
 
     handleRequestSort = (event, property) => {
         const orderBy = property;
@@ -209,9 +234,22 @@ class EnhancedTable extends React.Component {
         this.setState({ selected: [] });
     };
 
-    handleItemClick = (event, insuranceId) => {
+    handleItemClick = (event, claimId, insuranceId) => {
         this.fetchInsurance(insuranceId);
-        this.setState({ isDetailsOpen: true });
+        let claim;
+        for (var i = 0; i < this.props.claims.claims.length; i++) {
+            if (this.props.claims.claims[i]._id === claimId) {
+                claim = this.props.claims.claims[i];
+                i = this.props.claims.claims.length;
+            }
+        }
+        if (claim === null) {
+            alert('Cannot find claim: ' + claimId);
+        }
+        this.setState({
+            isDetailsOpen: true,
+            claim: claim,
+        });
     }
 
     handleCheckClick = (event, id) => {
@@ -242,7 +280,8 @@ class EnhancedTable extends React.Component {
     handleDetailsClose = () => {
         this.setState({
             isDetailsOpen: false,
-            insurance: null
+            insurance: null,
+            claim: null
         });
     };
 
@@ -291,85 +330,99 @@ class EnhancedTable extends React.Component {
     isSelected = id => this.state.selected.indexOf(id) !== -1;
 
     render() {
-        const { classes, rows, titleText } = this.props;
+        const { classes, titleText } = this.props;
         const { data, order, orderBy, selected, rowsPerPage, page } = this.state;
-        const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
-
-        return (
-            <Paper className={classes.root}>
-                <EnhancedTableToolbar titleText={titleText} numSelected={selected.length} />
-                <div className={classes.tableWrapper}>
-                    <Table className={classes.table} aria-labelledby="tableTitle">
-                        <EnhancedTableHead
-                            numSelected={selected.length}
-                            order={order}
-                            orderBy={orderBy}
-                            onSelectAllClick={this.handleSelectAllClick}
-                            onRequestSort={this.handleRequestSort}
-                            rowCount={data.length}
-                            rows={rows}
+        if (data) {
+            const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+            const rows = [
+                { id: 0, numeric: false, disablePadding: true, label: 'Claim Id' },
+                { id: 1, numeric: true, disablePadding: false, label: 'Insurance Id' },
+                { id: 2, numeric: true, disablePadding: false, label: 'Claim location' },
+                { id: 3, numeric: true, disablePadding: false, label: 'Claim Amount' },
+                { id: 4, numeric: true, disablePadding: false, label: 'Accident Date' },
+                { id: 5, numeric: true, disablePadding: false, label: 'Apply Date' },
+                { id: 6, numeric: true, disablePadding: false, label: 'Status' },
+            ];
+            return (
+                <Paper className={classes.root}>
+                    <EnhancedTableToolbar titleText={titleText} numSelected={selected.length} />
+                    <div className={classes.tableWrapper}>
+                        <Table className={classes.table} aria-labelledby="tableTitle">
+                            <EnhancedTableHead
+                                numSelected={selected.length}
+                                order={order}
+                                orderBy={orderBy}
+                                onSelectAllClick={this.handleSelectAllClick}
+                                onRequestSort={this.handleRequestSort}
+                                rowCount={data.length}
+                                rows={rows}
+                            />
+                            <TableBody>
+                                {stableSort(data, getSorting(order, orderBy))
+                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                    .map(n => {
+                                        const isSelected = this.isSelected(n[0]);
+                                        return (
+                                            <TableRow
+                                                hover
+                                                onClick={event => this.handleItemClick(event, n[0], n[1])}
+                                                role="checkbox"
+                                                aria-checked={isSelected}
+                                                tabIndex={-1}
+                                                key={n[0]}
+                                                selected={isSelected}
+                                            >
+                                                <TableCell padding="checkbox">
+                                                    <Checkbox
+                                                        onChange={event => this.handleCheckClick(event, n[0])}
+                                                        checked={isSelected} />
+                                                </TableCell>
+                                                <TableCell component="th" scope="row" padding="none">
+                                                    {n[0]}
+                                                </TableCell>
+                                                {n.slice(1).map((item, index) => (
+                                                    <TableCell align="right" key={index}>{item}</TableCell>
+                                                ))}
+                                                
+                                            </TableRow>
+                                        );
+                                    })}
+                                {emptyRows > 0 && (
+                                    <TableRow style={{ height: 49 * emptyRows }}>
+                                        <TableCell colSpan={6} />
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                        <DetailedClaim
+                            insurance={this.state.insurance}
+                            claim={this.state.claim}
+                            handleClickOpen={this.handleDetailsOpen}
+                            handleClose={this.handleDetailsClose}
+                            open={this.state.isDetailsOpen}
                         />
-                        <TableBody>
-                            {stableSort(data, getSorting(order, orderBy))
-                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map(n => {
-                                    const isSelected = this.isSelected(n[0]);
-                                    return (
-                                        <TableRow
-                                            hover
-                                            onClick={event => this.handleItemClick(event, n[1])}
-                                            role="checkbox"
-                                            aria-checked={isSelected}
-                                            tabIndex={-1}
-                                            key={n[0]}
-                                            selected={isSelected}
-                                        >
-                                            <TableCell padding="checkbox">
-                                                <Checkbox
-                                                    onChange={event => this.handleCheckClick(event, n[0])}
-                                                    checked={isSelected} />
-                                            </TableCell>
-                                            <TableCell component="th" scope="row" padding="none">
-                                                {n[0]}
-                                            </TableCell>
-                                            {n.slice(1).map((item, index) => (
-                                                <TableCell align="right" key={index}>{item}</TableCell>
-                                            ))}
-                                            
-                                        </TableRow>
-                                    );
-                                })}
-                            {emptyRows > 0 && (
-                                <TableRow style={{ height: 49 * emptyRows }}>
-                                    <TableCell colSpan={6} />
-                                </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                    <DetailedInsurance
-                        insurance={this.state.insurance}
-                        handleClickOpen={this.handleDetailsOpen}
-                        handleClose={this.handleDetailsClose}
-                        open={this.state.isDetailsOpen}
+                    </div>
+                    <TablePagination
+                        rowsPerPageOptions={[5, 10, 25]}
+                        component="div"
+                        count={data.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        backIconButtonProps={{
+                            'aria-label': 'Previous Page',
+                        }}
+                        nextIconButtonProps={{
+                            'aria-label': 'Next Page',
+                        }}
+                        onChangePage={this.handleChangePage}
+                        onChangeRowsPerPage={this.handleChangeRowsPerPage}
                     />
-                </div>
-                <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
-                    component="div"
-                    count={data.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    backIconButtonProps={{
-                        'aria-label': 'Previous Page',
-                    }}
-                    nextIconButtonProps={{
-                        'aria-label': 'Next Page',
-                    }}
-                    onChangePage={this.handleChangePage}
-                    onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                />
-            </Paper>
-        );
+                </Paper>
+            );
+        } else {
+            return (<div></div>);
+        }
+        
     }
 }
 

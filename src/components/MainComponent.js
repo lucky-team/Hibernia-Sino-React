@@ -4,7 +4,7 @@ import Footer from './FooterComponent';
 import ClaimApplication from './customer/claim/ClaimApplication';
 import Insurance from './customer/InsuranceComponent';
 import EmployeeClaim from './employee/claim/EmployeeClaimComponent';
-import { loginUser, logoutUser, fetchInsurances, fetchClaims, postClaim, getAssignClaim } from '../redux/ActionCreator';
+import { loginUser, logoutUser, fetchInsurances, fetchClaims, postClaim } from '../redux/ActionCreator';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -23,8 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
     logoutUser: () => dispatch(logoutUser()),
     fetchInsurances: () => dispatch(fetchInsurances()),
     fetchClaims: () => dispatch(fetchClaims()),
-    postClaim: (claim) => dispatch(postClaim(claim)),
-    getAssignClaim: (claimId) => dispatch(getAssignClaim(claimId))
+    postClaim: (claim) => dispatch(postClaim(claim))
 });
 
 class Main extends Component {
