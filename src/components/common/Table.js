@@ -201,14 +201,6 @@ const generateTableData = (claims, mode) => {
 
 const DetailedClaimWithSnackBar = withSnackbar(DetailedClaim);
 
-const DetailedClaimWithNotistack = () => {
-    return (
-        <SnackbarProvider maxSnack={3}>
-            <DetailedClaimWithSnackBar />
-        </SnackbarProvider>
-    );
-}
-
 class EnhancedTable extends React.Component {
     constructor(props) {
         super(props);
@@ -270,6 +262,7 @@ class EnhancedTable extends React.Component {
     }
 
     handleCheckClick = (event, id) => {
+        event.stopPropagation();
         const { selected } = this.state;
         const selectedIndex = selected.indexOf(id);
         let newSelected = [];
@@ -391,6 +384,7 @@ class EnhancedTable extends React.Component {
                                             >
                                                 <TableCell padding="checkbox">
                                                     <Checkbox
+                                                        onClick={event => event.stopPropagation()}
                                                         onChange={event => this.handleCheckClick(event, n[0])}
                                                         checked={isSelected} />
                                                 </TableCell>

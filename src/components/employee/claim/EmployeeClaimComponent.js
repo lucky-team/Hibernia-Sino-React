@@ -51,7 +51,7 @@ class EmployeeClaim extends Component {
                     <Table
                         fetchClaims={this.props.fetchClaims}
                         mode={this.state.mode}
-                        titleText="Claim Pending List"
+                        titleText={"claim " + this.state.mode + " list"}
                         claims={claims} />
                 </div>
             );

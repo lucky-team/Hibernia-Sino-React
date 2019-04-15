@@ -6,6 +6,7 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 import * as Utils from '../../shared/Utils';
 import * as BaseUrl from '../../shared/BaseUrl';
+import Draggable from 'react-draggable';
 
 const styles = theme => ({
     root: {
@@ -18,6 +19,14 @@ const styles = theme => ({
         margin: theme.spacing.unit * 1
     }
 })
+
+function PaperComponent(props) {
+    return (
+      <Draggable>
+        <Paper {...props} />
+      </Draggable>
+    );
+  }
 
 const RenderClaimInformation = ({ claim }) => {
     if (claim) {
@@ -322,7 +331,7 @@ const RenderBasicInformation = ({ insurance }) => {
     }
 }
 
-const RenderActions = ({ classes, claim, handleClose, assignClaim, acceptClaim }) => {
+const RenderActions = ({ classes, claim, handleClose, assignClaim, acceptClaim, toggleRejectDialog }) => {
     if (claim) {
         switch(claim.status) {
             case 'pending':
@@ -331,7 +340,7 @@ const RenderActions = ({ classes, claim, handleClose, assignClaim, acceptClaim }
                         <Button className={classes.actionsBtns} variant='outlined' onClick={handleClose} color="primary">
                             BACK
                         </Button>
-                        <Button className={classes.actionsBtns} variant='outlined' onClick={() => assignClaim(claim._id)} color="primary">
+                        <Button className={classes.actionsBtns} variant='outlined' onClick={assignClaim} color="primary">
                             TAKE CLAIM
                         </Button>
                     </>
@@ -342,10 +351,10 @@ const RenderActions = ({ classes, claim, handleClose, assignClaim, acceptClaim }
                         <Button className={classes.actionsBtns} variant='outlined' onClick={handleClose} color="primary">
                             BACK
                         </Button>
-                        <Button className={classes.actionsBtns} variant='outlined' onClick={handleClose} color="primary">
+                        <Button className={classes.actionsBtns} variant='outlined' onClick={toggleRejectDialog} color="primary">
                             REJECT
                         </Button>
-                        <Button className={classes.actionsBtns} variant='outlined' onClick={() => acceptClaim(claim._id)} color="primary">
+                        <Button className={classes.actionsBtns} variant='outlined' onClick={acceptClaim} color="primary">
                             ACCEPT
                         </Button>
                     </>
@@ -366,17 +375,110 @@ const RenderActions = ({ classes, claim, handleClose, assignClaim, acceptClaim }
     }
 }
 
-
+const RenderRejectDialog = ({ handleClose, open, rejectClaim, rejectReason, changeRejectReason }) => {
+    return (
+        <Dialog open={open} onClose={handleClose}
+            PaperComponent={PaperComponent}
+            aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Claim Rejection</DialogTitle>
+        <DialogContent onMouseDown={(e) => {e.stopPropagation()}}>
+          <DialogContentText>
+            To reject this claim, you should give a reasonable message illustrating why this claim is not accepted.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            id="rejectReason"
+            label="REJECT REASON"
+            value={rejectReason}
+            onChange={(event) => changeRejectReason(event.target.value)}
+            multiline
+            fullWidth
+            rows="4"
+            margin="normal"
+            variant='outlined'
+            />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={rejectClaim} color="primary">
+            Reject
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+}
 
 class DraggableDialog extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isRejectDialogOpen: false
+        }
     }
 
-    acceptClaim = claimId => {
+    toggleRejectDialog = (state) => {
+        this.setState({
+            isRejectDialogOpen: state,
+            rejectReason: ''
+        })
+    }
+
+    changeRejectReason = rejectReason => {
+        this.setState({
+            rejectReason: rejectReason
+        })
+    }
+
+    rejectClaim = () => {
+        if (this.state.rejectReason !== '') {
+            const bearer = 'Bearer ' + localStorage.getItem('token');
+            const data = {rejectReason: this.state.rejectReason};
+            alert(JSON.stringify(data));
+    
+            fetch(BaseUrl.baseUrl + 'claims/reject/' + this.props.claim._id, {
+                method: 'POST',
+                headers: {
+                    'Authorization': bearer,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+
+            })
+            .then(response => {
+                return response;
+            }, error => {
+                var errmess = new Error(error.message);
+                throw errmess;
+            })
+            .then(response => response.json())
+            .then(response => {
+                if  (response.err) {
+                    var error = new Error(response.err.name + ': ' + response.err.message);
+                    error.response = response;
+                    throw error;
+                } else if (response.success) {
+                    this.props.enqueueSnackbar(response.msg);
+                    this.props.handleClose();
+                    setTimeout(() => this.props.fetchClaims(), 2000);
+                } else {
+                    var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                    error.response = response;
+                    throw error;
+                }
+            })
+            .catch(error => this.props.enqueueSnackbar(error.message, {variant: 'warning'}));
+        } else {
+            this.props.enqueueSnackbar('Please enter reject reason');
+        }
+        
+    }
+
+    acceptClaim = () => {
         const bearer = 'Bearer ' + localStorage.getItem('token');
     
-        fetch(BaseUrl.baseUrl + 'claims/accept/' + claimId, {
+        fetch(BaseUrl.baseUrl + 'claims/accept/' + this.props.claim._id, {
             headers: {
                 'Authorization': bearer
             }
@@ -396,7 +498,7 @@ class DraggableDialog extends React.Component {
             } else if (response.success) {
                 this.props.handleClose();
                 this.props.enqueueSnackbar(response.msg);
-                setTimeout(() => this.props.fetchClaims(), 1000);
+                setTimeout(() => this.props.fetchClaims(), 2000);
             } else {
                 var error = new Error('Error ' + response.status + ': ' + response.statusText);
                 error.response = response;
@@ -406,10 +508,10 @@ class DraggableDialog extends React.Component {
         .catch(error => this.props.enqueueSnackbar(error.message, {variant: 'warning'}));
     }
 
-    assignClaim = claimId => {
+    assignClaim = () => {
         const bearer = 'Bearer ' + localStorage.getItem('token');
     
-        fetch(BaseUrl.baseUrl + 'claims/assign/' + claimId, {
+        fetch(BaseUrl.baseUrl + 'claims/assign/' + this.props.claim._id, {
             headers: {
                 'Authorization': bearer
             }
@@ -427,9 +529,9 @@ class DraggableDialog extends React.Component {
                 error.response = response;
                 throw error;
             } else if (response.success) {
-                this.props.enqueueSnackbar(response.msg);
-                this.props.fetchClaims();
                 this.props.handleClose();
+                this.props.enqueueSnackbar(response.msg);
+                setTimeout(() => this.props.fetchClaims(), 2000);
             } else {
                 var error = new Error('Error ' + response.status + ': ' + response.statusText);
                 error.response = response;
@@ -446,12 +548,13 @@ class DraggableDialog extends React.Component {
             <Dialog
                 fullWidth={true}
                 maxWidth='sm'
+                PaperComponent={PaperComponent}
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="draggable-dialog-title"
             >
                 <DialogTitle id="draggable-dialog-title" disableTypography={true}><Typography variant='h4'>Insurance Details</Typography></DialogTitle>
-                <DialogContent>
+                <DialogContent onMouseDown={(e) => {e.stopPropagation()}}>
                     <Grid container spacing={32}>
                         <RenderClaimInformation
                             claim={claim}
@@ -471,8 +574,16 @@ class DraggableDialog extends React.Component {
                         handleClose={handleClose}
                         assignClaim={this.assignClaim}
                         acceptClaim={this.acceptClaim}
+                        toggleRejectDialog={() => this.toggleRejectDialog(true)}
                     />
                 </DialogActions>
+                <RenderRejectDialog
+                    handleClose={() => this.toggleRejectDialog(false)}
+                    open={this.state.isRejectDialogOpen}
+                    rejectClaim={this.rejectClaim}
+                    rejectReason={this.state.rejectReason}
+                    changeRejectReason={this.changeRejectReason}
+                />
             </Dialog>
         );
     }
