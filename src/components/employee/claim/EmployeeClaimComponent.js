@@ -49,6 +49,8 @@ class EmployeeClaim extends Component {
                 <div className={classes.root}>
                     <CssBaseline />
                     <Table
+                        fetchClaims={this.props.fetchClaims}
+                        mode={this.state.mode}
                         titleText="Claim Pending List"
                         claims={claims} />
                 </div>

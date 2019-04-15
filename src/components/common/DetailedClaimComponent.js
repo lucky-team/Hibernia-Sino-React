@@ -322,7 +322,7 @@ const RenderBasicInformation = ({ insurance }) => {
     }
 }
 
-const RenderActions = ({ classes, claim, handleClose, assignClaim }) => {
+const RenderActions = ({ classes, claim, handleClose, assignClaim, acceptClaim }) => {
     if (claim) {
         switch(claim.status) {
             case 'pending':
@@ -331,7 +331,7 @@ const RenderActions = ({ classes, claim, handleClose, assignClaim }) => {
                         <Button className={classes.actionsBtns} variant='outlined' onClick={handleClose} color="primary">
                             BACK
                         </Button>
-                        <Button className={classes.actionsBtns} variant='outlined' onClick={assignClaim} color="primary">
+                        <Button className={classes.actionsBtns} variant='outlined' onClick={() => assignClaim(claim._id)} color="primary">
                             TAKE CLAIM
                         </Button>
                     </>
@@ -345,7 +345,7 @@ const RenderActions = ({ classes, claim, handleClose, assignClaim }) => {
                         <Button className={classes.actionsBtns} variant='outlined' onClick={handleClose} color="primary">
                             REJECT
                         </Button>
-                        <Button className={classes.actionsBtns} variant='outlined' onClick={handleClose} color="primary">
+                        <Button className={classes.actionsBtns} variant='outlined' onClick={() => acceptClaim(claim._id)} color="primary">
                             ACCEPT
                         </Button>
                     </>
@@ -373,31 +373,70 @@ class DraggableDialog extends React.Component {
         super(props);
     }
 
-    assignClaim = claimId => {
+    acceptClaim = claimId => {
         const bearer = 'Bearer ' + localStorage.getItem('token');
     
-        fetch(BaseUrl.baseUrl + 'claims?_id=' + claimId, {
+        fetch(BaseUrl.baseUrl + 'claims/accept/' + claimId, {
             headers: {
                 'Authorization': bearer
             }
         })
         .then(response => {
-            if (response.ok) {
-                this.props.enqueueSnackbar('Assign ');
-            } else {
-                var error = new Error('Error ' + response.status + ': ' + response.statusText);
-                error.response = response;
-                throw error;
-            }
+            return response;
         }, error => {
             var errmess = new Error(error.message);
             throw errmess;
         })
         .then(response => response.json())
         .then(response => {
-            alert(JSON.stringify(response));
+            if  (response.err) {
+                var error = new Error(response.err.name + ': ' + response.err.message);
+                error.response = response;
+                throw error;
+            } else if (response.success) {
+                this.props.handleClose();
+                this.props.enqueueSnackbar(response.msg);
+                setTimeout(() => this.props.fetchClaims(), 1000);
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
         })
-        .catch(error => alert(error.message));
+        .catch(error => this.props.enqueueSnackbar(error.message, {variant: 'warning'}));
+    }
+
+    assignClaim = claimId => {
+        const bearer = 'Bearer ' + localStorage.getItem('token');
+    
+        fetch(BaseUrl.baseUrl + 'claims/assign/' + claimId, {
+            headers: {
+                'Authorization': bearer
+            }
+        })
+        .then(response => {
+            return response;
+        }, error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
+        .then(response => response.json())
+        .then(response => {
+            if  (response.err) {
+                var error = new Error(response.err.name + ': ' + response.err.message);
+                error.response = response;
+                throw error;
+            } else if (response.success) {
+                this.props.enqueueSnackbar(response.msg);
+                this.props.fetchClaims();
+                this.props.handleClose();
+            } else {
+                var error = new Error('Error ' + response.status + ': ' + response.statusText);
+                error.response = response;
+                throw error;
+            }
+        })
+        .catch(error => this.props.enqueueSnackbar(error.message, {variant: 'warning'}));
     }
 
     render() {
@@ -431,6 +470,7 @@ class DraggableDialog extends React.Component {
                         claim={claim}
                         handleClose={handleClose}
                         assignClaim={this.assignClaim}
+                        acceptClaim={this.acceptClaim}
                     />
                 </DialogActions>
             </Dialog>

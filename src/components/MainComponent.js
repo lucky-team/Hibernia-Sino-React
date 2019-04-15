@@ -90,6 +90,7 @@ class Main extends Component {
                     claims={this.props.claims}
                     claimsLoading={this.props.claims.isLoading}
                     claimsErrMess={this.props.claims.errMess}
+                    fetchClaims={this.props.fetchClaims}
                     auth={this.props.auth}
                 />
             );

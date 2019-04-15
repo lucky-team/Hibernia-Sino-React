@@ -10,6 +10,7 @@ import { lighten } from '@material-ui/core/styles/colorManipulator';
 import * as BaseUrl from '../../shared/BaseUrl';
 import * as Utils from '../../shared/Utils';
 import DetailedClaim from './DetailedClaimComponent';
+import { SnackbarProvider, withSnackbar } from 'notistack';
 
 
 function desc(a, b, orderBy) {
@@ -180,8 +181,16 @@ const styles = theme => ({
     },
 });
 
-const generateTableData = claims => {
-    let data = claims.map(claim => {
+const generateTableData = (claims, mode) => {
+    let data = claims.filter(claim => {
+        if (mode === 'all') {
+            return true;
+        } else if (mode === 'closed') {
+            return claim.status === 'accepted' || claim.status === 'rejected';
+        } else {
+            return claim.status === mode;
+        }
+    }).map(claim => {
         let claimDate = Utils.parseISODate(claim.date);
         let createdAt = Utils.parseISODate(claim.createdAt);
         let row = [claim._id, claim.insurance, claim.location, claim.amount, claimDate, createdAt, claim.status ]
@@ -190,7 +199,15 @@ const generateTableData = claims => {
     return data;
 }
 
+const DetailedClaimWithSnackBar = withSnackbar(DetailedClaim);
 
+const DetailedClaimWithNotistack = () => {
+    return (
+        <SnackbarProvider maxSnack={3}>
+            <DetailedClaimWithSnackBar />
+        </SnackbarProvider>
+    );
+}
 
 class EnhancedTable extends React.Component {
     constructor(props) {
@@ -210,7 +227,7 @@ class EnhancedTable extends React.Component {
     componentDidMount() {
         if (this.state.claims) {
             this.setState({
-                data: generateTableData(this.state.claims.claims)
+                data: generateTableData(this.state.claims.claims, this.props.mode)
             });
         }
     }
@@ -394,13 +411,16 @@ class EnhancedTable extends React.Component {
                                 )}
                             </TableBody>
                         </Table>
-                        <DetailedClaim
-                            insurance={this.state.insurance}
-                            claim={this.state.claim}
-                            handleClickOpen={this.handleDetailsOpen}
-                            handleClose={this.handleDetailsClose}
-                            open={this.state.isDetailsOpen}
-                        />
+                        <SnackbarProvider maxSnack={3}>
+                            <DetailedClaimWithSnackBar
+                                fetchClaims={this.props.fetchClaims}
+                                insurance={this.state.insurance}
+                                claim={this.state.claim}
+                                handleClickOpen={this.handleDetailsOpen}
+                                handleClose={this.handleDetailsClose}
+                                open={this.state.isDetailsOpen}
+                            />
+                        </SnackbarProvider>
                     </div>
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 25]}
