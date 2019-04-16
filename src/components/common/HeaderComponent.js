@@ -15,7 +15,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Signin from './Signin';
-import * as BaseUrl from '../shared/BaseUrl';
+import * as BaseUrl from '../../shared/BaseUrl';
 import { SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText,
     Collapse  } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';

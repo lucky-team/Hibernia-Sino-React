@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Header from './HeaderComponent';
-import Footer from './FooterComponent';
+import Header from './common/HeaderComponent';
+import Footer from './common/FooterComponent';
 import ClaimApplication from './customer/claim/ClaimApplication';
 import Insurance from './customer/InsuranceComponent';
 import EmployeeClaim from './employee/claim/EmployeeClaimComponent';
