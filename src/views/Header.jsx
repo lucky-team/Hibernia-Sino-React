@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import { List, ListItem } from '@material-ui/core';
 import { useTranslation } from "react-i18next";
+import { NavLink } from 'react-router-dom';
 
 import BaseHeader from "components/Header/Header.jsx";
 import Button from 'components/CustomButtons/Button.jsx';
@@ -35,13 +36,22 @@ const Header = ({ ...props }) => {
             },
         ];
         navs.map(nav => {
+            let className = classes.navLink;
+            if (window.location.pathname.startsWith(nav.url) && 
+                nav.url !== BaseUrl.homeUrl) {
+                className += " " + classes.navLinkActive;
+            }
+            if (window.location.pathname === BaseUrl.homeUrl &&
+                nav.url === BaseUrl.homeUrl) {
+                className += " " + classes.navLinkActive;
+            }
             let item = (
                 <ListItem className={classes.listItem} key={nav.url}>
                     <Button
-                        href={nav.url}
-                        className={classes.navLink}
-                        onClick={e => e.preventDefault()}
+                        to={nav.url}
+                        className={className}
                         color='transparent'
+                        component={NavLink}
                     >
                         {nav.title}
                     </Button>

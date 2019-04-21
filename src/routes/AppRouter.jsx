@@ -10,8 +10,8 @@ const AppRouter = () => {
     return (
         <Router history={hist}>
             <Switch>
-                <Route exact path='/' component={Header} />
-                <Redirect to='/' />
+                <Route path='/' component={Header} />
+                {/* <Redirect to='/' /> */}
             </Switch>
         </Router>
     );
