@@ -1,0 +1,43 @@
+{
+    "header": {
+        "brand": "Hibernia-Sino",
+        "home": "首页",
+        "myInsurances": "我的保单",
+        "myClaims": "我的理赔",
+        "aboutus": "关于我们"
+    },
+
+    "footer": {
+
+    },
+
+    "landingPage": {
+
+    },
+
+
+    "homePage": {
+
+    },
+
+    "profilePage": {
+
+    },
+
+    "signupPage": {
+
+    },
+    
+    "signinPage": {
+
+    },
+
+    "managementPage": {
+
+    },
+
+    "aboutusPage": {
+
+    }
+    
+}

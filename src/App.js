@@ -1,58 +1,35 @@
-import React, { Component } from 'react';
-import Main from './components/MainComponent';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import React, { useState } from 'react';
 import './App.css';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { ConfigureStore } from './redux/configureStore';
-import { SnackbarProvider, withSnackbar } from 'notistack';
 
-const store = ConfigureStore();
+import AppRouter from 'routes/AppRouter.jsx';
+import {default as i18nSetting} from "i18n.jsx";
+import { I18nextProvider, useTranslation } from "react-i18next";
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#ff7d47',
-      main: '#e64a19',
-      dark: '#ac0800',
-      contrastText: '#fff',
-    },
-    secondary: {
-      light: '#ffa4a2',
-      main: '#e57373',
-      dark: '#af4448',
-      contrastText: '#ffffff',
-    },
-  },
-  typography: {
-    useNextVariants: true
-  }
-});
+const App = () => {
+  const [locale, setLocale] = useState('en');
+  const { i18n } = useTranslation();
 
-const MainApp = withSnackbar(Main);
+  // i18n.changeLanguage('cn');
 
-function MainWithSnackBar() {
-    return (
-      <SnackbarProvider maxSnack={3}>
-        <MainApp />
-      </SnackbarProvider>
-    );
+  const changeLocale = (newLocale) => {
+      setLocale(newLocale);
+      i18n.changeLanguage(newLocale);
   }
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-          <MuiThemeProvider theme={theme}>
-            <BrowserRouter>
-              <div>
-                <MainWithSnackBar />
-              </div>
-            </BrowserRouter>
-          </MuiThemeProvider>
-       </Provider>
-    );
-  }
+  return (
+      <AppRouter
+        changeLocale={changeLocale} 
+        locale={locale}
+      />
+  );
 }
 
-export default App;
+const AppWithProvider = () => (
+    <I18nextProvider i18n={i18nSetting}>
+        <App />
+    </I18nextProvider>
+);
+
+
+
+export default AppWithProvider;
