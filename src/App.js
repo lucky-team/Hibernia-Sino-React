@@ -9,7 +9,7 @@ const App = () => {
   const [locale, setLocale] = useState('en');
   const { i18n } = useTranslation();
 
-  // i18n.changeLanguage('cn');
+  i18n.changeLanguage('cn');
 
   const changeLocale = (newLocale) => {
       setLocale(newLocale);

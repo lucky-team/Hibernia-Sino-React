@@ -11,6 +11,24 @@
 
     },
 
+    "signupPage": {
+        "title": "Signup",
+        "infos": {
+            "infoA": {
+                "title": "Clients",
+                "description": "专注爱尔兰与中国旅行保险，用户年增长量排名第一。"
+            },
+            "infoB": {
+                "title": "范围",
+                "description": "提供不同等级、范围的保险服务，给您最贴心的服务。"
+            },
+            "infoC": {
+                "title": "保险",
+                "description":  "我们提供最好的保险服务，安全守护您和您的家人。"
+            }
+        }
+    },
+
     "landingPage": {
 
     },
