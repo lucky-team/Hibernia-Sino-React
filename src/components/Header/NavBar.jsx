@@ -3,7 +3,7 @@ import { List, ListItem } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
 import Button from 'components/CustomButtons/Button.jsx';
-import * as BaseUrl from 'assets/BaseUrl.jsx';
+import * as BaseUrl from 'routes/BaseUrl.jsx';
 import navbarsStyle from "assets/jss/material-kit-pro-react/views/navbarsStyle.jsx";
 
 const NavBar = (props) => {

@@ -9,3 +9,5 @@ export const aboutusUrl = '/aboutus';
 export const managementUrl = '/management';
 export const manageInsurancesUrl = managementUrl + '/insurances';
 export const manageClaimsUrl = managementUrl + '/claims';
+
+export const signupUrl = '/signup';

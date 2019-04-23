@@ -26,6 +26,15 @@
                 "title": "保险",
                 "description":  "我们提供最好的保险服务，安全守护您和您的家人。"
             }
+        },
+        "socialTitle": "使用第三方账号登录",
+        "socialTail": "或注册 Hibernia-Sino 账号",
+        "form": {
+            "username": "用户名",
+            "password": "密码",
+            "hint": "为保障您的权益，请仔细阅读",
+            "declaration": "投保声明",
+            "confirm": "注册"
         }
     },
 

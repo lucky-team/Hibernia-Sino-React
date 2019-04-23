@@ -46,25 +46,23 @@ class Signup extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            checked: [1]
+            checked: false,
+            username: '',
+            password: ''
         };
-        this.handleToggle = this.handleToggle.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleRegister = this.handleRegister.bind(this);
     }
 
-    handleToggle(value) {
-        const { checked } = this.state;
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
+    handleChange(event) {
+        const {name, value} = event.target;
+        this.setState({[name]: value});
+    }
 
-        if (currentIndex === -1) {
-            newChecked.push(value);
-        } else {
-            newChecked.splice(currentIndex, 1);
-        }
-
-        this.setState({
-            checked: newChecked
-        });
+    handleRegister(event) {
+        const { username, password } = this.state;
+        this.props.register({username: username, password: password});
+        event.preventDefault();
     }
 
     componentDidMount() {
@@ -74,6 +72,7 @@ class Signup extends Component {
 
     render() {
         const { classes, t, ...rest } = this.props;
+        const { username, password } = this.state;
         const infos = Infos(t);
 
         return (
@@ -94,12 +93,13 @@ class Signup extends Component {
                     <div className={classes.container}>
                         <GridContainer justify='center'>
                             <GridItem xs={12} sm={10} md={10}>
-                                <Card className={classes.cardsSignup}>
+                                <Card className={classes.cardSignup}>
                                     <h2 className={classes.cardTitle}>{t('signupPage.title')}</h2>
                                     <CardBody>
                                         <GridContainer justify='center'>
                                             <SectionInfo infos={infos} classes={classes} />
-                                            <SectionForm classes={classes} t={t} />
+                                            <SectionForm classes={classes} t={t} handleChange={this.handleChange}
+                                                username={username} password={password} handleRegister={this.handleRegister} />
                                         </GridContainer>
                                     </CardBody>
                                 </Card>

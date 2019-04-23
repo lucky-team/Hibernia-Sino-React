@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import {
-    InputAdornment, Checkbox, FormControlLabel, List, ListItem,
-    Icon, Divider
+    InputAdornment, Checkbox, FormControlLabel, Icon, Divider
 } from '@material-ui/core';
-import { Face, Email, Check, Favorite } from
-    '@material-ui/icons';
-
-import GridContainer from "components/Grid/GridContainer.jsx";
+import { Face, Check } from '@material-ui/icons';
 import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
@@ -38,7 +34,7 @@ class SectionForm extends Component {
     }
 
     render() {
-        const { classes, t } = this.props;
+        const { classes, t, handleChange, handleRegister, username, password } = this.props;
 
         return (
             <GridItem xs={12} sm={5} md={5}>
@@ -69,7 +65,7 @@ class SectionForm extends Component {
                         {t('signupPage.socialTail')}
                     </h4>
                 </div>
-                <form className={classes.form}>
+                <form className={classes.form} onSubmit={handleRegister}>
                     <CustomInput
                         formControlProps={{
                             fullWidth: true,
@@ -86,8 +82,37 @@ class SectionForm extends Component {
                                     />
                                 </InputAdornment>
                             ),
-                            placeholder: t('signupPage.form.username')
+                            placeholder: t('signupPage.form.username'),
+                            onChange: handleChange,
+                            name: 'username',
+                            value: username
                         }}
+                        id={'username'}
+                    />
+                    <CustomInput
+
+                        formControlProps={{
+                            fullWidth: true,
+                            className: classes.customFormControlClasses
+                        }}
+                        inputProps={{
+                            startAdornment: (
+                                <InputAdornment
+                                    position="start"
+                                    className={classes.inputAdornment}
+                                >
+                                    <Icon className={classes.inputAdornmentIcon}>
+                                        lock_outline
+                                    </Icon>
+                                </InputAdornment>
+                            ),
+                            placeholder: t('signupPage.form.password'),
+                            type: 'password',
+                            onChange: handleChange,
+                            name: 'password',
+                            value: password
+                        }}
+                        id={'password'}
                     />
                     <CustomInput
                         formControlProps={{
@@ -105,7 +130,7 @@ class SectionForm extends Component {
                                     </Icon>
                                 </InputAdornment>
                             ),
-                            placeholder: t('signupPage.form.password'),
+                            placeholder: t('signupPage.form.confirm'),
                             type: 'password'
                         }}
                     />
@@ -142,8 +167,8 @@ class SectionForm extends Component {
                         }
                     />
                     <div className={classes.textCenter}>
-                        <Button round color="primary">
-                            {t('signupPage.form.confirm')}
+                        <Button type='submit' round color="primary">
+                            {t('signupPage.form.register')}
                         </Button>
                     </div>
                 </form>

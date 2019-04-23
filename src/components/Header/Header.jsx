@@ -19,38 +19,38 @@ class Header extends Component {
     }
 
     handleDrawerToggle() {
-        this.setState({ mobileOpen: !this.state.mobileOpen});
+        this.setState({ mobileOpen: !this.state.mobileOpen });
     }
 
     componentDidMount() {
         if (this.props.changeColorOnScroll) {
-          window.addEventListener("scroll", this.headerColorChange);
+            window.addEventListener("scroll", this.headerColorChange);
         }
-      }
-      headerColorChange() {
+    }
+    headerColorChange() {
         const { classes, color, changeColorOnScroll } = this.props;
         const windowsScrollTop = window.pageYOffset;
         if (windowsScrollTop > changeColorOnScroll.height) {
-          document.body
-            .getElementsByTagName("header")[0]
-            .classList.remove(classes[color]);
-          document.body
-            .getElementsByTagName("header")[0]
-            .classList.add(classes[changeColorOnScroll.color]);
+            document.body
+                .getElementsByTagName("header")[0]
+                .classList.remove(classes[color]);
+            document.body
+                .getElementsByTagName("header")[0]
+                .classList.add(classes[changeColorOnScroll.color]);
         } else {
-          document.body
-            .getElementsByTagName("header")[0]
-            .classList.add(classes[color]);
-          document.body
-            .getElementsByTagName("header")[0]
-            .classList.remove(classes[changeColorOnScroll.color]);
+            document.body
+                .getElementsByTagName("header")[0]
+                .classList.add(classes[color]);
+            document.body
+                .getElementsByTagName("header")[0]
+                .classList.remove(classes[changeColorOnScroll.color]);
         }
-      }
-      componentWillUnmount() {
+    }
+    componentWillUnmount() {
         if (this.props.changeColorOnScroll) {
-          window.removeEventListener("scroll", this.headerColorChange);
+            window.removeEventListener("scroll", this.headerColorChange);
         }
-      }
+    }
 
     render() {
         const { classes, color, links, brand, fixed, absolute } = this.props;
@@ -89,7 +89,7 @@ class Header extends Component {
                             paper: classes.drawerPaper
                         }}
                         onClose={this.handleDrawerToggle}
-                    >  
+                    >
                         <IconButton
                             color='inherit'
                             aria-label='open drawer'

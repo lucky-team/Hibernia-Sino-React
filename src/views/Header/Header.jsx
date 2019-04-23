@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import BaseHeader from 'components/Header/Header.jsx';
 import NavBar from 'components/Header/NavBar.jsx';
-import * as BaseUrl from 'assets/BaseUrl.jsx';
+import * as BaseUrl from 'routes/BaseUrl.jsx';
 
 const Header = ({ ...props }) => {
     const { t } = useTranslation();
