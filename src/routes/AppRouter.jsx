@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Route, Switch, Redirect } from "react-router";
 import { createBrowserHistory } from "history";
 import { connect } from 'react-redux';
-import { register } from 'store/actions/auth.jsx';
+import { register, login } from 'store/actions/auth.jsx';
 import * as BaseUrl from 'routes/BaseUrl.jsx';
 import Signup from 'views/SignupPage/SignupPage.jsx';
 import Login from 'views/LoginPage/LoginPage.jsx';
@@ -16,18 +16,19 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    register: (creds) => dispatch(register(creds))
+    register: (creds) => dispatch(register(creds)),
+    login: (creds) => dispatch(login(creds))
 });
 
 const AppRouter = ({ ...props }) => {
-    const { register, auth } = props;
+    const { register, login, auth } = props;
 
     const SignupPage = () => (
         <Signup register={register} auth={auth} />
     );
     
     const LoginPage = () => (
-        <Login />
+        <Login login={login} auth={auth} />
     )
 
     return (

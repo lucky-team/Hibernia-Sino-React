@@ -2,6 +2,8 @@ import AuthTypes from 'store/actions/AuthTypes.jsx';
 import { baseUrl } from 'store/BaseUrl.jsx';
 import { CatchCodes } from 'store/actions/settings.jsx';
 
+
+
 export const requestRegister = () => {
     return {
         type: AuthTypes.REGISTER_REQUEST
@@ -49,5 +51,57 @@ export const register = (creds) => (dispatch) => {
             dispatch(registerError(response.err));
         }
     })
-    .catch(error => dispatch(registerError(error.message)));
+    .catch(err => dispatch(registerError(err.message)));
+}
+
+export const requestLogin = (username) => {
+    return {
+        type: AuthTypes.LOGIN_REQUEST,
+        username
+    }
+}
+
+export const receiveLogin = (msg) => {
+    return {
+        type: AuthTypes.LOGIN_SUCCESS,
+        msg: msg
+    }
+}
+
+export const loginError = (err) => {
+    return {
+        type: AuthTypes.LOGIN_FAILURE,
+        err: err
+    }
+}
+
+export const login = (creds) => (dispatch) => {
+    dispatch(requestLogin(creds.username));
+
+    return fetch(baseUrl + 'users/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(creds)
+    })
+    .then(response => {
+        if (CatchCodes.indexOf(response.status) >= 0) {
+            return response;
+        } else {
+            let error = new Error(`Error ${response.status}: ${response.statusText}`);
+            error.response = response;
+            throw error;
+        }
+    })
+    .then(response => response.json())
+    .then(response => {
+        if (response.success) {
+            localStorage.setItem('creds', creds.username);
+            dispatch(receiveLogin(response.msg));
+        } else {
+            dispatch(loginError(response.err));
+        }
+    })
+    .catch(err => dispatch(loginError(err.message)));
 }

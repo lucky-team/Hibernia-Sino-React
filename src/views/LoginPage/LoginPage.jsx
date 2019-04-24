@@ -24,6 +24,7 @@ class LoginPage extends Component {
             password: ''
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
     }
 
     componentDidMount() {
@@ -35,6 +36,12 @@ class LoginPage extends Component {
     handleChange(event) {
         const {name, value} = event.target;
         this.setState({[name]: value});
+    }
+
+    handleLogin(event) {
+        const { username, password } = this.state;
+        this.props.login({username: username, password: password});
+        event.preventDefault();
     }
 
     render() {
@@ -85,7 +92,7 @@ class LoginPage extends Component {
                         <GridContainer justify='center'>
                             <GridItem xs={12} sm={12} md={4}>
                                 <Card>
-                                    <form className={classes.form}>
+                                    <form className={classes.form} onSubmit={this.handleLogin}>
                                         <CardHeader
                                             color="primary"
                                             signup
@@ -149,7 +156,7 @@ class LoginPage extends Component {
                                         />
                                         </CardBody>
                                         <div className={classes.textCenter}>
-                                            <Button simple color="primary" size="lg">
+                                            <Button type='submit' simple color="primary" size="lg">
                                                 {t('loginPage.form.login')}
                                             </Button>
                                         </div>
