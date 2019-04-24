@@ -1,10 +1,11 @@
 import React from 'react';
 import { Router, Route, Switch, Redirect } from "react-router";
 import { createBrowserHistory } from "history";
-import Signup from 'views/SignupPage/SignupPage.jsx';
 import { connect } from 'react-redux';
 import { register } from 'store/actions/auth.jsx';
 import * as BaseUrl from 'routes/BaseUrl.jsx';
+import Signup from 'views/SignupPage/SignupPage.jsx';
+import Login from 'views/LoginPage/LoginPage.jsx';
 
 var hist = createBrowserHistory();
 
@@ -25,11 +26,16 @@ const AppRouter = ({ ...props }) => {
         <Signup register={register} auth={auth} />
     );
     
+    const LoginPage = () => (
+        <Login />
+    )
+
     return (
         <Router history={hist}>
             <Switch>
                 <Route exact path={BaseUrl.signupUrl} component={SignupPage} />
-                <Redirect to={BaseUrl.signupUrl} />
+                <Route exact path={BaseUrl.loginUrl} component={LoginPage} />
+                <Redirect to={BaseUrl.loginUrl} />
             </Switch>
         </Router>
     );

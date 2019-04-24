@@ -90,7 +90,6 @@ class SectionForm extends Component {
                         id={'username'}
                     />
                     <CustomInput
-
                         formControlProps={{
                             fullWidth: true,
                             className: classes.customFormControlClasses

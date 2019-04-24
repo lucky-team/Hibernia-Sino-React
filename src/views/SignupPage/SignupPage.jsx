@@ -54,6 +54,12 @@ class Signup extends Component {
         this.handleRegister = this.handleRegister.bind(this);
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
+        document.title = this.props.t('signupPage.pageTitle');
+    }
+    
     handleChange(event) {
         const {name, value} = event.target;
         this.setState({[name]: value});
@@ -63,11 +69,6 @@ class Signup extends Component {
         const { username, password } = this.state;
         this.props.register({username: username, password: password});
         event.preventDefault();
-    }
-
-    componentDidMount() {
-        window.scrollTo(0, 0);
-        document.body.scrollTop = 0;
     }
 
     render() {
