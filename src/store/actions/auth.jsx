@@ -98,6 +98,10 @@ export const login = (creds) => (dispatch) => {
     .then(response => {
         if (response.success) {
             localStorage.setItem('creds', creds.username);
+            localStorage.setItem('token', response.token);
+            if (response.employee) {
+                localStorage.setItem('employee', 1);
+            }
             dispatch(receiveLogin(response.msg));
         } else {
             dispatch(loginError(response.err));

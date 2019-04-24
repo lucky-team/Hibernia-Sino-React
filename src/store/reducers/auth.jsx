@@ -5,6 +5,7 @@ export default (state = {
     isAuthenticated: !!localStorage.getItem('token'),
     token: localStorage.getItem('token'),
     user: localStorage.getItem('creds'),
+    employee: !!localStorage.getItem('employee'),
     err: null
 }, action) => {
     switch (action.type) {
