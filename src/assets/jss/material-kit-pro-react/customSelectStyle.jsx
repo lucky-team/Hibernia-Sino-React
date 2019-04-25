@@ -10,6 +10,7 @@ import {
 const customSelectStyle = {
   select: {
     padding: "12px 0 7px",
+    margin: "8px 0 0 0",
     fontSize: ".75rem",
     fontWeight: "400",
     lineHeight: "1.42857",
@@ -28,7 +29,7 @@ const customSelectStyle = {
     }
   },
   selectFormControl: {
-    margin: "10px 1px 10px 0px !important",
+    margin: "0px 1px 0px 0px !important",
     "& > div": {
       "&:before": {
         borderBottomWidth: "1px !important",
@@ -40,10 +41,12 @@ const customSelectStyle = {
     }
   },
   selectLabel: {
-    fontSize: "12px",
+    fontSize: "14px",
     textTransform: "uppercase",
-    color: grayColor[1] + " !important",
-    top: "8px"
+    color: grayColor[12] + " !important",
+    top: "10px",
+    fontWeight: "400",
+    lineHeight: "1.42857"
   },
   selectMenu: {
     "& > div > ul": {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import withStyles from "@material-ui/core/styles/withStyles";
 import { withTranslation } from 'react-i18next';
-import { InputAdornment, List, ListItem, Icon } from '@material-ui/core';
-import { Email, Favorite, Face } from '@material-ui/icons';
+import { InputAdornment, Icon } from '@material-ui/core';
+import { Face } from '@material-ui/icons';
 import Header from 'views/Header/Header.jsx';
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
@@ -34,7 +34,7 @@ class LoginPage extends Component {
     }
 
     handleChange(event) {
-        const {name, value} = event.target;
+        const { name, value} = event.target;
         this.setState({[name]: value});
     }
 

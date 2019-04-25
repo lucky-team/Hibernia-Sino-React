@@ -1,4 +1,4 @@
-import AuthTypes from 'store/actions/AuthTypes.jsx';
+import AuthTypes from 'store/actions/auth/AuthTypes.jsx';
 
 export default (state = {
     isLoading: false,

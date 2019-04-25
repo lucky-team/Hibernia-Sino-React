@@ -61,7 +61,26 @@
     },
 
     "profilePage": {
-
+        "pageTitle": "个人信息",
+        "title": "个人信息",
+        "tips": "请填写个人信息，购买保险服务需要填写个人信息",
+        "form": {
+            "socialId": "身份证号",
+            "age": "年龄",
+            "country": "国家 (英文)",
+            "province": "省 (英文)",
+            "city": "市 (英文)",
+            "gender": "性别",
+            "lastname": "姓氏 (拼音)",
+            "firstname": "名 (拼音)",
+            "phone": "手机号",
+            "dialCode": "地区号",
+            "email": "邮箱",
+            "male": "男",
+            "female": "女",
+            "save": "保存修改",
+            "cancel": "取消"
+        }
     },
     
     "signinPage": {
