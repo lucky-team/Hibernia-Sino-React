@@ -142,6 +142,10 @@ const profilePageStyle = {
   parallax: {
     height: "380px",
     backgroundPosition: "top center"
+  },
+  inputAdornment: {
+    position: "relative",
+    width: "50px"
   }
 };
 

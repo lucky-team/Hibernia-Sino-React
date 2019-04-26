@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { withTranslation } from 'react-i18next';
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import { InputAdornment, MenuItem, Select  } from '@material-ui/core';
+import { InputAdornment } from '@material-ui/core';
 
 import Header from 'views/Header/Header.jsx';
 
@@ -46,12 +46,15 @@ class ProfilePage extends Component {
             }
         }
         this.handleChange = this.handleChange.bind(this);
+        this.resetProfile = this.resetProfile.bind(this);
     }
 
     componentDidMount() {
         window.scrollTo(0, 0);
         document.body.scrollTop = 0;
         document.title = this.props.t('profilePage.pageTitle');
+        this.resetProfile();
+        console.log('profile page mount');
     }
 
     handleChange(event) {
@@ -59,6 +62,25 @@ class ProfilePage extends Component {
         this.setState({
             profile: {...this.state.profile, [name]: value}
         });
+    }
+
+    resetProfile() {
+        const self = this.props.profile.self;
+        console.log(self);
+        if (Array.isArray(self)) {
+            if (self.length) {
+                let localProfile = {
+                    ...this.props.profile.self,
+                    dialCode: self.phone ? self.phone.split(' ')[0] : '',
+                    phone: self.phone ?  self.phone.split(' ')[1] : '',
+                }
+                this.setState({
+                    profile: localProfile
+                })
+            } else {
+                alert('购买保险服务需要填写个人信息,请填写个人信息并保存修改');
+            }
+        }
     }
 
     render() {
@@ -69,8 +91,6 @@ class ProfilePage extends Component {
             classes.imgRoundedCircle,
             classes.imgFluid
         );
-
-        console.log(countryCode);
 
         return (
             <div>
@@ -229,7 +249,6 @@ class ProfilePage extends Component {
                                                 </GridItem>
                                                 <GridItem md={4} sm={6}>
                                                     <CustomInput
-                                                        required
                                                         labelText={t('profilePage.form.city')}
                                                         id="city"
                                                         formControlProps={{
@@ -269,8 +288,8 @@ class ProfilePage extends Component {
                                                                 <InputAdornment
                                                                     position="start"
                                                                     className={classes.inputAdornment}
+                                                                    children={profile.dialCode}
                                                                 >
-                                                                    {profile.dialCode}
                                                                 </InputAdornment>
                                                             ),
                                                             name: 'phone',
@@ -283,7 +302,7 @@ class ProfilePage extends Component {
                                                     <Button round color='info'>
                                                         {t('profilePage.form.save')}
                                                     </Button>
-                                                    <Button round color='secondary'>
+                                                    <Button round color='secondary' onClick={this.resetProfile}>
                                                         {t('profilePage.form.cancel')}
                                                     </Button>
                                                 </GridItem>

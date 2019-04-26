@@ -14,8 +14,6 @@ function CustomSelect({ ...props }) {
         labelProps,
         inputProps,
         error,
-        white,
-        inputRootCustomClasses,
         success,
         menuItems
     } = props;
@@ -23,13 +21,6 @@ function CustomSelect({ ...props }) {
     const labelClasses = classNames({
         [" " + classes.labelRootError]: error,
         [" " + classes.labelRootSuccess]: success && !error
-    });
-    const marginTop = classNames({
-        [inputRootCustomClasses]: inputRootCustomClasses !== undefined
-    });
-    const inputClasses = classNames({
-        [classes.input]: true,
-        [classes.whiteInput]: white
     });
     var formControlClasses;
     if (formControlProps !== undefined) {
@@ -69,6 +60,7 @@ function CustomSelect({ ...props }) {
                             selected: classes.selectMenuItemSelected
                         }}
                         value={item.value}
+                        key={item.name}
                     >
                         {item.name}
                     </MenuItem>

@@ -12,7 +12,8 @@ export default (state = {
         case AuthTypes.REGISTER_REQUEST:
             return {...state,
                 isLoading: true,
-                user: action.username
+                user: action.username,
+                err: null
             };
         case AuthTypes.REGISTER_SUCCESS:
             return {...state,

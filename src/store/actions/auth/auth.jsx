@@ -1,4 +1,4 @@
-import AuthTypes from 'store/actions/AuthTypes.jsx';
+import AuthTypes from 'store/actions/auth/AuthTypes.jsx';
 import { baseUrl } from 'routes/BaseUrl.jsx';
 import { CatchCodes } from 'store/actions/settings.jsx';
 
