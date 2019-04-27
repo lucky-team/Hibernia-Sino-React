@@ -3,10 +3,12 @@ import {
     InputAdornment, Checkbox, FormControlLabel, Icon, Divider
 } from '@material-ui/core';
 import { Face, Check } from '@material-ui/icons';
+import { NavLink } from 'react-router-dom';
 import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 
+import * as BaseUrl from 'routes/BaseUrl.jsx';
 
 class SectionForm extends Component {
     constructor(props) {
@@ -166,7 +168,21 @@ class SectionForm extends Component {
                         }
                     />
                     <div className={classes.textCenter}>
-                        <Button type='submit' round color="primary">
+                        <Button
+                            round
+                            color="secondary"
+                            component={NavLink}
+                            to={BaseUrl.loginUrl}
+                        >
+                            {t('signupPage.form.login')}
+                        </Button>
+                        <Button type='submit'
+                            round
+                            color="primary"
+                            size="lg"
+                            component={NavLink}
+                            to={BaseUrl.homeUrl}
+                        >
                             {t('signupPage.form.register')}
                         </Button>
                     </div>

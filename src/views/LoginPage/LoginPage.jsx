@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import withStyles from "@material-ui/core/styles/withStyles";
+import { withRouter } from "react-router-dom";
 import { withTranslation } from 'react-i18next';
 import { InputAdornment, Icon } from '@material-ui/core';
 import { Face } from '@material-ui/icons';
+import { NavLink } from 'react-router-dom';
 import Header from 'views/Header/Header.jsx';
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
@@ -15,6 +17,8 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import loginPageStyle from "assets/jss/material-kit-pro-react/views/loginPageStyle.jsx";
 
 import image from "assets/img/bg7.jpg";
+import * as BaseUrl from 'routes/BaseUrl.jsx';
+
 
 class LoginPage extends Component {
     constructor(props) {
@@ -31,6 +35,7 @@ class LoginPage extends Component {
         window.scrollTo(0, 0);
         document.body.scrollTop = 0;
         document.title = this.props.t('loginPage.pageTitle');
+        console.log(this.props);
     }
 
     handleChange(event) {
@@ -42,6 +47,7 @@ class LoginPage extends Component {
         const { username, password } = this.state;
         this.props.login({username: username, password: password});
         event.preventDefault();
+        this.props.history.push(BaseUrl.homeUrl);
     }
 
     render() {
@@ -155,10 +161,22 @@ class LoginPage extends Component {
                                             id={'password'}
                                         />
                                         </CardBody>
-                                        <div className={classes.textCenter}>
-                                            <Button type='submit' simple color="primary" size="lg">
+                                        <div className={classes.buttons}>
+                                            <NavLink
+                                                className={classes.navlink}
+                                                to={BaseUrl.signupUrl}
+                                            >
+                                                {t('loginPage.form.signup')}
+                                            </NavLink>
+                                            <Button
+                                                type='submit'
+                                                round
+                                                color="secondary"
+                                                size="lg"
+                                            >
                                                 {t('loginPage.form.login')}
                                             </Button>
+                                            
                                         </div>
                                     </form>
                                 </Card>
@@ -171,4 +189,4 @@ class LoginPage extends Component {
     }
 }
 
-export default withTranslation()(withStyles(loginPageStyle)(LoginPage));
+export default withRouter(withTranslation()(withStyles(loginPageStyle)(LoginPage)));

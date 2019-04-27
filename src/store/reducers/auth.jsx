@@ -1,13 +1,15 @@
 import AuthTypes from 'store/actions/auth/AuthTypes.jsx';
 
-export default (state = {
+const defualtState = {
     isLoading: false,
     isAuthenticated: !!localStorage.getItem('token'),
     token: localStorage.getItem('token'),
     user: localStorage.getItem('creds'),
     employee: !!localStorage.getItem('employee'),
     err: null
-}, action) => {
+}
+
+export default (state = defualtState, action) => {
     switch (action.type) {
         case AuthTypes.REGISTER_REQUEST:
             return {...state,
@@ -43,6 +45,8 @@ export default (state = {
                 isAuthenticated: false,
                 err: action.err
             };
+        case AuthTypes.LOGOUT_USER:
+            return defualtState;
         default:
             return state;
     }

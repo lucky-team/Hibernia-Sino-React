@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Router, Route, Switch, Redirect } from "react-router";
-import { createBrowserHistory } from "history";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
+import createHistory from 'history/createBrowserHistory';
 import { connect } from 'react-redux';
 import { register, login } from 'store/actions/auth/auth.jsx';
 import { fetchProfiles, createProfile, updateProfile } from 'store/actions/profile/profile.jsx';
@@ -9,7 +9,7 @@ import Signup from 'views/SignupPage/SignupPage.jsx';
 import Login from 'views/LoginPage/LoginPage.jsx';
 import Profile from 'views/ProfilePage/ProfilePage.jsx';
 
-var hist = createBrowserHistory();
+var history = createHistory();
 
 const mapStateToProps = state => {
     return {
@@ -55,7 +55,7 @@ class AppRouter extends Component {
         );
 
         return (
-            <Router history={hist}>
+            <Router history={history}>
                 <Switch>
                     <Route exact path={BaseUrl.signupUrl} component={SignupPage} />
                     <Route exact path={BaseUrl.loginUrl} component={LoginPage} />

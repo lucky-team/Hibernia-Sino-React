@@ -4,7 +4,8 @@
         "home": "首页",
         "myInsurances": "我的保单",
         "myClaims": "我的理赔",
-        "aboutus": "关于我们"
+        "aboutus": "关于我们",
+        "signup": "注册"
     },
 
     "footer": {
@@ -36,7 +37,8 @@
             "confirm": "确认密码",
             "hint": "为保障您的权益，请仔细阅读",
             "declaration": "投保声明",
-            "register": "注册"
+            "register": "注册",
+            "login": "已经有账号了?点击登录"
         }
     },
 
@@ -47,7 +49,8 @@
         "form": {
             "username": "用户名",
             "password": "密码",
-            "login": "登录"
+            "login": "登录",
+            "signup": "还没有账号?点击注册"
         }
     },
 

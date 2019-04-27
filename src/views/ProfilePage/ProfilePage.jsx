@@ -53,7 +53,6 @@ class ProfilePage extends Component {
     componentDidMount() {
         document.title = this.props.t('profilePage.pageTitle');
         const { profile } = this.props;
-        const { saving } = this.state;
         if (profile.self === null) {
             this.resetEmptyProfile();
         } else if (Array.isArray(profile.self)) {

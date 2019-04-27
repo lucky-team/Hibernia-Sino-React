@@ -116,6 +116,13 @@ import {
       bottom: "0",
       color: whiteColor,
       zIndex: "2"
+    },
+    navlink: {
+      marginRight: '10px'
+    },
+    buttons: {
+      marginBottom: '10px',
+      textAlign: "center"
     }
   });
   

@@ -1,6 +1,15 @@
 import AuthTypes from 'store/actions/auth/AuthTypes.jsx';
-import { baseUrl } from 'routes/BaseUrl.jsx';
+import * as BaseUrl from 'routes/BaseUrl.jsx';
 import { CatchCodes } from 'store/actions/settings.jsx';
+import { fetchProfiles } from 'store/actions/profile/profile.jsx';
+
+export const logout = () => {
+    return {
+        type: AuthTypes.LOGOUT_USER
+    }
+}
+
+// ******* register *******
 
 export const requestRegister = () => {
     return {
@@ -25,7 +34,7 @@ export const registerError = (err) => {
 export const register = (creds) => (dispatch) => {
     dispatch(requestRegister());
 
-    return fetch(baseUrl + 'users/signup', {
+    return fetch(BaseUrl.baseUrl + 'users/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -76,7 +85,7 @@ export const loginError = (err) => {
 export const login = (creds) => (dispatch) => {
     dispatch(requestLogin(creds.username));
 
-    return fetch(baseUrl + 'users/login', {
+    return fetch(BaseUrl.baseUrl + 'users/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -101,6 +110,7 @@ export const login = (creds) => (dispatch) => {
                 localStorage.setItem('employee', 1);
             }
             dispatch(receiveLogin(response.msg));
+            dispatch(fetchProfiles());
         } else {
             dispatch(loginError(response.err));
         }

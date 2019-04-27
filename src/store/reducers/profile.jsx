@@ -1,13 +1,16 @@
 import ProfileTypes from 'store/actions/profile/ProfileTypes.jsx';
 import CommonTypes from 'store/actions/CommonTypes.jsx';
+import AuthTypes from 'store/actions/auth/AuthTypes.jsx';
 
-export default (state = {
+const defaultState = {
     isLoading: false,
     content: [],
     self: null,
     msg: null,
     err: null
-}, action) => {
+}
+
+export default (state = defaultState, action) => {
     switch (action.type) {
         case ProfileTypes.FETCH_PROFILE_REQUEST:
             return {...state,
@@ -82,6 +85,8 @@ export default (state = {
                 self: null,
                 err: null
             };
+        case AuthTypes.LOGOUT_USER:
+            return defaultState;
         default:
             return state;
     }
