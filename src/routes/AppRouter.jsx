@@ -29,7 +29,7 @@ class AppRouter extends Component {
         if (this.props.auth.isAuthenticated) {
             this.props.fetchProfiles(null);
         }
-        console.log('App router mount');
+        console.log('Mount: App router');
     }
 
     render () {

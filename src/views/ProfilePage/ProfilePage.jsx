@@ -50,11 +50,17 @@ class ProfilePage extends Component {
     }
 
     componentDidMount() {
-        window.scrollTo(0, 0);
-        document.body.scrollTop = 0;
         document.title = this.props.t('profilePage.pageTitle');
-        this.resetProfile();
-        console.log('profile page mount');
+        const self = this.props.profile.self;
+        if (self === null) {
+            this.resetEmptyProfile();
+        } else if (Array.isArray(self)) {
+            alert('购买保险服务需要填写个人信息,请填写个人信息并保存修改');
+            this.resetEmptyProfile();
+        } else {
+            this.resetProfile();
+        }
+        console.log('Mount: profile page');
     }
 
     handleChange(event) {
@@ -64,22 +70,37 @@ class ProfilePage extends Component {
         });
     }
 
+    resetEmptyProfile() {
+        this.setState({
+            profile: {
+                lastname: '',
+                firstname: '',
+                socialId: '',
+                age: '',
+                country: '',
+                province: '',
+                city: '',
+                gender: '',
+                phone: '',
+                dialCode: '',
+                email: ''
+            }
+        });
+    }
+
     resetProfile() {
         const self = this.props.profile.self;
-        console.log(self);
-        if (Array.isArray(self)) {
-            if (self.length) {
-                let localProfile = {
-                    ...this.props.profile.self,
-                    dialCode: self.phone ? self.phone.split(' ')[0] : '',
-                    phone: self.phone ?  self.phone.split(' ')[1] : '',
-                }
-                this.setState({
-                    profile: localProfile
-                })
-            } else {
-                alert('购买保险服务需要填写个人信息,请填写个人信息并保存修改');
+        if (self === null || Array.isArray(self)) {
+            this.resetEmptyProfile();
+        } else {
+            let localProfile = {
+                ...self,
+                dialCode: self.phone ? self.phone.split(' ')[0] : '',
+                phone: self.phone ?  self.phone.split(' ')[1] : '',
             }
+            this.setState({
+                profile: localProfile
+            })
         }
     }
 

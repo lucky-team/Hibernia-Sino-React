@@ -2,6 +2,8 @@ import ProfileTypes from 'store/actions/profile/ProfileTypes.jsx';
 import { baseUrl } from 'routes/BaseUrl.jsx';
 import { CatchCodes } from 'store/actions/settings.jsx';
 
+// ******* fetch profile *******
+
 export const requestFetchProfile = () => {
     return {
         type: ProfileTypes.FETCH_PROFILE_REQUEST
@@ -79,3 +81,55 @@ export const fetchProfiles = (query) => (dispatch) => {
         fetchSelfProfileError(err.message)));
 }
 
+// ******* create profile *******
+
+export const requestCreateProfile = () => {
+    return {
+        type: ProfileTypes.CREATE_PROFILE_REQUEST
+    }
+}
+
+export const receiveCreateProfile = (msg) => {
+    return {
+        type: ProfileTypes.CREATE_PROFILE_SUCCESS,
+        msg: msg
+    }
+}
+
+export const createProfileError = (err) => {
+    return {
+        type: ProfileTypes.CREATE_PROFILE_FAILURE,
+        err: err
+    }
+}
+
+export const createProfile = (profile) => (dispatch) => {
+    dispatch(requestCreateProfile());
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    return fetch(baseUrl + 'profiles', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        body: JSON.stringify(profile)
+    })
+    .then(response => {
+        if (CatchCodes.indexOf(response.status) >= 0) {
+            return response;
+        } else {
+            let error = new Error(`Error ${response.status}: ${response.statusText}`);
+            error.response = response;
+            throw error;
+        }
+    })
+    .then(response => response.json())
+    .then(response => {
+        if (response.success) {
+            dispatch(receiveCreateProfile(response.msg));
+        } else {
+            dispatch()
+        }
+    })
+}
