@@ -3,7 +3,7 @@ import { Router, Route, Switch, Redirect } from "react-router";
 import { createBrowserHistory } from "history";
 import { connect } from 'react-redux';
 import { register, login } from 'store/actions/auth/auth.jsx';
-import { fetchProfiles } from 'store/actions/profile/profile.jsx';
+import { fetchProfiles, createProfile, updateProfile } from 'store/actions/profile/profile.jsx';
 import * as BaseUrl from 'routes/BaseUrl.jsx';
 import Signup from 'views/SignupPage/SignupPage.jsx';
 import Login from 'views/LoginPage/LoginPage.jsx';
@@ -21,7 +21,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
     register: (creds) => dispatch(register(creds)),
     login: (creds) => dispatch(login(creds)),
-    fetchProfiles: (query) => dispatch(fetchProfiles(query))
+    fetchProfiles: (query) => dispatch(fetchProfiles(query)),
+    createProfile: (profile) => dispatch(createProfile(profile)),
+    updateProfile: (profile) => dispatch(updateProfile(profile))
 });
 
 class AppRouter extends Component {
@@ -33,7 +35,7 @@ class AppRouter extends Component {
     }
 
     render () {
-        const { register, login, auth, fetchProfiles, profile } = this.props;
+        const { register, login, auth, fetchProfiles, profile, createProfile, updateProfile } = this.props;
 
         const SignupPage = () => (
             <Signup register={register} auth={auth} />
@@ -47,6 +49,8 @@ class AppRouter extends Component {
             <Profile
                 profile={profile}
                 fetchProfiles={fetchProfiles}
+                createProfile={createProfile}
+                updateProfile={updateProfile}
             />
         );
 

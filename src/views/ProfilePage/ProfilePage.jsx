@@ -43,24 +43,33 @@ class ProfilePage extends Component {
                 phone: '',
                 dialCode: '',
                 email: ''
-            }
+            },
         }
         this.handleChange = this.handleChange.bind(this);
         this.resetProfile = this.resetProfile.bind(this);
+        this.handleSave = this.handleSave.bind(this);
     }
 
     componentDidMount() {
         document.title = this.props.t('profilePage.pageTitle');
-        const self = this.props.profile.self;
-        if (self === null) {
+        const { profile } = this.props;
+        const { saving } = this.state;
+        if (profile.self === null) {
             this.resetEmptyProfile();
-        } else if (Array.isArray(self)) {
-            alert('购买保险服务需要填写个人信息,请填写个人信息并保存修改');
+        } else if (Array.isArray(profile.self)) {
+            alert(this.props.t('profilePage.tips'));
             this.resetEmptyProfile();
         } else {
             this.resetProfile();
         }
+
+        if (profile.msg) {
+            alert(profile.msg);
+        } else if (profile.err) {
+            alert(profile.err);
+        }
         console.log('Mount: profile page');
+
     }
 
     handleChange(event) {
@@ -68,6 +77,24 @@ class ProfilePage extends Component {
         this.setState({
             profile: {...this.state.profile, [name]: value}
         });
+    }
+
+    handleSave(event) {
+        event.preventDefault();
+        const self = this.props.profile.self;
+        const profile = this.state.profile;
+
+        const { dialCode, ...newProfile } = {
+            ...profile,
+            phone: `${profile.dialCode} ${profile.phone}`
+        };
+        if (Array.isArray(self)) {
+            this.props.createProfile(newProfile);
+            alert('create');
+        } else {
+            this.props.updateProfile(newProfile);
+            alert('update');
+        }
     }
 
     resetEmptyProfile() {
@@ -149,14 +176,15 @@ class ProfilePage extends Component {
                                         <p>{t('profilePage.tips')}<br /><br /></p>
                                     </GridItem>
                                     <GridItem sm={8}>
-                                        <form>
+                                        <form onSubmit={this.handleSave}>
                                             <GridContainer justify='flex-start' spacing={32}>   
                                                 <GridItem md={4} sm={6}>
                                                     <CustomInput
                                                         labelText={t('profilePage.form.firstname')}
                                                         id="firstname"
                                                         formControlProps={{
-                                                            fullWidth: true
+                                                            fullWidth: true,
+                                                            required: true
                                                         }}
                                                         inputProps={{
                                                             name: 'firstname',
@@ -170,7 +198,8 @@ class ProfilePage extends Component {
                                                         labelText={t('profilePage.form.lastname')}
                                                         id="lastname"
                                                         formControlProps={{
-                                                            fullWidth: true
+                                                            fullWidth: true,
+                                                            required: true
                                                         }}
                                                         inputProps={{
                                                             name: 'lastname',
@@ -184,7 +213,8 @@ class ProfilePage extends Component {
                                                         labelText={t('profilePage.form.socialId')}
                                                         id="socialId"
                                                         formControlProps={{
-                                                            fullWidth: true
+                                                            fullWidth: true,
+                                                            required: true
                                                         }}
                                                         inputProps={{
                                                             name: 'socialId',
@@ -198,7 +228,8 @@ class ProfilePage extends Component {
                                                         labelText={t('profilePage.form.age')}
                                                         id="age"
                                                         formControlProps={{
-                                                            fullWidth: true
+                                                            fullWidth: true,
+                                                            required: true
                                                         }}
                                                         inputProps={{
                                                             name: 'age',
@@ -212,7 +243,8 @@ class ProfilePage extends Component {
                                                         labelText={t('profilePage.form.gender')}
                                                         id="gender" 
                                                         formControlProps={{
-                                                            fullWidth: true
+                                                            fullWidth: true,
+                                                            required: true
                                                         }}
                                                         inputProps={{
                                                             name: 'gender',
@@ -231,7 +263,8 @@ class ProfilePage extends Component {
                                                         labelText={t('profilePage.form.email')}
                                                         id="email"
                                                         formControlProps={{
-                                                            fullWidth: true
+                                                            fullWidth: true,
+                                                            required: true
                                                         }}
                                                         inputProps={{
                                                             name: 'email',
@@ -245,7 +278,8 @@ class ProfilePage extends Component {
                                                         labelText={t('profilePage.form.country')}
                                                         id="country"
                                                         formControlProps={{
-                                                            fullWidth: true
+                                                            fullWidth: true,
+                                                            required: true
                                                         }}
                                                         inputProps={{
                                                             name: 'country',
@@ -259,7 +293,8 @@ class ProfilePage extends Component {
                                                         labelText={t('profilePage.form.province')}
                                                         id="province"
                                                         formControlProps={{
-                                                            fullWidth: true
+                                                            fullWidth: true,
+                                                            required: true
                                                         }}
                                                         inputProps={{
                                                             name: 'province',
@@ -273,7 +308,8 @@ class ProfilePage extends Component {
                                                         labelText={t('profilePage.form.city')}
                                                         id="city"
                                                         formControlProps={{
-                                                            fullWidth: true
+                                                            fullWidth: true,
+                                                            required: true
                                                         }}
                                                         inputProps={{
                                                             name: 'city',
@@ -287,7 +323,8 @@ class ProfilePage extends Component {
                                                         labelText={t('profilePage.form.dialCode')}
                                                         id="phone"
                                                         formControlProps={{
-                                                            fullWidth: true
+                                                            fullWidth: true,
+                                                            required: true
                                                         }}
                                                         inputProps={{
                                                             name: 'dialCode',
@@ -302,7 +339,8 @@ class ProfilePage extends Component {
                                                         labelText={t('profilePage.form.phone')}
                                                         id="phone"
                                                         formControlProps={{
-                                                            fullWidth: true
+                                                            fullWidth: true,
+                                                            required: true
                                                         }}
                                                         inputProps={{
                                                             startAdornment: (
@@ -320,7 +358,7 @@ class ProfilePage extends Component {
                                                     />
                                                 </GridItem>
                                                 <GridItem sm={12}>
-                                                    <Button round color='info'>
+                                                    <Button type='submit' round color='info'>
                                                         {t('profilePage.form.save')}
                                                     </Button>
                                                     <Button round color='secondary' onClick={this.resetProfile}>

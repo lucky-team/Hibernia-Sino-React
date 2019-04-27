@@ -1,3 +1,3 @@
 export const CatchCodes = [
-    200, 403, 500
+    200, 401, 403, 500
 ]

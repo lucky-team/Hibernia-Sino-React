@@ -65,21 +65,22 @@
         "title": "个人信息",
         "tips": "购买保险服务需要填写个人信息,请填写个人信息并保存修改",
         "form": {
-            "socialId": "身份证号 *",
-            "age": "年龄 *",
-            "country": "国家 (英文) *",
-            "province": "省 (英文或拼音) *",
-            "city": "市 (英文或拼音) *",
+            "socialId": "身份证号",
+            "age": "年龄",
+            "country": "国家 (英文)",
+            "province": "省 (英文或拼音)",
+            "city": "市 (英文或拼音)",
             "gender": "性别",
-            "lastname": "姓氏 (拼音) *",
-            "firstname": "名 (拼音) *",
-            "phone": "手机号 *",
-            "dialCode": "地区号 *",
-            "email": "邮箱 *",
+            "lastname": "姓氏 (拼音)",
+            "firstname": "名 (拼音)",
+            "phone": "手机号",
+            "dialCode": "地区号",
+            "email": "邮箱",
             "male": "男",
             "female": "女",
             "save": "保存修改",
-            "cancel": "取消"
+            "cancel": "取消",
+            "saveSuccess": "保存成功"
         }
     },
     

@@ -89,10 +89,11 @@ export const requestCreateProfile = () => {
     }
 }
 
-export const receiveCreateProfile = (msg) => {
+export const receiveCreateProfile = (response) => {
     return {
         type: ProfileTypes.CREATE_PROFILE_SUCCESS,
-        msg: msg
+        msg: response.msg,
+        profile: response.profile
     }
 }
 
@@ -127,9 +128,65 @@ export const createProfile = (profile) => (dispatch) => {
     .then(response => response.json())
     .then(response => {
         if (response.success) {
-            dispatch(receiveCreateProfile(response.msg));
+            dispatch(receiveCreateProfile(response));
         } else {
-            dispatch()
+            dispatch(createProfileError(`${response.err.name}: ${response.err.message}`));
         }
     })
+}
+
+// ******* update profile *******
+
+export const requestUpdateProfile = () => {
+    return {
+        type: ProfileTypes.UPDATE_PROFILE_REQUEST
+    }
+}
+
+export const receiveUpdateProfile = (response) => {
+    return {
+        type: ProfileTypes.UPDATE_PROFILE_SUCCESS,
+        msg: response.msg,
+        profile: response.profile
+    }
+}
+
+export const updateProfileError = (err) => {
+    return {
+        type: ProfileTypes.UPDATE_PROFILE_FAILURE,
+        err: err
+    }
+}
+
+export const updateProfile = (profile) => (dispatch) => {
+    dispatch(requestUpdateProfile());
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    return fetch(baseUrl + 'profiles', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        },
+        body: JSON.stringify(profile)
+    })
+    .then(response => {
+        if (CatchCodes.indexOf(response.status) >= 0) {
+            return response;
+        } else {
+            let error = new Error(`Error ${response.status}: ${response.statusText}`);
+            error.response = response;
+            throw error;
+        }
+    })
+    .then(response => response.json())
+    .then(response => {
+        console.log('response:');
+        console.log(response);
+        if (response.success) {
+            dispatch(receiveUpdateProfile(response));
+        } else {
+            dispatch(updateProfileError(`${response.err.name}: ${response.err.message}`));
+        }
+    });
 }

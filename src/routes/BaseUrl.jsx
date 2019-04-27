@@ -1,5 +1,5 @@
-// export const BaseUrl = 'http://localhost:3000/';
-export const baseUrl = 'http://59.110.243.55:3000/';
+export const baseUrl = 'http://localhost:3000/';
+// export const baseUrl = 'http://59.110.243.55:3000/';
 
 export const homeUrl = '/';
 export const myInsurancesUrl = '/my-insurances';
