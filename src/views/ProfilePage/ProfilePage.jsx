@@ -68,7 +68,6 @@ class ProfilePage extends Component {
             alert(profile.err);
         }
         console.log('Mount: profile page');
-
     }
 
     handleChange(event) {
@@ -147,7 +146,7 @@ class ProfilePage extends Component {
                     color='transparent'
                     changeColorOnScroll={{
                         height: 220,
-                        color: "primary"
+                        color: 'primary'
                     }}
                 />
                 <Parallax

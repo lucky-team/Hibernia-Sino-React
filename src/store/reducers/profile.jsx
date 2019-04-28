@@ -4,7 +4,7 @@ import AuthTypes from 'store/actions/auth/AuthTypes.jsx';
 
 const defaultState = {
     isLoading: false,
-    content: [],
+    content: null,
     self: null,
     msg: null,
     err: null

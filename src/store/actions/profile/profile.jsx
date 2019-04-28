@@ -188,5 +188,6 @@ export const updateProfile = (profile) => (dispatch) => {
         } else {
             dispatch(updateProfileError(`${response.err.name}: ${response.err.message}`));
         }
-    });
+    })
+    .catch(err => dispatch(updateProfileError(err.message)));
 }

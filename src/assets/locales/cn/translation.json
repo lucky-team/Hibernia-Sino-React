@@ -1,4 +1,9 @@
 {
+    "general": {
+        "titleSign": "Hibernia-Sino 旅行保险公司",
+        "titleConnector": " ---- "
+    },
+
     "header": {
         "brand": "Hibernia-Sino",
         "home": "首页",
@@ -85,6 +90,14 @@
             "cancel": "取消",
             "saveSuccess": "保存成功"
         }
+    },
+
+    "insurancePage": {
+        "pageTitle": "保单列表",
+        "title": "我的保单",
+        "all": "全部保单",
+        "valid": "有效保单",
+        "invalid": "历史保单"
     },
     
     "signinPage": {
