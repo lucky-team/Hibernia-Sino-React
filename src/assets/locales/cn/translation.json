@@ -97,7 +97,18 @@
         "title": "我的保单",
         "all": "全部保单",
         "valid": "有效保单",
-        "invalid": "历史保单"
+        "invalid": "历史保单",
+        "table": {
+            "insuranceId": "保险单号",
+            "plan": "计划",
+            "level": "等级",
+            "insured": "被保险人",
+            "duration": "持续时间",
+            "start": "开始时间",
+            "expire": "结束时间",
+            "check": "查看",
+            "claim": "快速理赔"
+        }
     },
     
     "signinPage": {

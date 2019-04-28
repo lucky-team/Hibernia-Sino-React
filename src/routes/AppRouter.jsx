@@ -34,8 +34,8 @@ class AppRouter extends Component {
     componentDidMount() {
         const { auth, fetchProfiles, fetchInsurances} = this.props;
         if (auth.isAuthenticated) {
-            fetchProfiles(null);
-            fetchInsurances(null);
+            fetchProfiles();
+            fetchInsurances();
         }
         console.log('Mount: App router');
     }

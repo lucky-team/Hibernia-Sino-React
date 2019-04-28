@@ -46,7 +46,14 @@ export default (state = defualtState, action) => {
                 err: action.err
             };
         case AuthTypes.LOGOUT_USER:
-            return defualtState;
+            return {
+                isLoading: false,
+                isAuthenticated: false,
+                token: null,
+                user: null,
+                employee: null,
+                err: null
+            };
         default:
             return state;
     }

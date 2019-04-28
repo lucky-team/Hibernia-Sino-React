@@ -23,7 +23,6 @@ const mapDispatchToProps = dispatch => ({
     register: (creds) => dispatch(register(creds))
 });
 
-
 const NavBar = (props) => {
     const { classes, navs, history, auth } = props;
     const { t } = useTranslation();
@@ -31,9 +30,8 @@ const NavBar = (props) => {
     const exit = () => {
         localStorage.clear();
         props.logout();
-        history.push(BaseUrl.homeUrl);
+        history.push(BaseUrl.loginUrl);
     }
-    
 
     const navItems = navs.map(nav => {
         let className = classes.navLink;

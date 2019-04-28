@@ -42,9 +42,8 @@ const ParallaxSection = ({ t, classes }) => (
     </Parallax>
 );
 
-const RenderTable = ({ classes, content }) => {
+const RenderTable = ({ classes, content, t }) => {
     console.log('Mount: render table');
-    console.log(content);
     if (content) {
         const dataList = content.map((item, key) => {
             return [
@@ -59,15 +58,12 @@ const RenderTable = ({ classes, content }) => {
                 moment(item.startDate).format('LL').toString(),
                 moment(item.expireDate).format('LL').toString(),
                 <div>
-                    <Button>Check</Button>
-                    <Button>Claim</Button>
+                    <Button>{t('insurancePage.table.check')}</Button>
+                    <Button>{t('insurancePage.table.claim')}</Button>
                 </div>
             ];
         })
 
-        console.log(dataList);
-        const item = content[0];
-        console.log(`locale: ${moment.locale()}`);
         return (
             <Table
                 hover
@@ -75,13 +71,13 @@ const RenderTable = ({ classes, content }) => {
                 tableHead={[
                     '',
                     '#',
-                    'Insurance Id',
-                    'Plan',
-                    'Level',
-                    'Insured',
-                    'Duration',
-                    'Start',
-                    'Expire',
+                    t('insurancePage.table.insuranceId'),
+                    t('insurancePage.table.plan'),
+                    t('insurancePage.table.level'),
+                    t('insurancePage.table.insured'),
+                    t('insurancePage.table.duration'),
+                    t('insurancePage.table.start'),
+                    t('insurancePage.table.expire'),
                     ''
                 ]}
                 tableData={dataList}
@@ -146,6 +142,7 @@ const NavPillSection = ({ classes, t, content, page, rowsPerPage }) => {
                                         allInsurancesShow
                                         ?
                                         (<RenderTable
+                                            t={t}
                                             classes={classes}
                                             content={allInsurancesShow}
                                         />)
@@ -158,6 +155,7 @@ const NavPillSection = ({ classes, t, content, page, rowsPerPage }) => {
                                         validInsurancesShow
                                         ?
                                         (<RenderTable
+                                            t={t}
                                             classes={classes}
                                             content={validInsurancesShow}
                                         />)
@@ -169,6 +167,7 @@ const NavPillSection = ({ classes, t, content, page, rowsPerPage }) => {
                                         invalidInsurancesShow
                                         ?
                                         (<RenderTable
+                                            t={t}
                                             classes={classes}
                                             content={invalidInsurancesShow}
                                         />)

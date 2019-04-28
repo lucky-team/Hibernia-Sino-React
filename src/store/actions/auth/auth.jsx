@@ -2,6 +2,7 @@ import AuthTypes from 'store/actions/auth/AuthTypes.jsx';
 import * as BaseUrl from 'routes/BaseUrl.jsx';
 import { CatchCodes } from 'store/actions/settings.jsx';
 import { fetchProfiles } from 'store/actions/profile/profile.jsx';
+import { fetchInsurances } from 'store/actions/insurance/insurance.jsx';
 
 export const logout = () => {
     return {
@@ -111,6 +112,7 @@ export const login = (creds) => (dispatch) => {
             }
             dispatch(receiveLogin(response.msg));
             dispatch(fetchProfiles());
+            dispatch(fetchInsurances());
         } else {
             dispatch(loginError(response.err));
         }
