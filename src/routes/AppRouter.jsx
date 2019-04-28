@@ -16,7 +16,8 @@ var history = createHistory();
 const mapStateToProps = state => {
     return {
         auth: state.auth,
-        profile: state.profile
+        profile: state.profile,
+        insurance: state.insurance
     }
 }
 
@@ -40,7 +41,8 @@ class AppRouter extends Component {
     }
 
     render () {
-        const { register, login, auth, fetchProfiles, profile, createProfile, updateProfile } = this.props;
+        const { register, login, auth, fetchProfiles, profile, createProfile,
+            updateProfile, insurance, fetchInsurances } = this.props;
 
         const SignupPage = () => (
             <Signup register={register} auth={auth} />
@@ -60,7 +62,10 @@ class AppRouter extends Component {
         );
 
         const InsurancePage = () => (
-            <Insurance />
+            <Insurance
+                insurance={insurance}
+                fetchInsurances={fetchInsurances}
+            />
         );
 
         return (
