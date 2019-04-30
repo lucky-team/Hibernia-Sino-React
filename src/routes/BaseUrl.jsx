@@ -13,3 +13,4 @@ export const manageClaimsUrl = managementUrl + '/claims';
 
 export const signupUrl = '/signup';
 export const loginUrl = '/login';
+export const claimProcessUrl = '/claiming';

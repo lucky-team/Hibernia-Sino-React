@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import withStyles from "@material-ui/core/styles/withStyles";
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import { Clear, Check } from '@material-ui/icons';
-import customSelectStyle from "assets/jss/material-kit-pro-react/customSelectStyle.jsx";
+import customSelectStyle from "assets/jss/material-kit-pro-react/components/customSelectStyle.jsx";
 function CustomSelect({ ...props }) {
     const {
         classes,

@@ -10,6 +10,7 @@ import Signup from 'views/SignupPage/SignupPage.jsx';
 import Login from 'views/LoginPage/LoginPage.jsx';
 import Profile from 'views/ProfilePage/ProfilePage.jsx';
 import Insurance from 'views/InsurancePage/InsurancePage.jsx';
+import ClaimProcess from 'views/ClaimProcessPage/ClaimProcessPage.jsx';
 
 var history = createHistory();
 
@@ -68,6 +69,12 @@ class AppRouter extends Component {
             />
         );
 
+        const ClaimProcessPage = () => (
+            <ClaimProcess
+
+            />
+        );
+
         return (
             <Router history={history}>
                 <Switch>
@@ -75,7 +82,8 @@ class AppRouter extends Component {
                     <Route exact path={BaseUrl.loginUrl} component={LoginPage} />
                     <Route exact path={BaseUrl.profileUrl} component={ProfilePage} />
                     <Route exact path={BaseUrl.myInsurancesUrl} component={InsurancePage} />
-                    <Redirect to={BaseUrl.myInsurancesUrl} />
+                    <Route exact path={BaseUrl.claimProcessUrl} component={ClaimProcessPage} />
+                    <Redirect to={BaseUrl.claimProcessUrl} />
                 </Switch>
             </Router>
         );
