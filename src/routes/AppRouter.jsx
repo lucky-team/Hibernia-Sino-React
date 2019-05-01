@@ -5,13 +5,14 @@ import { connect } from 'react-redux';
 import { register, login } from 'store/actions/auth/auth.jsx';
 import { fetchProfiles, createProfile, updateProfile } from 'store/actions/profile/profile.jsx';
 import { fetchInsurances } from 'store/actions/insurance/insurance.jsx';
-import { fileClaim } from 'store/actions/claim/claim.jsx';
+import { fileClaim, fetchClaims } from 'store/actions/claim/claim.jsx';
 import * as BaseUrl from 'routes/BaseUrl.jsx';
 import Signup from 'views/SignupPage/SignupPage.jsx';
 import Login from 'views/LoginPage/LoginPage.jsx';
 import Profile from 'views/ProfilePage/ProfilePage.jsx';
 import Insurance from 'views/InsurancePage/InsurancePage.jsx';
 import ClaimProcess from 'views/ClaimProcessPage/ClaimProcessPage.jsx';
+import Claim from 'views/ClaimPage/ClaimPage.jsx';
 
 var history = createHistory();
 
@@ -19,7 +20,8 @@ const mapStateToProps = state => {
     return {
         auth: state.auth,
         profile: state.profile,
-        insurance: state.insurance
+        insurance: state.insurance,
+        claim: state.claim
     }
 }
 
@@ -30,22 +32,24 @@ const mapDispatchToProps = dispatch => ({
     createProfile: (profile) => dispatch(createProfile(profile)),
     updateProfile: (profile) => dispatch(updateProfile(profile)),
     fetchInsurances: (query) => dispatch(fetchInsurances(query)),
-    fileClaim: (claim) => dispatch(fileClaim(claim))
+    fileClaim: (claim) => dispatch(fileClaim(claim)),
+    fetchClaims: (query) => dispatch(fetchClaims(query))
 });
 
 class AppRouter extends Component {
     componentDidMount() {
-        const { auth, fetchProfiles, fetchInsurances} = this.props;
+        const { auth, fetchProfiles, fetchInsurances, fetchClaims } = this.props;
         if (auth.isAuthenticated) {
             fetchProfiles();
             fetchInsurances();
+            fetchClaims();
         }
         console.log('Mount: App router');
     }
 
     render () {
         const { register, login, auth, fetchProfiles, profile, createProfile,
-            updateProfile, insurance, fetchInsurances, fileClaim } = this.props;
+            updateProfile, insurance, fileClaim, claim } = this.props;
 
         const SignupPage = () => (
             <Signup register={register} auth={auth} />
@@ -67,13 +71,19 @@ class AppRouter extends Component {
         const InsurancePage = () => (
             <Insurance
                 insurance={insurance}
-                fetchInsurances={fetchInsurances}
             />
         );
 
         const ClaimProcessPage = () => (
             <ClaimProcess
                 fileClaim={fileClaim}
+            />
+        );
+
+        const ClaimPage = () => (
+            <Claim
+                insurance={insurance}
+                claim={claim}
             />
         );
 
@@ -84,8 +94,9 @@ class AppRouter extends Component {
                     <Route exact path={BaseUrl.loginUrl} component={LoginPage} />
                     <Route exact path={BaseUrl.profileUrl} component={ProfilePage} />
                     <Route exact path={BaseUrl.myInsurancesUrl} component={InsurancePage} />
+                    <Route exact path={BaseUrl.myClaimsUrl} component={ClaimPage} />
                     <Route exact path={BaseUrl.claimProcessUrl} component={ClaimProcessPage} />
-                    <Redirect to={BaseUrl.claimProcessUrl} />
+                    <Redirect to={BaseUrl.myClaimsUrl} />
                 </Switch>
             </Router>
         );

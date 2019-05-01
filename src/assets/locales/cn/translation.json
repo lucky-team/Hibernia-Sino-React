@@ -111,9 +111,24 @@
             "claiming": "理赔中"
         }
     },
-    
-    "signinPage": {
 
+    "claimPage": {
+        "pageTitle": "理赔列表",
+        "title": "理赔列表",
+        "all": "全部理赔",
+        "active": "正在理赔",
+        "inactive": "已完成",
+        "table": {
+            "claimId": "理赔单号",
+            "location": "事故发生地点",
+            "amount": "损失金额",
+            "date": "事故发生时间",
+            "status": "状态",
+            "pending": "等待处理",
+            "processing": "处理中",
+            "accepted": "通过",
+            "rejected": "拒绝"
+        }
     },
 
     "managementPage": {

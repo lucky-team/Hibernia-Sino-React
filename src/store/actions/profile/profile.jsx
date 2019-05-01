@@ -43,7 +43,7 @@ export const fetchProfiles = (query) => (dispatch) => {
 
     let url = baseUrl + 'profiles';
     if (query) {
-        url += query
+        url += query;
     }
     const bearer = 'Bearer ' + localStorage.getItem('token');
     return fetch(url, {

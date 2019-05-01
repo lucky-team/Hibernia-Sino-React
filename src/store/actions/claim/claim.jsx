@@ -64,7 +64,68 @@ export const fileClaim = (claim) => (dispatch) => {
             dispatch(receiveFileClaim(response.msg));
         } else {
             dispatch(fileClaimError(`${response.err.name}: ${response.err.message}`))
+            dispatch(fileClaimError(`${response.err.name}: ${response.err.message}`))
         }
     })
     .catch(err => dispatch(fileClaimError(err.message)));
+}
+
+// ******* fetch claims *******
+
+export const requestFetchClaims = () => {
+    return {
+        type: ClaimTypes.FILE_CLAIMS_REQUEST
+    }
+}
+
+export const receiveFetchClaims = (claims) => {
+    return {
+        type: ClaimTypes.FETCH_CLAIMS_SUCCESS,
+        claims: claims
+    }
+}
+
+export const fetchClaimsError = (err) => {
+    return {
+        type: ClaimTypes.FETCH_CLAIMS_FAILURE,
+        err: err
+    }
+}
+
+export const fetchClaims = (query) => (dispatch) => {
+    dispatch(requestFetchClaims());
+
+    let url = baseUrl + 'claims';
+    if (query) {
+        url += query;
+    }
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    return fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': bearer
+        }
+    })
+    .then(response => {
+        if (CatchCodes.indexOf(response.status) >= 0) {
+            return response;
+        } else {
+            let error = new Error(`Error ${response.status}: ${response.statusText}`);
+            error.response = response;
+            throw error;
+        }
+    })
+    .then(response => response.json())
+    .then(response => {
+        if (query) {
+            // TODO claims on employees side
+        } else {
+            if (Array.isArray(response)) {
+                dispatch(receiveFetchClaims(response));
+            } else {
+                dispatch(fileClaimError(`${response.err.name}: ${response.err.message}`))
+            }
+        }
+    })
+    .catch(err => dispatch(fetchClaimsError(err.messsage)));
 }

@@ -49,7 +49,6 @@ const fileClaim = (insuranceId, history) => {
 }
 
 const RenderTable = ({ classes, content, t, history }) => {
-    console.log('Mount: render table');
     if (content) {
         const dataList = content.map((item, key) => {
             return [
@@ -64,7 +63,6 @@ const RenderTable = ({ classes, content, t, history }) => {
                 moment(item.startDate).format('LL').toString(),
                 moment(item.expireDate).format('LL').toString(),
                 <div>
-                    
                     {item.claim ?
                         <Button>{t('insurancePage.table.claiming')}</Button>
                         : (
@@ -121,30 +119,22 @@ const RenderTable = ({ classes, content, t, history }) => {
 const NavPillSection = ({ classes, t, content, page, rowsPerPage, history }) => {
     console.log(`length: ${content.length}`);
     let allInsurances = content;
-    let validInsurances = [];
-    let invalidInsurances = [];
-    let allInsurancesShow = null;
-    let validInsurancesShow = null;
-    let invalidInsurancesShow = null;
+    let activeValidInsurances = [];
+    let inactiveInsurances = [];
     if (content.length !== 0) {
         allInsurances.map(n => {
             if (moment(n.expireDate).diff(moment()) >= 0) {
-                validInsurances.push(n);
+                activeValidInsurances.push(n);
             } else {
-                invalidInsurances.push(n);
+                inactiveInsurances.push(n);
             }
         });
         const allInsurancesShow = allInsurances
             .slice(page[0] * rowsPerPage[0], page[0] * rowsPerPage[0] + rowsPerPage[0]);
-        const validInsurancesShow = validInsurances
+        const activeInsurancesShow = activeValidInsurances
             .slice(page[1] * rowsPerPage[1], page[1] * rowsPerPage[1] + rowsPerPage[1]);
-        const invalidInsurancesShow = invalidInsurances
+        const inactiveInsurancesShow = inactiveInsurances
             .slice(page[2] * rowsPerPage[2], page[2] * rowsPerPage[2] + rowsPerPage[2]);
-        
-        console.log('show: ');
-        console.log(allInsurancesShow);
-        console.log(validInsurancesShow);
-        console.log(invalidInsurancesShow);
 
         return (
             <div className={classes.container}>
@@ -171,12 +161,12 @@ const NavPillSection = ({ classes, t, content, page, rowsPerPage, history }) => 
                                 {
                                     tabButton: t('insurancePage.valid'),
                                     tabContent: 
-                                        validInsurancesShow
+                                        activeInsurancesShow
                                         ?
                                         (<RenderTable
                                             t={t}
                                             classes={classes}
-                                            content={validInsurancesShow}
+                                            content={activeInsurancesShow}
                                             history={history}
                                         />)
                                         : null
@@ -184,12 +174,12 @@ const NavPillSection = ({ classes, t, content, page, rowsPerPage, history }) => 
                                 {
                                     tabButton: t('insurancePage.invalid'),
                                     tabContent: 
-                                        invalidInsurancesShow
+                                        inactiveInsurancesShow
                                         ?
                                         (<RenderTable
                                             t={t}
                                             classes={classes}
-                                            content={invalidInsurancesShow}
+                                            content={inactiveInsurancesShow}
                                             history={history}
                                         />)
                                         : null
@@ -227,9 +217,8 @@ class InsurancePage extends Component {
         } else {
             this.setState({
                 content: insurance.content
-            })
+            });
         }
-        console.log(insurance);
     }
 
     isSelected(id) {
@@ -237,7 +226,7 @@ class InsurancePage extends Component {
     }
 
     render() {
-        const { classes, t, fetchInsurances, history } = this.props;
+        const { classes, t, history } = this.props;
         const { content, page, rowsPerPage } = this.state;
 
         return (

@@ -24,6 +24,20 @@ export default (state = defaultState, action) => {
             return {...state,
                 err: action.err
             }
+        case ClaimTypes.FETCH_CLAIMS_REQUEST:
+            return {...state,
+                isLoading: true
+            }
+        case ClaimTypes.FETCH_CLAIMS_SUCCESS:
+            return {...state,
+                isLoading: false,
+                content: action.claims
+            }
+        case ClaimTypes.FETCH_CLAIMS_FAILURE:
+            return {...state,
+                isLoading: false,
+                err: action.err
+            }
         case AuthTypes.LOGOUT_USER:
             return defaultState;
         default:

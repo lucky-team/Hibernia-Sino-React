@@ -77,6 +77,7 @@ const NavBar = (props) => {
                                 color='transparent'
                                 className={classes.navButton}
                                 component={NavLink}
+                                fullWidth
                                 round
                             >
                                 Profile
@@ -85,6 +86,7 @@ const NavBar = (props) => {
                                 color='transparent'
                                 className={classes.navButton}
                                 onClick={() => exit()}
+                                fullWidth
                                 round
                             >
                                 Exit
