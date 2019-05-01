@@ -4546,6 +4546,21 @@ filename-regex@^2.0.0:
   resolved "https://registry.yarnpkg.com/filename-regex/-/filename-regex-2.0.1.tgz#c1c4b9bee3e09725ddb106b75c1e301fe2f18b26"
   integrity sha1-wcS5vuPglyXdsQa3XB4wH+LxiyY=
 
+filepond-plugin-image-exif-orientation@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.npm.taobao.org/filepond-plugin-image-exif-orientation/download/filepond-plugin-image-exif-orientation-1.0.6.tgz#75920935a5da298884718bfd454f03362ad783e8"
+  integrity sha1-dZIJNaXaKYiEcYv9RU8DNirXg+g=
+
+filepond-plugin-image-preview@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.npm.taobao.org/filepond-plugin-image-preview/download/filepond-plugin-image-preview-4.1.0.tgz#4310ea8f8613c56188615be66b2f5a1eaaf6bdc1"
+  integrity sha1-QxDqj4YTxWGIYVvmay9aHqr2vcE=
+
+filepond@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.npm.taobao.org/filepond/download/filepond-4.4.2.tgz#4b664fcb1039274894b853be86728c35a11bdf1d"
+  integrity sha1-S2ZPyxA5J0iUuFO+hnKMNaEb3x0=
+
 fileset@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/fileset/-/fileset-2.0.3.tgz#8e7548a96d3cc2327ee5e674168723a333bba2a0"
@@ -9171,6 +9186,11 @@ react-event-listener@^0.6.0, react-event-listener@^0.6.2:
     "@babel/runtime" "^7.2.0"
     prop-types "^15.6.0"
     warning "^4.0.1"
+
+react-filepond@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.npm.taobao.org/react-filepond/download/react-filepond-7.0.1.tgz#caf96526287140884a31a1476b8328d9d6ecdee2"
+  integrity sha1-yvllJihxQIhKMaFHa4Mo2dbs3uI=
 
 react-google-maps@9.4.5:
   version "9.4.5"

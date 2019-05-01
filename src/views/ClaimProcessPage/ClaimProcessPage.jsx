@@ -4,7 +4,6 @@ import { withTranslation } from 'react-i18next';
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import { Stepper, Step, StepLabel } from '@material-ui/core';
-import { People } from '@material-ui/icons';
 
 import Header from 'views/Header/Header.jsx';
 import ChooseTypeSection from 'views/ClaimProcessPage/Sections/ChooseTypeSection.jsx';
@@ -13,11 +12,6 @@ import FillingDetailsSection from 'views/ClaimProcessPage/Sections/FillingDetail
 import Parallax from "components/Parallax/Parallax.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
-import Button from 'components/CustomButtons/Button.jsx';
-import CustomInput from "components/CustomInput/CustomInput.jsx";
-import CustomSelect from "components/CustomSelect/CustomSelect.jsx";
-import Card from "components/Card/Card.jsx";
-import CardBody from "components/Card/CardBody.jsx";
 
 import claimProcessPageStyle from "assets/jss/material-kit-pro-react/views/claimProcessPageStyle.jsx";
 
@@ -50,6 +44,8 @@ const StepContent = ({ ...props }) => {
         activeStep,
         classes,
         handleChange,
+        handleUpdateFiles,
+        handleSubmit,
         handleNext,
         t,
         claim
@@ -71,6 +67,8 @@ const StepContent = ({ ...props }) => {
                     classes={classes}
                     t={t}
                     handleChange={handleChange}
+                    handleUpdateFiles={handleUpdateFiles}
+                    handleSubmit={handleSubmit}
                     handleNext={handleNext}
                     claim={claim}
                 />
@@ -88,6 +86,8 @@ const ClaimBody = ({ ...props }) => {
         handleBack,
         handleReset,
         handleChange,
+        handleUpdateFiles,
+        handleSubmit,
         claim
     } = props;
 
@@ -106,6 +106,8 @@ const ClaimBody = ({ ...props }) => {
                 activeStep={activeStep}
                 classes={classes}
                 handleChange={handleChange}
+                handleUpdateFiles={handleUpdateFiles}
+                handleSubmit={handleSubmit}
                 handleNext={handleNext}
                 t={t}
                 claim={claim}
@@ -126,7 +128,7 @@ class ClaimProcessPage extends Component {
                 reason: '',
                 type: '',
                 date: '',
-                insurance: 1
+                insurance: 1234
             }
         }
     };
@@ -139,10 +141,23 @@ class ClaimProcessPage extends Component {
 
     handleChange = e => {
         let { name, value } = e.target;
-        this.setState(state => ({
-            claim: { ...state.cliam, [name]: value }
-        }));
+        this.setState({
+            claim: { ...this.state.claim, [name]: value }
+        });
     };
+
+    handleUpdateFiles = (fileItems) => {
+        const files = fileItems.map(fileItem => fileItem.file);
+        this.setState(state => ({
+            claim: { ...state.claim, files: files}
+        }));
+    }
+
+    handleSubmit = (e) => {
+        alert(JSON.stringify(this.state.claim));
+        console.log(this.state.claim.files);
+        e.preventDefault();
+    }
 
     handleNext = () => {
         this.setState({
@@ -175,6 +190,7 @@ class ClaimProcessPage extends Component {
 
         return (
             <div>
+
                 <Header
                     absolute
                     fixed
@@ -195,9 +211,12 @@ class ClaimProcessPage extends Component {
                             activeStep={activeStep}
                             classes={classes}
                             handleChange={this.handleChange}
+                            handleUpdateFiles={this.handleUpdateFiles}
+                            handleSubmit={this.handleSubmit}
                             t={t}
                             claim={claim}
                         />
+
                     </div>
                 </div>
             </div>
