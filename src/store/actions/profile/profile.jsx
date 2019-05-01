@@ -181,8 +181,6 @@ export const updateProfile = (profile) => (dispatch) => {
     })
     .then(response => response.json())
     .then(response => {
-        console.log('response:');
-        console.log(response);
         if (response.success) {
             dispatch(receiveUpdateProfile(response));
         } else {

@@ -9,7 +9,6 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import CustomSelect from "components/CustomSelect/CustomSelect.jsx";
 import Popover from 'components/Popover/Popover.jsx';
 import Datetime from "react-datetime";
-import CustomFileInput from "components/CustomFileInput/CustomFileInput.jsx";
 import FilePond from 'components/FilePond/FilePond.jsx';
 
 class FillingDetailsSection extends Component {
@@ -71,10 +70,12 @@ class FillingDetailsSection extends Component {
             <GridContainer>
                 <GridItem sm={12}>
                     <h2 className={classes.subTitle}>{t('claimProcessPage.form.informationTitile')}</h2>
-                    {JSON.stringify(claim)}
                 </GridItem>
                 <GridItem sm={8}>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={(e) => {
+                        handleSubmit(e);
+                        handleNext();
+                    }}>
                         <GridContainer spacing={32}>
                             <GridItem md={4} sm={6}>
                                 <CustomInput
@@ -134,7 +135,14 @@ class FillingDetailsSection extends Component {
                                 <br />
                                 <FormControl fullWidth>
                                     <Datetime
-                                        inputProps={{
+                                        onChange={(date) => handleChange({
+                                            target: {
+                                                name: 'date',
+                                                value: date
+                                            }
+                                        })}
+                                        value={claim.date}
+                                        formControlProps={{
                                             required: true
                                         }}
                                     />

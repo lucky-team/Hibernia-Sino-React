@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import { withTranslation } from 'react-i18next';
 import withStyles from "@material-ui/core/styles/withStyles";
+import { withRouter } from "react-router-dom";
+import * as BaseUrl from 'routes/BaseUrl.jsx';
 
 import { Stepper, Step, StepLabel } from '@material-ui/core';
 
@@ -47,6 +49,7 @@ const StepContent = ({ ...props }) => {
         handleUpdateFiles,
         handleSubmit,
         handleNext,
+        history,
         t,
         claim
     } = props;
@@ -73,6 +76,13 @@ const StepContent = ({ ...props }) => {
                     claim={claim}
                 />
             );
+        case 2:
+            setTimeout(() => {
+                history.push(BaseUrl.myInsurancesUrl)
+            }, 5000);
+            return (
+                <div>Success</div>
+            );
     }
 }
 
@@ -88,6 +98,7 @@ const ClaimBody = ({ ...props }) => {
         handleChange,
         handleUpdateFiles,
         handleSubmit,
+        history,
         claim
     } = props;
 
@@ -111,6 +122,7 @@ const ClaimBody = ({ ...props }) => {
                 handleNext={handleNext}
                 t={t}
                 claim={claim}
+                history={history}
             />
         </div>
     );
@@ -128,7 +140,7 @@ class ClaimProcessPage extends Component {
                 reason: '',
                 type: '',
                 date: '',
-                insurance: 1234
+                insurance: ''
             }
         }
     };
@@ -137,6 +149,15 @@ class ClaimProcessPage extends Component {
         console.log('Mount: claim process page');
         const { t } = this.props;
         document.title = `${t('claimProcessPage.pageTitle')}${t('general.titleConnector')}${t('general.titleSign')}`;
+        const pathname = window.location.href;
+        let insuranceIdIndex = pathname.indexOf('#');
+        if (insuranceIdIndex === -1) {
+            this.props.history.push(BaseUrl.myInsurancesUrl);
+        }
+        let insuranceId = pathname.slice(insuranceIdIndex + 1);
+        this.setState({
+            claim: {...this.state.claim, insurance: insuranceId}
+        })
     };
 
     handleChange = e => {
@@ -156,6 +177,7 @@ class ClaimProcessPage extends Component {
     handleSubmit = (e) => {
         alert(JSON.stringify(this.state.claim));
         console.log(this.state.claim.files);
+        this.props.fileClaim(this.state.claim);
         e.preventDefault();
     }
 
@@ -179,7 +201,7 @@ class ClaimProcessPage extends Component {
     };
 
     render() {
-        const { t, classes, handleChange } = this.props;
+        const { t, classes, history } = this.props;
         const { activeStep, claim } = this.state;
 
         const steps = [
@@ -215,6 +237,7 @@ class ClaimProcessPage extends Component {
                             handleSubmit={this.handleSubmit}
                             t={t}
                             claim={claim}
+                            history={history}
                         />
 
                     </div>
@@ -224,4 +247,4 @@ class ClaimProcessPage extends Component {
     }
 }
 
-export default withTranslation()(withStyles(claimProcessPageStyle)(ClaimProcessPage));
+export default withRouter(withTranslation()(withStyles(claimProcessPageStyle)(ClaimProcessPage)));

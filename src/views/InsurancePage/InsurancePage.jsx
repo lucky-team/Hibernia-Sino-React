@@ -4,6 +4,8 @@ import moment from 'moment';
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from 'classnames';
 import { List, ListItem, Tooltip, Checkbox } from '@material-ui/core';
+import { withRouter } from "react-router-dom";
+import * as BaseUrl from 'routes/BaseUrl.jsx';
 
 import Header from 'views/Header/Header.jsx';
 
@@ -42,7 +44,11 @@ const ParallaxSection = ({ t, classes }) => (
     </Parallax>
 );
 
-const RenderTable = ({ classes, content, t }) => {
+const fileClaim = (insuranceId, history) => {
+    history.push(BaseUrl.claimProcessUrl + `#${insuranceId}`);
+}
+
+const RenderTable = ({ classes, content, t, history }) => {
     console.log('Mount: render table');
     if (content) {
         const dataList = content.map((item, key) => {
@@ -58,8 +64,20 @@ const RenderTable = ({ classes, content, t }) => {
                 moment(item.startDate).format('LL').toString(),
                 moment(item.expireDate).format('LL').toString(),
                 <div>
-                    <Button>{t('insurancePage.table.check')}</Button>
-                    <Button>{t('insurancePage.table.claim')}</Button>
+                    
+                    {item.claim ?
+                        <Button>{t('insurancePage.table.claiming')}</Button>
+                        : (
+                        <>
+                            <Button>{t('insurancePage.table.check')}</Button>
+                            <Button
+                                onClick={() => {
+                                    fileClaim(item._id, history);
+                                }}
+                            >{t('insurancePage.table.claim')}</Button>
+                        </>
+                        )
+                    }
                 </div>
             ];
         })
@@ -100,7 +118,7 @@ const RenderTable = ({ classes, content, t }) => {
     
 }
 
-const NavPillSection = ({ classes, t, content, page, rowsPerPage }) => {
+const NavPillSection = ({ classes, t, content, page, rowsPerPage, history }) => {
     console.log(`length: ${content.length}`);
     let allInsurances = content;
     let validInsurances = [];
@@ -145,6 +163,7 @@ const NavPillSection = ({ classes, t, content, page, rowsPerPage }) => {
                                             t={t}
                                             classes={classes}
                                             content={allInsurancesShow}
+                                            history={history}
                                         />)
                                         : null
                                     
@@ -158,6 +177,7 @@ const NavPillSection = ({ classes, t, content, page, rowsPerPage }) => {
                                             t={t}
                                             classes={classes}
                                             content={validInsurancesShow}
+                                            history={history}
                                         />)
                                         : null
                                 },
@@ -170,6 +190,7 @@ const NavPillSection = ({ classes, t, content, page, rowsPerPage }) => {
                                             t={t}
                                             classes={classes}
                                             content={invalidInsurancesShow}
+                                            history={history}
                                         />)
                                         : null
                                 }
@@ -216,7 +237,7 @@ class InsurancePage extends Component {
     }
 
     render() {
-        const { classes, t, fetchInsurances } = this.props;
+        const { classes, t, fetchInsurances, history } = this.props;
         const { content, page, rowsPerPage } = this.state;
 
         return (
@@ -241,6 +262,7 @@ class InsurancePage extends Component {
                         content={content}
                         page={page}
                         rowsPerPage={rowsPerPage}
+                        history={history}
                     />
                 </div>
             </div>
@@ -248,4 +270,4 @@ class InsurancePage extends Component {
     }
 }
 
-export default withTranslation()(withStyles(insurancePageStyle)(InsurancePage));
+export default withRouter(withTranslation()(withStyles(insurancePageStyle)(InsurancePage)));

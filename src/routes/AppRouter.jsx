@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { register, login } from 'store/actions/auth/auth.jsx';
 import { fetchProfiles, createProfile, updateProfile } from 'store/actions/profile/profile.jsx';
 import { fetchInsurances } from 'store/actions/insurance/insurance.jsx';
+import { fileClaim } from 'store/actions/claim/claim.jsx';
 import * as BaseUrl from 'routes/BaseUrl.jsx';
 import Signup from 'views/SignupPage/SignupPage.jsx';
 import Login from 'views/LoginPage/LoginPage.jsx';
@@ -28,7 +29,8 @@ const mapDispatchToProps = dispatch => ({
     fetchProfiles: (query) => dispatch(fetchProfiles(query)),
     createProfile: (profile) => dispatch(createProfile(profile)),
     updateProfile: (profile) => dispatch(updateProfile(profile)),
-    fetchInsurances: (query) => dispatch(fetchInsurances(query))
+    fetchInsurances: (query) => dispatch(fetchInsurances(query)),
+    fileClaim: (claim) => dispatch(fileClaim(claim))
 });
 
 class AppRouter extends Component {
@@ -43,7 +45,7 @@ class AppRouter extends Component {
 
     render () {
         const { register, login, auth, fetchProfiles, profile, createProfile,
-            updateProfile, insurance, fetchInsurances } = this.props;
+            updateProfile, insurance, fetchInsurances, fileClaim } = this.props;
 
         const SignupPage = () => (
             <Signup register={register} auth={auth} />
@@ -71,7 +73,7 @@ class AppRouter extends Component {
 
         const ClaimProcessPage = () => (
             <ClaimProcess
-
+                fileClaim={fileClaim}
             />
         );
 
