@@ -1,5 +1,5 @@
-import ClaimTypes from 'store/actions/claim/ClaimTypes.jsx';
-import AuthTypes from 'store/actions/auth/AuthTypes.jsx';
+import ClaimTypes from 'redux/actions/claim/ClaimTypes.jsx';
+import AuthTypes from 'redux/actions/auth/AuthTypes.jsx';
 
 const defaultState = {
     isLoading: false,

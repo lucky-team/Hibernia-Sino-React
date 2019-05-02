@@ -1,6 +1,6 @@
-import InsuranceTypes from 'store/actions/insurance/InsuranceTypes.jsx';
+import InsuranceTypes from 'redux/actions/insurance/InsuranceTypes.jsx';
 import { baseUrl } from 'routes/BaseUrl.jsx';
-import { CatchCodes } from 'store/actions/settings.jsx';
+import { CatchCodes } from 'redux/actions/settings.jsx';
 
 // ******* fetch insurances *******
 

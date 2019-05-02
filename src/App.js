@@ -4,7 +4,7 @@ import { default as i18nSetting } from "i18n.jsx";
 import { I18nextProvider, useTranslation } from "react-i18next";
 import { Provider } from 'react-redux';
 import { SnackbarProvider, useSnackbar } from 'notistack';
-import ConfigureStore from 'store/config/configureStore.jsx';
+import ConfigureStore from 'redux/config/configureStore.jsx';
 import moment from 'moment';
 import "assets/scss/material-kit-pro-react.scss?v=1.3.0";
 import momentLocale from 'moment/locale/zh-cn';
@@ -13,7 +13,7 @@ const store = ConfigureStore();
 moment.updateLocale('cn', momentLocale);
 
 const App  = (...props) => {
-    const [locale, setLocale] = useState('en');
+    const [locale, setLocale] = useState('cn');
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     useEffect(() => {

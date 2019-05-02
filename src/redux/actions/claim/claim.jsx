@@ -1,6 +1,6 @@
-import ClaimTypes from 'store/actions/claim/ClaimTypes';
+import ClaimTypes from 'redux/actions/claim/ClaimTypes';
 import { baseUrl } from 'routes/BaseUrl.jsx';
-import { CatchCodes } from 'store/actions/settings.jsx';
+import { CatchCodes } from 'redux/actions/settings.jsx';
 import moment from 'moment';
 import axios from 'axios';
 

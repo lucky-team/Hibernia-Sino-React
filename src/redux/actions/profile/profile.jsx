@@ -1,6 +1,6 @@
-import ProfileTypes from 'store/actions/profile/ProfileTypes.jsx';
+import ProfileTypes from 'redux/actions/profile/ProfileTypes.jsx';
 import { baseUrl } from 'routes/BaseUrl.jsx';
-import { CatchCodes } from 'store/actions/settings.jsx';
+import { CatchCodes } from 'redux/actions/settings.jsx';
 
 // ******* fetch profile *******
 

@@ -1,8 +1,8 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import Auth from 'store/reducers/auth.jsx';
-import Profile from 'store/reducers/profile.jsx';
-import Insurance from 'store/reducers/insurance.jsx';
-import Claim from 'store/reducers/claim.jsx';
+import Auth from 'redux/reducers/auth.jsx';
+import Profile from 'redux/reducers/profile.jsx';
+import Insurance from 'redux/reducers/insurance.jsx';
+import Claim from 'redux/reducers/claim.jsx';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 

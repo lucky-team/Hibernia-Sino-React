@@ -1,4 +1,4 @@
-import AuthTypes from 'store/actions/auth/AuthTypes.jsx';
+import AuthTypes from 'redux/actions/auth/AuthTypes.jsx';
 
 const defualtState = {
     isLoading: false,

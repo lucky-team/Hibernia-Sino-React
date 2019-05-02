@@ -91,6 +91,9 @@
             "save": "保存修改",
             "cancel": "取消",
             "saveSuccess": "保存成功"
+        },
+        "msg": {
+            "Profile Update Successful!": "个人资料更新成功!"
         }
     },
 

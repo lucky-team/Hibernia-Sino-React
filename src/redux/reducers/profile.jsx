@@ -1,6 +1,5 @@
-import ProfileTypes from 'store/actions/profile/ProfileTypes.jsx';
-import CommonTypes from 'store/actions/CommonTypes.jsx';
-import AuthTypes from 'store/actions/auth/AuthTypes.jsx';
+import ProfileTypes from 'redux/actions/profile/ProfileTypes.jsx';
+import AuthTypes from 'redux/actions/auth/AuthTypes.jsx';
 
 const defaultState = {
     isLoading: false,
@@ -74,17 +73,6 @@ export default (state = defaultState, action) => {
                 err: action.err
             }
         }
-        case CommonTypes.CLEAR_ERROR:
-            return {...state,
-                err: null
-            };
-        case CommonTypes.CLEAR_STORE:
-            return {
-                isLoading: false,
-                content: [],
-                self: null,
-                err: null
-            };
         case AuthTypes.LOGOUT_USER:
             return defaultState;
         default:

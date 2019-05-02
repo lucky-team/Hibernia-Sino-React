@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import classNames from "classnames";
+import i18next from 'i18next';
 import { withTranslation } from 'react-i18next';
 import withStyles from "@material-ui/core/styles/withStyles";
 
@@ -51,23 +52,30 @@ class ProfilePage extends Component {
     }
 
     componentDidMount() {
-        document.title = this.props.t('profilePage.pageTitle');
-        const { profile, emitMessage } = this.props;
+        const { t, profile, emitMessage } = this.props;
+        document.title = t('profilePage.pageTitle');
         if (profile.self === null) {
             this.resetEmptyProfile();
         } else if (Array.isArray(profile.self)) {
-            emitMessage(this.props.t('profilePage.tips'), 'warning');
+            emitMessage(t('profilePage.tips'), 'warning');
             this.resetEmptyProfile();
         } else {
             this.resetProfile();
         }
 
         if (profile.msg) {
-            emitMessage(profile.msg);
+            this.emitProfileMsg(profile.msg, 'success');
         } else if (profile.err) {
-            emitMessage(profile.err, 'warning');
+            this.emitProfileMsg(profile.err, 'warning');
         }
         console.log('Mount: profile page');
+    }
+
+    emitProfileMsg = (msg, invariant) => {
+        const { t, emitMessage }  = this.props;
+        const text = i18next.exists(`profilePage.msg.${msg}`)
+            ? t(`profilePage.msg.${msg}`) : msg;
+        emitMessage(text, invariant);
     }
 
     handleChange(event) {
@@ -81,6 +89,7 @@ class ProfilePage extends Component {
         event.preventDefault();
         const self = this.props.profile.self;
         const profile = this.state.profile;
+        const emitMessage = this.props.emitMessage;
         
         const { dialCode, ...newProfile } = {
             ...profile,
@@ -88,10 +97,11 @@ class ProfilePage extends Component {
         };
         if (Array.isArray(self)) {
             this.props.createProfile(newProfile);
-            alert('create');
+            emitMessage('create');
+
         } else {
             this.props.updateProfile(newProfile);
-            alert('update');
+            emitMessage('update');
         }
     }
 

@@ -1,0 +1,4 @@
+export default {
+    'ENQUEUE_SNACKBAR': 'ENQUEUE_SNACKBAR',
+    'REMOVE_SNACKBAR': 'REMOVE_SNACKBAR'
+}

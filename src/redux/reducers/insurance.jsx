@@ -1,5 +1,5 @@
-import InsuranceTypes from 'store/actions/insurance/InsuranceTypes';
-import AuthTypes from 'store/actions/auth/AuthTypes.jsx';
+import InsuranceTypes from 'redux/actions/insurance/InsuranceTypes';
+import AuthTypes from 'redux/actions/auth/AuthTypes.jsx';
 
 const defaultState = {
     isLoading: false,

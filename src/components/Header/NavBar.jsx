@@ -10,7 +10,7 @@ import navbarsStyle from "assets/jss/material-kit-pro-react/views/navbarsStyle.j
 import { useTranslation } from 'react-i18next';
 import { withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
-import { logout, register } from 'store/actions/auth/auth.jsx';
+import { logout, register } from 'redux/actions/auth/auth.jsx';
 
 const mapStateToProps = state => {
     return {
