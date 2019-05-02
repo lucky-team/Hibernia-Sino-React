@@ -119,6 +119,15 @@ import {
     },
     textRight: {
       textAlign: "right"
+    },
+    justifyContentCenter: {
+      WebkitBoxPack: "center !important",
+      MsFlexPack: "center !important",
+      justifyContent: "center !important"
+    },
+    pagination: {
+      paddingTop: '50px',
+      paddingBottom: '20px'
     }
   };
   

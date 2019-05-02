@@ -179,7 +179,7 @@ CustomTable.propTypes = {
     "rose",
     "gray"
   ]),
-  tableHead: PropTypes.arrayOf(PropTypes.string),
+  tableHead: PropTypes.array,
   // Of(PropTypes.arrayOf(PropTypes.node)) || Of(PropTypes.object),
   tableData: PropTypes.array,
   hover: PropTypes.bool,
