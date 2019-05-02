@@ -52,20 +52,20 @@ class ProfilePage extends Component {
 
     componentDidMount() {
         document.title = this.props.t('profilePage.pageTitle');
-        const { profile } = this.props;
+        const { profile, emitMessage } = this.props;
         if (profile.self === null) {
             this.resetEmptyProfile();
         } else if (Array.isArray(profile.self)) {
-            alert(this.props.t('profilePage.tips'));
+            emitMessage(this.props.t('profilePage.tips'), 'warning');
             this.resetEmptyProfile();
         } else {
             this.resetProfile();
         }
 
         if (profile.msg) {
-            alert(profile.msg);
+            emitMessage(profile.msg);
         } else if (profile.err) {
-            alert(profile.err);
+            emitMessage(profile.err, 'warning');
         }
         console.log('Mount: profile page');
     }
@@ -81,7 +81,7 @@ class ProfilePage extends Component {
         event.preventDefault();
         const self = this.props.profile.self;
         const profile = this.state.profile;
-
+        
         const { dialCode, ...newProfile } = {
             ...profile,
             phone: `${profile.dialCode} ${profile.phone}`
