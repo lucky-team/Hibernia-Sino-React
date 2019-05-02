@@ -72,7 +72,7 @@ class Signup extends Component {
     }
 
     render() {
-        const { classes, t, ...rest } = this.props;
+        const { classes, t, changeLocale, ...rest } = this.props;
         const { username, password } = this.state;
         const infos = Infos(t);
 
@@ -81,6 +81,7 @@ class Signup extends Component {
                 <Header
                     absolute
                     color='transparent'
+                    changeLocale={changeLocale}
                     {...rest}
                 />
                 <div

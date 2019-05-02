@@ -10,7 +10,9 @@
         "myInsurances": "我的保单",
         "myClaims": "我的理赔",
         "aboutus": "关于我们",
-        "signup": "注册"
+        "signup": "注册",
+        "cn": "Chinese",
+        "en": "English"
     },
 
     "footer": {

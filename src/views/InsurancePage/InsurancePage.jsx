@@ -226,7 +226,7 @@ class InsurancePage extends Component {
     }
 
     render() {
-        const { classes, t, history } = this.props;
+        const { classes, t, history, changeLocale } = this.props;
         const { content, page, rowsPerPage } = this.state;
 
         return (
@@ -239,6 +239,7 @@ class InsurancePage extends Component {
                         height: 220,
                         color: 'primary'
                     }}
+                    changeLocale={changeLocale}
                 />
                 <ParallaxSection
                     classes={classes}

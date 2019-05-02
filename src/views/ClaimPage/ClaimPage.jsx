@@ -391,7 +391,7 @@ class ClaimPage extends Component {
     }
 
     render() {
-        const { classes, t,  history } = this.props;
+        const { classes, t,  history, changeLocale } = this.props;
         const { insurances, claims, page, rowsPerPage, order, orderBy } = this.state;
         return (
             <div>
@@ -403,6 +403,7 @@ class ClaimPage extends Component {
                         height: 220,
                         color: 'primary'
                     }}
+                    changeLocale={changeLocale}
                 />
                 <ParallaxSection
                     classes={classes}

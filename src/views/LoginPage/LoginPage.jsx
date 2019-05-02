@@ -51,7 +51,7 @@ class LoginPage extends Component {
     }
 
     render() {
-        const { classes, t } = this.props;
+        const { classes, t, changeLocale } = this.props;
         const { username, password } = this.state;
 
         const Socials = () => (
@@ -85,6 +85,7 @@ class LoginPage extends Component {
                 <Header
                     absolute
                     color='transparent'
+                    changeLocale={changeLocale}
                 />
                 <div
                     className={classes.pageHeader}

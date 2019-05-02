@@ -201,7 +201,7 @@ class ClaimProcessPage extends Component {
     };
 
     render() {
-        const { t, classes, history } = this.props;
+        const { t, classes, history, changeLocale } = this.props;
         const { activeStep, claim } = this.state;
 
         const steps = [
@@ -221,6 +221,7 @@ class ClaimProcessPage extends Component {
                         height: 220,
                         color: 'primary'
                     }}
+                    changeLocale={changeLocale}
                 />
                 <ParallaxSection t={t} classes={classes} />
                 <div className={classNames(classes.main, classes.mainRaised)}>

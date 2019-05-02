@@ -5,6 +5,7 @@ import NavBar from 'components/Header/NavBar.jsx';
 import * as BaseUrl from 'routes/BaseUrl.jsx';
 
 const Header = ({ ...props }) => {
+    const { changeLocale, ...rest } = props;
     const { t } = useTranslation();
 
     const navs = [
@@ -30,8 +31,8 @@ const Header = ({ ...props }) => {
         <BaseHeader 
             color='primary'
             brand={t('header.brand')}
-            links={<NavBar navs={navs} />}
-            {...props}
+            links={<NavBar navs={navs} changeLocale={changeLocale} />}
+            {...rest}
         />
     );
 }

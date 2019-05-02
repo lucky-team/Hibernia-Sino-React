@@ -1,6 +1,6 @@
 import React from 'react';
 import { List, ListItem } from '@material-ui/core';
-import { AccountCircle } from '@material-ui/icons';
+import { AccountCircle, Language } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
 import Button from 'components/CustomButtons/Button.jsx';
@@ -24,8 +24,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const NavBar = (props) => {
-    const { classes, navs, history, auth } = props;
-    const { t } = useTranslation();
+    const { classes, navs, history, auth, changeLocale } = props;
+    const { t, i18n } = useTranslation();
 
     const exit = () => {
         localStorage.clear();
@@ -112,10 +112,48 @@ const NavBar = (props) => {
         }
     }
 
+    const LanguageItem = () => {
+        return (
+            <ListItem className={classes.listItem}>
+                <CustomDropdown
+                    noLiPadding
+                    navDropDown
+                    hoverColor='primary'
+                    buttonProps={{
+                        className: classes.navLink,
+                        color: "transparent"
+                    }}
+                    buttonIcon={Language}
+                    dropdownList={[
+                        <Button
+                            color='transparent'
+                            className={classes.navButton}
+                            onClick={() => changeLocale('cn')}
+                            fullWidth
+                            round
+                        >
+                            {t('header.cn')}
+                        </Button>,
+                        <Button
+                            color='transparent'
+                            className={classes.navButton}
+                            onClick={() => changeLocale('en')}
+                            fullWidth
+                            round
+                        >
+                            {t('header.en')}
+                        </Button>
+                    ]}
+                />
+            </ListItem>
+        );
+    }
+
     return (
         <List className={classes.list + " " + classes.mlAuto}>
             {navItems}
             <Account />
+            <LanguageItem />
         </List>
     );
 }

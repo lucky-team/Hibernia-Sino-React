@@ -130,7 +130,7 @@ class ProfilePage extends Component {
     }
 
     render() {
-        const { classes, t } = this.props;
+        const { classes, t, changeLocale } = this.props;
         const { profile } = this.state;
         const imageClasses = classNames(
             classes.imgRaised,
@@ -148,6 +148,7 @@ class ProfilePage extends Component {
                         height: 220,
                         color: 'primary'
                     }}
+                    changeLocale={changeLocale}
                 />
                 <Parallax
                     image={require('assets/img/city.jpg')}

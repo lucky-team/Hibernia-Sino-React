@@ -49,14 +49,22 @@ class AppRouter extends Component {
 
     render () {
         const { register, login, auth, fetchProfiles, profile, createProfile,
-            updateProfile, insurance, fileClaim, claim } = this.props;
+            updateProfile, insurance, fileClaim, claim, changeLocale } = this.props;
 
         const SignupPage = () => (
-            <Signup register={register} auth={auth} />
+            <Signup
+                register={register}
+                auth={auth}
+                changeLocale={changeLocale}
+            />
         );
         
         const LoginPage = () => (
-            <Login login={login} auth={auth} />
+            <Login
+                login={login}
+                auth={auth}
+                changeLocale={changeLocale}
+            />
         );
 
         const ProfilePage = () => (
@@ -65,18 +73,21 @@ class AppRouter extends Component {
                 fetchProfiles={fetchProfiles}
                 createProfile={createProfile}
                 updateProfile={updateProfile}
+                changeLocale={changeLocale}
             />
         );
 
         const InsurancePage = () => (
             <Insurance
                 insurance={insurance}
+                changeLocale={changeLocale}
             />
         );
 
         const ClaimProcessPage = () => (
             <ClaimProcess
                 fileClaim={fileClaim}
+                changeLocale={changeLocale}
             />
         );
 
@@ -84,6 +95,7 @@ class AppRouter extends Component {
             <Claim
                 insurance={insurance}
                 claim={claim}
+                changeLocale={changeLocale}
             />
         );
 
