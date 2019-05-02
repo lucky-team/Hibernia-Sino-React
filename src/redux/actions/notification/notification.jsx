@@ -1,7 +1,7 @@
-import CommonTpyes from 'redux/actions/CommonTypes';
+import NotificationTypes from 'redux/actions/notification/NotificationTypes.jsx';
 
 export const enqueueSnackbar = notification => ({
-    type: 'ENQUEUE_SNACKBAR',
+    type: NotificationTypes.ENQUEUE_SNACKBAR,
     notification: {
         key: new Date().getTime() + Math.random(),
         ...notification,
@@ -9,6 +9,6 @@ export const enqueueSnackbar = notification => ({
 });
 
 export const removeSnackbar = key => ({
-    type: 'REMOVE_SNACKBAR',
+    type: NotificationTypes.REMOVE_SNACKBAR,
     key,
 });

@@ -25,15 +25,10 @@ const App  = (...props) => {
         setLocale(newLocale);
     }
 
-    const emitMessage = (msg, variant='info') => {
-        enqueueSnackbar(msg, { variant });
-    }
-
     return (
         <AppRouter
             changeLocale={changeLocale}
             locale={locale}
-            emitMessage={emitMessage}
             {...props}
         />
     );
@@ -42,7 +37,7 @@ const App  = (...props) => {
 const AppWithProvider = () => (
     <Provider store={store}>
         <I18nextProvider i18n={i18nSetting}>
-            <SnackbarProvider maxSnack={5}>
+            <SnackbarProvider maxSnack={3}>
                 <App />
             </SnackbarProvider>
         </I18nextProvider>

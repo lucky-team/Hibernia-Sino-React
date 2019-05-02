@@ -152,8 +152,8 @@ const NavBar = (props) => {
     return (
         <List className={classes.list + " " + classes.mlAuto}>
             {navItems}
-            <Account />
             <LanguageItem />
+            <Account />
         </List>
     );
 }

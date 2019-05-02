@@ -112,16 +112,13 @@ const RenderTable = ({ classes, content, t, history }) => {
             <div>No content</div>
         );
     }
-
-    
 }
 
 const NavPillSection = ({ classes, t, content, page, rowsPerPage, history }) => {
-    console.log(`length: ${content.length}`);
     let allInsurances = content;
     let activeValidInsurances = [];
     let inactiveInsurances = [];
-    if (content.length !== 0) {
+    if (content !== null && content.length !== 0) {
         allInsurances.map(n => {
             if (moment(n.expireDate).diff(moment()) >= 0) {
                 activeValidInsurances.push(n);
@@ -191,10 +188,8 @@ const NavPillSection = ({ classes, t, content, page, rowsPerPage, history }) => 
             </div>
         );
     } else {
-        return (<div>test</div>);
+        return (<div>No content</div>);
     }
-
-    
 }
 
 class InsurancePage extends Component {
@@ -210,14 +205,24 @@ class InsurancePage extends Component {
 
     componentDidMount() {
         console.log('Mount: insurance page');
-        const { t, insurance } = this.props;
+        const { t, insurance, enqueueSnackbar, history, auth } = this.props;
         document.title = `${t('insurancePage.pageTitle')}${t('general.titleConnector')}${t('general.titleSign')}`;
-        if (insurance.content === null) {
-            // TODO
-        } else {
+        if (auth.isAuthenticated) {
+            if (insurance.content === null) {
+                // TODO
+            }
             this.setState({
                 content: insurance.content
             });
+        } else {
+            enqueueSnackbar({
+                message: 'Please sign in!',
+                options: {
+                    variant: 'warning',
+                },
+                field: 'actions.auth'
+            });
+            history.push(BaseUrl.loginUrl);
         }
     }
 
@@ -226,7 +231,7 @@ class InsurancePage extends Component {
     }
 
     render() {
-        const { classes, t, history, changeLocale } = this.props;
+        const { classes, t, history, changeLocale, enqueueSnackbar } = this.props;
         const { content, page, rowsPerPage } = this.state;
 
         return (

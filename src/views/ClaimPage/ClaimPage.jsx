@@ -344,21 +344,32 @@ class ClaimPage extends Component {
 
     componentDidMount() {
         console.log('Mount: claim page');
-        const { t, insurance, claim } = this.props;
+        const { t, insurance, claim, auth, enqueueSnackbar, history } = this.props;
         document.title = `${t('claimPage.pageTitle')}${t('general.titleConnector')}${t('general.titleSign')}`;
-        if (insurance.content === null) {
-            // TODO
+        if (auth.isAuthenticated) {
+            if (insurance.content === null) {
+                // TODO
+            } else {
+                this.setState({
+                    insurances: insurance.content
+                });
+            }
+            if (claim === null) {
+                // TODO
+            } else {
+                this.setState({
+                    claims: claim.content
+                });
+            }
         } else {
-            this.setState({
-                insurances: insurance.content
+            enqueueSnackbar({
+                message: 'Please sign in!',
+                options: {
+                    variant: 'warning',
+                },
+                field: 'actions.auth'
             });
-        }
-        if (claim === null) {
-            // TODO
-        } else {
-            this.setState({
-                claims: claim.content
-            });
+            history.push(BaseUrl.loginUrl);
         }
         
     }

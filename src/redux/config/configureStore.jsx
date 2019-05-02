@@ -3,6 +3,7 @@ import Auth from 'redux/reducers/auth.jsx';
 import Profile from 'redux/reducers/profile.jsx';
 import Insurance from 'redux/reducers/insurance.jsx';
 import Claim from 'redux/reducers/claim.jsx';
+import Notification from 'redux/reducers/notification.jsx';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
@@ -12,7 +13,8 @@ export default () => {
             auth: Auth,
             profile: Profile,
             insurance: Insurance,
-            claim: Claim
+            claim: Claim,
+            notification: Notification
         }),
         applyMiddleware(thunk, logger)
     );

@@ -3,6 +3,7 @@ import * as BaseUrl from 'routes/BaseUrl.jsx';
 import { CatchCodes } from 'redux/actions/settings.jsx';
 import { fetchProfiles } from 'redux/actions/profile/profile.jsx';
 import { fetchInsurances } from 'redux/actions/insurance/insurance.jsx';
+import { enqueueSnackbar } from 'redux/actions/notification/notification.jsx';
 
 export const logout = () => {
     return {
@@ -110,7 +111,20 @@ export const login = (creds) => (dispatch) => {
             if (response.employee) {
                 localStorage.setItem('employee', 1);
             }
-            dispatch(receiveLogin(response.msg));
+            dispatch(receiveLogin({
+                message: response.msg,
+                options: {
+                    variant: 'success',
+                },
+                field: 'actions.auth'
+            }));
+            dispatch(enqueueSnackbar({
+                message: response.msg,
+                options: {
+                    variant: 'success',
+                },
+                field: 'actions.auth'
+            }))
             dispatch(fetchProfiles());
             dispatch(fetchInsurances());
         } else {

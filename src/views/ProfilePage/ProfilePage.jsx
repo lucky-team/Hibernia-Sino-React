@@ -3,6 +3,7 @@ import classNames from "classnames";
 import i18next from 'i18next';
 import { withTranslation } from 'react-i18next';
 import withStyles from "@material-ui/core/styles/withStyles";
+import { withRouter } from "react-router-dom";
 
 import { InputAdornment } from '@material-ui/core';
 
@@ -17,6 +18,7 @@ import CustomSelect from "components/CustomSelect/CustomSelect.jsx";
 
 import marc from "assets/img/marc.jpg";
 import CountryCode from 'assets/locales/countryCode.json';
+import * as BaseUrl from 'routes/BaseUrl.jsx';
 
 
 import profilePageStyle from "assets/jss/material-kit-pro-react/views/profilePageStyle.jsx";
@@ -52,30 +54,28 @@ class ProfilePage extends Component {
     }
 
     componentDidMount() {
-        const { t, profile, emitMessage } = this.props;
-        document.title = t('profilePage.pageTitle');
-        if (profile.self === null) {
-            this.resetEmptyProfile();
-        } else if (Array.isArray(profile.self)) {
-            emitMessage(t('profilePage.tips'), 'warning');
-            this.resetEmptyProfile();
-        } else {
-            this.resetProfile();
-        }
-
-        if (profile.msg) {
-            this.emitProfileMsg(profile.msg, 'success');
-        } else if (profile.err) {
-            this.emitProfileMsg(profile.err, 'warning');
-        }
         console.log('Mount: profile page');
-    }
-
-    emitProfileMsg = (msg, invariant) => {
-        const { t, emitMessage }  = this.props;
-        const text = i18next.exists(`profilePage.msg.${msg}`)
-            ? t(`profilePage.msg.${msg}`) : msg;
-        emitMessage(text, invariant);
+        const { t, profile, auth, enqueueSnackbar, history } = this.props;
+        document.title = t('profilePage.pageTitle');
+        if (auth.isAuthenticated) {
+            if (profile.self === null) {
+                this.resetEmptyProfile();
+            } else if (Array.isArray(profile.self)) {
+                enqueueSnackbar(t('profilePage.tips'), 'warning');
+                this.resetEmptyProfile();
+            } else {
+                this.resetProfile();
+            }
+        } else {
+            enqueueSnackbar({
+                message: 'Please sign in!',
+                options: {
+                    variant: 'warning',
+                },
+                field: 'actions.auth'
+            });
+            history.push(BaseUrl.loginUrl);
+        }
     }
 
     handleChange(event) {
@@ -87,22 +87,12 @@ class ProfilePage extends Component {
 
     handleSave(event) {
         event.preventDefault();
-        const self = this.props.profile.self;
         const profile = this.state.profile;
-        const emitMessage = this.props.emitMessage;
         
         const { dialCode, ...newProfile } = {
             ...profile,
             phone: `${profile.dialCode} ${profile.phone}`
         };
-        if (Array.isArray(self)) {
-            this.props.createProfile(newProfile);
-            emitMessage('create');
-
-        } else {
-            this.props.updateProfile(newProfile);
-            emitMessage('update');
-        }
     }
 
     resetEmptyProfile() {
@@ -388,4 +378,4 @@ class ProfilePage extends Component {
     }
 }
 
-export default withTranslation()(withStyles(profilePageStyle)(ProfilePage));
+export default withRouter(withTranslation()(withStyles(profilePageStyle)(ProfilePage)));
