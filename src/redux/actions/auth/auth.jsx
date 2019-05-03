@@ -85,10 +85,11 @@ export const requestLogin = (username) => {
     }
 }
 
-export const receiveLogin = (msg) => {
+export const receiveLogin = ({ msg, employee}) => {
     return {
         type: AuthTypes.LOGIN_SUCCESS,
-        msg: msg
+        msg: msg,
+        employee: employee
     }
 }
 
@@ -127,11 +128,8 @@ export const login = (creds, history) => (dispatch) => {
                 localStorage.setItem('employee', 1);
             }
             dispatch(receiveLogin({
-                message: response.msg,
-                options: {
-                    variant: 'success',
-                },
-                field: 'actions.auth'
+                msg: response.msg,
+                employee: response.employee
             }));
             dispatch(enqueueSnackbar({
                 message: response.msg,

@@ -37,6 +37,7 @@ export default (state = defualtState, action) => {
             return {...state,
                 isLoading: false,
                 isAuthenticated: true,
+                employee: action.employee,
                 err: null
             };
         case AuthTypes.LOGIN_FAILURE:

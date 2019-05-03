@@ -7,10 +7,12 @@
     "header": {
         "brand": "Hibernia-Sino",
         "home": "首页",
+        "employee": "员工",
         "myInsurances": "我的保单",
         "myClaims": "我的理赔",
         "aboutus": "关于我们",
         "signup": "注册",
+        "manageClaims": "管理理赔",
         "cn": "Chinese",
         "en": "English"
     },

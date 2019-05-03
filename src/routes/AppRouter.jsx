@@ -15,7 +15,6 @@ import Insurance from 'views/InsurancePage/InsurancePage.jsx';
 import ClaimProcess from 'views/ClaimProcessPage/ClaimProcessPage.jsx';
 import Claim from 'views/ClaimPage/ClaimPage.jsx';
 import Notifier from 'views/notifier.jsx';
-import { Button } from '@material-ui/core';
 
 var history = createHistory();
 

@@ -14,7 +14,6 @@ moment.updateLocale('cn', momentLocale);
 
 const App  = (...props) => {
     const [locale, setLocale] = useState('cn');
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     useEffect(() => {
         moment.locale(locale);
