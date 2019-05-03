@@ -35,7 +35,6 @@ class LoginPage extends Component {
         window.scrollTo(0, 0);
         document.body.scrollTop = 0;
         document.title = this.props.t('loginPage.pageTitle');
-        console.log(this.props);
     }
 
     handleChange(event) {
@@ -45,9 +44,8 @@ class LoginPage extends Component {
 
     handleLogin(event) {
         const { username, password } = this.state;
-        this.props.login({username: username, password: password});
+        this.props.login({username: username, password: password}, this.props.history);
         event.preventDefault();
-        this.props.history.push(BaseUrl.homeUrl);
     }
 
     render() {

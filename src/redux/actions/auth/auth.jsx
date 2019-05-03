@@ -33,7 +33,7 @@ export const registerError = (err) => {
     }
 }
 
-export const register = (creds) => (dispatch) => {
+export const register = (creds, history) => (dispatch) => {
     dispatch(requestRegister());
 
     return fetch(BaseUrl.baseUrl + 'users/signup', {
@@ -56,8 +56,23 @@ export const register = (creds) => (dispatch) => {
     .then(response => {
         if (response.success) {
             dispatch(receiveRegister(response.msg));
+            dispatch(enqueueSnackbar({
+                message: response.msg,
+                options: {
+                    variant: 'success',
+                },
+                field: 'actions.auth'
+            }));
+            history.push(BaseUrl.loginUrl);
         } else {
             dispatch(registerError(response.err));
+            dispatch(enqueueSnackbar({
+                message: response.err.message,
+                options: {
+                    variant: 'error',
+                },
+                field: 'actions.auth'
+            }));
         }
     })
     .catch(err => dispatch(registerError(err.message)));
@@ -84,7 +99,7 @@ export const loginError = (err) => {
     }
 }
 
-export const login = (creds) => (dispatch) => {
+export const login = (creds, history) => (dispatch) => {
     dispatch(requestLogin(creds.username));
 
     return fetch(BaseUrl.baseUrl + 'users/login', {
@@ -124,9 +139,10 @@ export const login = (creds) => (dispatch) => {
                     variant: 'success',
                 },
                 field: 'actions.auth'
-            }))
+            }));
             dispatch(fetchProfiles());
             dispatch(fetchInsurances());
+            history.push(BaseUrl.profileUrl);
         } else {
             dispatch(loginError(response.err));
         }

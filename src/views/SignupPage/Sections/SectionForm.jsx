@@ -176,12 +176,11 @@ class SectionForm extends Component {
                         >
                             {t('signupPage.form.login')}
                         </Button>
-                        <Button type='submit'
+                        <Button
+                            type='submit'
                             round
                             color="primary"
                             size="lg"
-                            component={NavLink}
-                            to={BaseUrl.homeUrl}
                         >
                             {t('signupPage.form.register')}
                         </Button>

@@ -214,7 +214,9 @@
     "actions": {
         "auth": {
             "Please sign in!": "请登录账号",
-            "Login Successfully!": "登陆成功"
+            "Login Successfully!": "登陆成功",
+            "A user with the given username is already registered": "用户名被已注册",
+            "Registration Successful!": "注册成功!"
         }
     }
     

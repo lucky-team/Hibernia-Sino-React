@@ -30,8 +30,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    register: (creds) => dispatch(register(creds)),
-    login: (creds) => dispatch(login(creds)),
+    register: (creds, history) => dispatch(register(creds, history)),
+    login: (creds, history) => dispatch(login(creds, history)),
     fetchProfiles: (query) => dispatch(fetchProfiles(query)),
     createProfile: (profile) => dispatch(createProfile(profile)),
     updateProfile: (profile) => dispatch(updateProfile(profile)),
