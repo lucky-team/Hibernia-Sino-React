@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import AppRouter from 'routes/AppRouter.jsx';
 import { default as i18nSetting } from "i18n.jsx";
-import { I18nextProvider, useTranslation } from "react-i18next";
+import { I18nextProvider } from "react-i18next";
 import { Provider } from 'react-redux';
-import { SnackbarProvider, useSnackbar } from 'notistack';
+import { SnackbarProvider } from 'notistack';
 import ConfigureStore from 'redux/config/configureStore.jsx';
 import moment from 'moment';
 import "assets/scss/material-kit-pro-react.scss?v=1.3.0";
@@ -18,12 +18,13 @@ const App  = (...props) => {
     useEffect(() => {
         moment.locale(locale);
         i18nSetting.changeLanguage(locale);
-    })
+    }, [locale]);
     
     const changeLocale = (newLocale) => {
         setLocale(newLocale);
-    }
-
+    };
+    console.log('Mount: App');
+    console.log(props);
     return (
         <AppRouter
             changeLocale={changeLocale}

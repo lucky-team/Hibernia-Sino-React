@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import { withTranslation } from 'react-i18next';
 import withStyles from "@material-ui/core/styles/withStyles";
-import { withRouter } from "react-router-dom";
 import * as BaseUrl from 'routes/BaseUrl.jsx';
 
 import { Stepper, Step, StepLabel } from '@material-ui/core';
@@ -248,4 +247,4 @@ class ClaimProcessPage extends Component {
     }
 }
 
-export default withRouter(withTranslation()(withStyles(claimProcessPageStyle)(ClaimProcessPage)));
+export default withTranslation()(withStyles(claimProcessPageStyle)(ClaimProcessPage));

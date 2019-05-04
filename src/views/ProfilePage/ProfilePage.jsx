@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import classNames from "classnames";
-import i18next from 'i18next';
 import { withTranslation } from 'react-i18next';
 import withStyles from "@material-ui/core/styles/withStyles";
-import { withRouter } from "react-router-dom";
 
 import { InputAdornment } from '@material-ui/core';
 
@@ -87,12 +85,19 @@ class ProfilePage extends Component {
 
     handleSave(event) {
         event.preventDefault();
+        const self = this.props.profile.self;
         const profile = this.state.profile;
         
         const { dialCode, ...newProfile } = {
             ...profile,
             phone: `${profile.dialCode} ${profile.phone}`
         };
+
+        if (Array.isArray(self)) {	
+            this.props.createProfile(newProfile);	
+         } else {	
+            this.props.updateProfile(newProfile);	
+        }
     }
 
     resetEmptyProfile() {
@@ -371,11 +376,10 @@ class ProfilePage extends Component {
                             </GridItem>
                         </GridContainer>
                     </div>
-
                 </div>
             </div>
         );
     }
 }
 
-export default withRouter(withTranslation()(withStyles(profilePageStyle)(ProfilePage)));
+export default withTranslation()(withStyles(profilePageStyle)(ProfilePage));

@@ -20,6 +20,104 @@ import Notifier from 'views/notifier.jsx';
 
 var history = createHistory();
 
+class AppRouter extends Component {
+    componentDidMount() {
+        console.log('Mount: App router');
+        const { auth, fetchProfiles, fetchInsurances, fetchClaims } = this.props;
+        if (auth.isAuthenticated) {
+            fetchProfiles();
+            fetchInsurances();
+            fetchClaims();
+        }
+    }
+
+    render () {
+        const { register, login, auth, fetchProfiles, profile, createProfile,
+            updateProfile, insurance, fileClaim, claim, changeLocale, fetchInsurances } = this.props;
+             
+        const SignupPage = ({ ...props }) => (
+            <Signup
+                register={register}
+                changeLocale={changeLocale}
+                auth={auth}
+                {...props}
+            />
+        );
+        
+        const LoginPage = ({ ...props }) => (
+            <Login
+                login={login}
+                auth={auth}
+                changeLocale={changeLocale}
+                {...props}
+            />
+        );
+
+        const ProfilePage = ({ ...props }) => (
+            <Profile
+                profile={profile}
+                createProfile={createProfile}
+                updateProfile={updateProfile}
+                changeLocale={changeLocale}
+                {...props}
+            />
+        );
+
+        const InsurancePage = ({ ...props }) => (
+            <Insurance
+                insurance={insurance}
+                changeLocale={changeLocale}
+                {...props}
+            />
+        );
+
+        const ClaimProcessPage = ({ ...props }) => (
+            <ClaimProcess
+                fileClaim={fileClaim}
+                changeLocale={changeLocale}
+                {...props}
+            />
+        );
+
+        const ClaimPage = ({ ...props }) => (
+            <Claim
+                insurance={insurance}
+                claim={claim}
+                changeLocale={changeLocale}
+                {...props}
+            />
+        );
+
+        const ManageClaimPage = ({ ...props }) => (
+            <ManageClaim
+                changeLocale={changeLocale}
+                insurance={insurance}
+                claim={claim}
+                fetchInsurances={fetchInsurances}
+                {...props}
+            />
+        )
+
+        return (
+            <div>
+                <Notifier />
+                <Router history={history}>
+                    <Switch>
+                        <Route exact path={BaseUrl.signupUrl} component={SignupPage} />
+                        <Route exact path={BaseUrl.loginUrl} component={LoginPage} />
+                        <PrivateRoute exact path={BaseUrl.profileUrl} component={ProfilePage} />
+                        <PrivateRoute exact path={BaseUrl.myInsurancesUrl} component={InsurancePage} />
+                        <PrivateRoute exact path={BaseUrl.myClaimsUrl} component={ClaimPage} />
+                        <PrivateRoute exact path={BaseUrl.claimProcessUrl} component={ClaimProcessPage} />
+                        <PrivateRoute exact path={BaseUrl.manageClaimsUrl} component={ManageClaimPage} />
+                        <Redirect to={BaseUrl.manageClaimsUrl} />
+                    </Switch>
+                </Router>
+            </div>
+        );
+    }
+};
+
 const mapStateToProps = state => {
     return {
         auth: state.auth,
@@ -42,90 +140,5 @@ const mapDispatchToProps = dispatch => ({
     removeSnackbar: (key) => dispatch(removeSnackbar(key)),
     enqueueSnackbar: (notification) => dispatch(enqueueSnackbar(notification))
 });
-
-class AppRouter extends Component {
-    componentDidMount() {
-        const { auth, fetchProfiles, fetchInsurances, fetchClaims } = this.props;
-        if (auth.isAuthenticated) {
-            fetchProfiles();
-            fetchInsurances();
-            fetchClaims();
-        }
-        console.log('Mount: App router');
-    }
-
-    render () {
-        const { t, register, login, auth, fetchProfiles, profile, createProfile,
-            updateProfile, insurance, fileClaim, claim, changeLocale,
-             notifications, removeSnackbar, enqueueSnackbar } = this.props;
-
-        const SignupPage = () => (
-            <Signup
-                register={register}
-                changeLocale={changeLocale}
-            />
-        );
-        
-        const LoginPage = ({ ...props }) => (
-            <Login
-                login={login}
-                changeLocale={changeLocale}
-                {...props}
-            />
-        );
-
-        const ProfilePage = () => (
-            <Profile
-                profile={profile}
-                fetchProfiles={fetchProfiles}
-                createProfile={createProfile}
-                updateProfile={updateProfile}
-                changeLocale={changeLocale}
-            />
-        );
-
-        const InsurancePage = () => (
-            <Insurance
-                insurance={insurance}
-                changeLocale={changeLocale}
-            />
-        );
-
-        const ClaimProcessPage = () => (
-            <ClaimProcess
-                fileClaim={fileClaim}
-                changeLocale={changeLocale}
-            />
-        );
-
-        const ClaimPage = () => (
-            <Claim
-                insurance={insurance}
-                claim={claim}
-                changeLocale={changeLocale}
-            />
-        );
-
-       
-
-        return (
-            <div>
-                <Notifier />
-                <Router history={history}>
-                    <Switch>
-                        <Route exact path={BaseUrl.signupUrl} component={SignupPage} />
-                        <Route exact path={BaseUrl.loginUrl} component={LoginPage} />
-                        <PrivateRoute exact path={BaseUrl.profileUrl} component={ProfilePage} />
-                        <PrivateRoute exact path={BaseUrl.myInsurancesUrl} component={InsurancePage} />
-                        <PrivateRoute exact path={BaseUrl.myClaimsUrl} component={ClaimPage} />
-                        <PrivateRoute exact path={BaseUrl.claimProcessUrl} component={ClaimProcessPage} />
-                        <PrivateRoute exact path={BaseUrl.manageClaimsUrl} component={ManageClaim} />
-                        <Redirect to={BaseUrl.manageClaimsUrl} />
-                    </Switch>
-                </Router>
-            </div>
-        );
-    }
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppRouter);

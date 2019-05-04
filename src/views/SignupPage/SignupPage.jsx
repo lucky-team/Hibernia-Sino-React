@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import withStyles from "@material-ui/core/styles/withStyles";
-import { withRouter } from "react-router-dom";
-
 import { Timeline, Code, Group } from
     '@material-ui/icons';
 
@@ -115,4 +113,4 @@ class Signup extends Component {
     }
 }
 
-export default withRouter(withTranslation()(withStyles(signupPageStyle)(Signup)));
+export default withTranslation()(withStyles(signupPageStyle)(Signup));

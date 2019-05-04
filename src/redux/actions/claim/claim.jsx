@@ -1,7 +1,6 @@
-import ClaimTypes from 'redux/actions/claim/ClaimTypes';
+import ClaimTypes from 'redux/actions/claim/ClaimTypes.jsx';
 import { baseUrl } from 'routes/BaseUrl.jsx';
 import { CatchCodes } from 'redux/actions/settings.jsx';
-import moment from 'moment';
 import axios from 'axios';
 
 // ******* create claim *******

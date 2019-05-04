@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
 import { FormControl, InputLabel } from '@material-ui/core';
-import { Layers } from '@material-ui/icons';
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Button from 'components/CustomButtons/Button.jsx';
@@ -58,6 +56,8 @@ class FillingDetailsSection extends Component {
                 for (let i = 1; i <= 6; i++) {
                     filelist.push(`${i}. ` + t(`claimProcessPage.filelist${claim.type}.${i}`));
                 }
+                break;
+            default:
                 break;
         }
         const popoverBody = filelist.map((item, key) => {

@@ -10,7 +10,6 @@ import CardBody from "components/Card/CardBody.jsx";
 const RenderCard = ({ ...props }) => {
     const {
         title,
-        price,
         description,
         buttonText,
         classes,

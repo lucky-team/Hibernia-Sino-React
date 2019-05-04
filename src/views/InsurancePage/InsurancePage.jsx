@@ -3,8 +3,7 @@ import { withTranslation } from 'react-i18next';
 import moment from 'moment';
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from 'classnames';
-import { List, ListItem, Tooltip, Checkbox } from '@material-ui/core';
-import { withRouter } from "react-router-dom";
+import { Checkbox } from '@material-ui/core';
 import * as BaseUrl from 'routes/BaseUrl.jsx';
 
 import Header from 'views/Header/Header.jsx';
@@ -125,6 +124,7 @@ const NavPillSection = ({ classes, t, content, page, rowsPerPage, history }) => 
             } else {
                 inactiveInsurances.push(n);
             }
+            return null;
         });
         const allInsurancesShow = allInsurances
             .slice(page[0] * rowsPerPage[0], page[0] * rowsPerPage[0] + rowsPerPage[0]);
@@ -137,7 +137,6 @@ const NavPillSection = ({ classes, t, content, page, rowsPerPage, history }) => 
             <div className={classes.container}>
                 <Card plain>
                     <CardBody plain>
-                        <h3 className={classes.cardTitle}></h3>
                         <NavPills
                             color='rose'
                             tabs={[
@@ -231,7 +230,7 @@ class InsurancePage extends Component {
     }
 
     render() {
-        const { classes, t, history, changeLocale, enqueueSnackbar } = this.props;
+        const { classes, t, history, changeLocale, } = this.props;
         const { content, page, rowsPerPage } = this.state;
 
         return (
@@ -265,4 +264,4 @@ class InsurancePage extends Component {
     }
 }
 
-export default withRouter(withTranslation()(withStyles(insurancePageStyle)(InsurancePage)));
+export default withTranslation()(withStyles(insurancePageStyle)(InsurancePage));

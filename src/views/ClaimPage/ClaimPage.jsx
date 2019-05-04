@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
 import { withTranslation } from 'react-i18next';
-import { withRouter } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 import * as BaseUrl from 'routes/BaseUrl.jsx';
 
@@ -200,6 +199,7 @@ const NavPillSection = ({ ...props }) => {
                 inactiveClaims.push(n);
             }
             allClaims.push(n);
+            return null;
         });
         allClaims = stableSort(allClaims, getSorting(order[0], orderBy[0]));
         activeClaims = stableSort(activeClaims, getSorting(order[1], orderBy[1]));
@@ -218,7 +218,6 @@ const NavPillSection = ({ ...props }) => {
             <div className={classes.container}>
                 <Card plain>
                     <CardBody plain>
-                        <h3 className={classes.cardTitle}></h3>
                         <NavPills
                             color='rose'
                             tabs={[
@@ -346,32 +345,20 @@ class ClaimPage extends Component {
         console.log('Mount: claim page');
         const { t, insurance, claim, auth, enqueueSnackbar, history } = this.props;
         document.title = `${t('claimPage.pageTitle')}${t('general.titleConnector')}${t('general.titleSign')}`;
-        if (auth.isAuthenticated) {
-            if (insurance.content === null) {
-                // TODO
-            } else {
-                this.setState({
-                    insurances: insurance.content
-                });
-            }
-            if (claim === null) {
-                // TODO
-            } else {
-                this.setState({
-                    claims: claim.content
-                });
-            }
+        if (insurance.content === null) {
+            // TODO
         } else {
-            enqueueSnackbar({
-                message: 'Please sign in!',
-                options: {
-                    variant: 'warning',
-                },
-                field: 'actions.auth'
+            this.setState({
+                insurances: insurance.content
             });
-            history.push(BaseUrl.loginUrl);
         }
-        
+        if (claim === null) {
+            // TODO
+        } else {
+            this.setState({
+                claims: claim.content
+            });
+        }
     }
 
     changePage = (index) => (page) => {
@@ -441,4 +428,4 @@ class ClaimPage extends Component {
     }
 }
 
-export default withRouter(withTranslation()(withStyles(claimPageStyle)(ClaimPage)));
+export default withTranslation()(withStyles(claimPageStyle)(ClaimPage));

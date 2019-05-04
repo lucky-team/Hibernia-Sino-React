@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import withStyles from "@material-ui/core/styles/withStyles";
-import { withRouter } from "react-router-dom";
 import { withTranslation } from 'react-i18next';
 import { InputAdornment, Icon } from '@material-ui/core';
 import { Face } from '@material-ui/icons';
@@ -23,8 +22,6 @@ import * as BaseUrl from 'routes/BaseUrl.jsx';
 class LoginPage extends Component {
     constructor(props) {
         super(props);
-        console.log('login');
-        console.log(props);
         this.state = {
             username: '',
             password: ''

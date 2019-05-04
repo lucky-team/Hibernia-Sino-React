@@ -25,7 +25,7 @@ const mapDispatchToProps = dispatch => ({
 
 const NavBar = (props) => {
     const { classes, navs, history, auth, changeLocale } = props;
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     const exit = () => {
         localStorage.clear();
