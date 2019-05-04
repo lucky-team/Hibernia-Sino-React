@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch, Redirect } from "react-router-dom";
+import PrivateRoute from 'routes/PrivateRoute.jsx';
 import createHistory from 'history/createBrowserHistory';
 import { connect } from 'react-redux';
 import { register, login } from 'redux/actions/auth/auth.jsx';
@@ -14,6 +15,7 @@ import Profile from 'views/ProfilePage/ProfilePage.jsx';
 import Insurance from 'views/InsurancePage/InsurancePage.jsx';
 import ClaimProcess from 'views/ClaimProcessPage/ClaimProcessPage.jsx';
 import Claim from 'views/ClaimPage/ClaimPage.jsx';
+import ManageClaim from 'views/Manage/ManageClaimPage/ManageClaimPage.jsx';
 import Notifier from 'views/notifier.jsx';
 
 var history = createHistory();
@@ -60,17 +62,15 @@ class AppRouter extends Component {
         const SignupPage = () => (
             <Signup
                 register={register}
-                auth={auth}
                 changeLocale={changeLocale}
             />
         );
         
-        const LoginPage = () => (
+        const LoginPage = ({ ...props }) => (
             <Login
                 login={login}
-                t={t}
-                auth={auth}
                 changeLocale={changeLocale}
+                {...props}
             />
         );
 
@@ -81,8 +81,6 @@ class AppRouter extends Component {
                 createProfile={createProfile}
                 updateProfile={updateProfile}
                 changeLocale={changeLocale}
-                enqueueSnackbar={enqueueSnackbar}
-                auth={auth}
             />
         );
 
@@ -90,8 +88,6 @@ class AppRouter extends Component {
             <Insurance
                 insurance={insurance}
                 changeLocale={changeLocale}
-                enqueueSnackbar={enqueueSnackbar}
-                auth={auth}
             />
         );
 
@@ -107,27 +103,24 @@ class AppRouter extends Component {
                 insurance={insurance}
                 claim={claim}
                 changeLocale={changeLocale}
-                enqueueSnackbar={enqueueSnackbar}
-                auth={auth}
             />
         );
 
+       
+
         return (
             <div>
-                <Notifier
-                    removeSnackbar={removeSnackbar}
-                    notifications={notifications}
-                    enqueueSnackbar={enqueueSnackbar}
-                />
+                <Notifier />
                 <Router history={history}>
                     <Switch>
                         <Route exact path={BaseUrl.signupUrl} component={SignupPage} />
                         <Route exact path={BaseUrl.loginUrl} component={LoginPage} />
-                        <Route exact path={BaseUrl.profileUrl} component={ProfilePage} />
-                        <Route exact path={BaseUrl.myInsurancesUrl} component={InsurancePage} />
-                        <Route exact path={BaseUrl.myClaimsUrl} component={ClaimPage} />
-                        <Route exact path={BaseUrl.claimProcessUrl} component={ClaimProcessPage} />
-                        <Redirect to={BaseUrl.myClaimsUrl} />
+                        <PrivateRoute exact path={BaseUrl.profileUrl} component={ProfilePage} />
+                        <PrivateRoute exact path={BaseUrl.myInsurancesUrl} component={InsurancePage} />
+                        <PrivateRoute exact path={BaseUrl.myClaimsUrl} component={ClaimPage} />
+                        <PrivateRoute exact path={BaseUrl.claimProcessUrl} component={ClaimProcessPage} />
+                        <PrivateRoute exact path={BaseUrl.manageClaimsUrl} component={ManageClaim} />
+                        <Redirect to={BaseUrl.manageClaimsUrl} />
                     </Switch>
                 </Router>
             </div>

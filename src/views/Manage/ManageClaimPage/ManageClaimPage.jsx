@@ -1,11 +1,23 @@
-import React, { useState, useEffect } from 'views/Manage/ManageClaimPage/node_modules/react';
-import classNames from 'views/Manage/ManageClaimPage/node_modules/classnames';
-import { withTranslation } from 'views/Manage/ManageClaimPage/node_modules/react-i18next';
-import { withRouter } from "views/Manage/ManageClaimPage/node_modules/react-router-dom";
-import withStyles from "views/Manage/ManageClaimPage/node_modules/@material-ui/core/styles/withStyles";
-import * as BaseUrl from 'views/Manage/ManageClaimPage/node_modules/routes/BaseUrl.jsx.js';
+import React from 'react';
+import classNames from 'classnames';
+import { withTranslation  } from 'react-i18next';
+import { withRouter } from "react-router-dom";
+import withStyles from "@material-ui/core/styles/withStyles";
+import * as BaseUrl from 'routes/BaseUrl.jsx';
 
-import Header from 'views/Manage/ManageClaimPage/node_modules/views/Header/Header.jsx.js';
+import { Button } from '@material-ui/core';
 
-import ManageClaimPageStyle from 'views/Manage/ManageClaimPage/node_modules/assets/jss/material-kit-pro-react/views/ManageClaimPageStyle.jsx.js';
+import Header from 'views/Header/Header.jsx';
 
+import ManageClaimPageStyle from 'assets/jss/material-kit-pro-react/views/ManageClaimPageStyle.jsx';
+
+const ManageClaimPage = ({ ...props }) => {
+    console.log(props);
+    const { t } = props;
+    return (
+        <Button onClick={() => props.history.push('/login')}>{t('header.home')}</Button>
+    )
+
+}
+
+export default withRouter(withTranslation()(ManageClaimPage));

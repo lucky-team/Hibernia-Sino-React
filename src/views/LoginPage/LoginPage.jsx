@@ -23,6 +23,8 @@ import * as BaseUrl from 'routes/BaseUrl.jsx';
 class LoginPage extends Component {
     constructor(props) {
         super(props);
+        console.log('login');
+        console.log(props);
         this.state = {
             username: '',
             password: ''
@@ -188,4 +190,4 @@ class LoginPage extends Component {
     }
 }
 
-export default withRouter(withTranslation()(withStyles(loginPageStyle)(LoginPage)));
+export default withTranslation()(withStyles(loginPageStyle)(LoginPage));

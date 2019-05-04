@@ -13,7 +13,9 @@
         "aboutus": "关于我们",
         "signup": "注册",
         "manageClaims": "管理理赔",
-        "cn": "Chinese",
+        "profile": "个人信息",
+        "exit": "注销",
+        "cn": "中文",
         "en": "English"
     },
 

@@ -5,6 +5,7 @@ import { withTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import { withSnackbar } from 'notistack';
 import { connect } from 'react-redux';
+import { removeSnackbar, enqueueSnackbar } from 'redux/actions/notification/notification.jsx';
 
 class Notifier extends Component {
     displayed = [];
@@ -46,9 +47,19 @@ class Notifier extends Component {
         });
     }
     render() {
-        // alert(JSON.stringify(this.props));
         return null;
     }
 }
 
-export default withTranslation()(withSnackbar(Notifier));
+const mapStateToProps = state => {
+    return {
+        notifications: state.notification.notifications
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    removeSnackbar: (key) => dispatch(removeSnackbar(key)),
+    enqueueSnackbar: (notification) => dispatch(enqueueSnackbar(notification))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withTranslation()(withSnackbar(Notifier)));

@@ -80,7 +80,7 @@ const NavBar = (props) => {
                                 fullWidth
                                 round
                             >
-                                Profile
+                                {t('header.profile')}
                             </Button>,
                             <Button
                                 color='transparent'
@@ -89,7 +89,7 @@ const NavBar = (props) => {
                                 fullWidth
                                 round
                             >
-                                Exit
+                                {t('header.exit')}
                             </Button>
                         ]}
                     />
