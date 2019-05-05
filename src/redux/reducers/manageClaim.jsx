@@ -7,9 +7,18 @@ export default (state, action) => {
             return state;
 
         case ManageClaimTypes.ASSIGN_CLAIM_SUCCESS:
-            const {[action.claimId]: processingItem, ...newPendingClaims} = pendingClaims;
+            let processingItem;
+            const newPendingClaims = pendingClaims.filter((el) => {
+                const match = el['_id'] === action.claimId;
+                if (match) {
+                    processingItem = el;
+                    return false;
+                } else {
+                    return true;
+                }
+            });
             processingItem.status = 'processing';
-            const newProcessingClaims = {...processingClaims, [action.claimId]: processingItem};
+            const newProcessingClaims = processingClaims.concat([processingItem]);
             return {...state,
                 pendingClaims: newPendingClaims,
                 processingClaims: newProcessingClaims

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 import { withTranslation  } from 'react-i18next';
 import withStyles from "@material-ui/core/styles/withStyles";
 import * as BaseUrl from 'routes/BaseUrl.jsx';
@@ -23,7 +24,7 @@ const ManageClaimPage = ({ ...props }) => {
         history,
         changeLocale,
         classes,
-        fetchInsurances
+        fetchInsurances,
     } = props;
 
     useEffect(() => {
@@ -72,7 +73,6 @@ const ManageClaimPage = ({ ...props }) => {
             </div>
         </div>
     );
-
 }
 
 export default withTranslation()(withStyles(ManageClaimPageStyle)(ManageClaimPage));

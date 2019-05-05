@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
 import logger from 'use-reducer-logger';
 import manageClaimReducer from 'redux/reducers/manageClaim.jsx';
-import { updateClaims } from 'redux/actions/manageClaim/manageClaim.jsx';
+import { updateClaims, assignClaim } from 'redux/actions/manageClaim/manageClaim.jsx';
 
 import TabContentSection from 'views/Manage/ManageClaimPage/Sections/TabContentSection.jsx';
 
@@ -46,6 +46,7 @@ const NavpillsSection = ({ ...props }) => {
                             t={t}
                             history={history}
                             tableType={'all'}
+                            assignClaim={(claimId) => assignClaim(claimId)(dispatch)}
                         />
                     )
                 },
@@ -58,6 +59,7 @@ const NavpillsSection = ({ ...props }) => {
                             t={t}
                             history={history}
                             tableType={'pending'}
+                            assignClaim={(claimId) => assignClaim(claimId)(dispatch)}
                         />
                     )
                 },

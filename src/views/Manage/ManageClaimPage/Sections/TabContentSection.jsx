@@ -4,13 +4,11 @@ import logger from 'use-reducer-logger';
 import tableReducer from 'redux/reducers/tableReducer';
 import * as TableActions from 'redux/actions/manageClaim/table/tableActions.jsx';
 
-import { Toolbar, Tooltip, IconButton, Typography, TableHead, TableRow,
-    TableCell, Checkbox, Paper } from '@material-ui/core';
-import { Assignment as AssignmentIcon, Done as DoneIcon } from '@material-ui/icons';
+import { Toolbar, Tooltip, IconButton, Typography, Paper } from '@material-ui/core';
+import { Assignment as AssignmentIcon, Done as DoneIcon, EditLocationTwoTone } from '@material-ui/icons';
 
 import EnhancedTable from 'views/Manage/ManageClaimPage/Sections/EnhancedTable.jsx';
 import EnhancedPagination from 'components/Pagination/EnhancedPagination.jsx';
-import Button from "components/CustomButtons/Button.jsx";
 
 const EnhancedTableToolbar = ({ ...props }) => {
     const {
@@ -19,7 +17,8 @@ const EnhancedTableToolbar = ({ ...props }) => {
         numSelected,
         selectedText,
         tableType,
-        title
+        title,
+        assignMultiClaims
     } = props;
 
     return (
@@ -43,7 +42,13 @@ const EnhancedTableToolbar = ({ ...props }) => {
             <div className={classes.actions}>
                 {numSelected > 0 && tableType === 'pending' && (
                     <Tooltip title="Assignment">
-                        <IconButton aria-label={t('manageClaimPage.table.assign')}>
+                        <IconButton
+                            aria-label={t('manageClaimPage.table.assign')}
+                            onClick={(e) => {
+                                assignMultiClaims();
+                                e.stopPropagation();
+                            }}
+                        >
                             <AssignmentIcon />
                         </IconButton>
                     </Tooltip>
@@ -77,7 +82,8 @@ const TabContentSection = ({ ...props }) => {
         claims,
         t,
         history,
-        tableType
+        tableType,
+        assignClaim
     } = props;
 
     const [state, dispatch] = useReducer(logger(tableReducer), initialState);
@@ -110,6 +116,15 @@ const TabContentSection = ({ ...props }) => {
         { label: '' }
     ];
 
+    const assignMultiClaims = () => {
+        selected.map((el) => {
+            alert(el);
+            assignClaim(el);
+            return null;
+        });
+        dispatch(TableActions.removeSelected(selected));
+    }
+
     return (
         <div className={classes.tableRoot}>
             <Paper className={classes.paper}>
@@ -120,6 +135,7 @@ const TabContentSection = ({ ...props }) => {
                     selectedText={t('manageClaimPage.table.selectedText')}
                     tableType={tableType}
                     title={t(`manageClaimPage.table.${tableType}`)}
+                    assignMultiClaims={assignMultiClaims}
                 />
                 <EnhancedTable
                     t={t}
@@ -135,6 +151,7 @@ const TabContentSection = ({ ...props }) => {
                     flipPage={(page) => dispatch(TableActions.flipPage(page))}
                     addSelected={(selectedArray) => dispatch(TableActions.addSelected(selectedArray))}
                     removeSelected={(selectedArray) => dispatch(TableActions.removeSelected(selectedArray))}
+                    assignClaim={assignClaim}
                 />
                 <EnhancedPagination
                     page={page}

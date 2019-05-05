@@ -28,7 +28,7 @@ const getSorting = (order, orderBy) => {
 };
 
 export default (state, action) => {
-    const { data, page, rowsPerPage, pageData, order, orderBy, selected } = state;
+    const { data, page, rowsPerPage, order, orderBy, selected } = state;
     switch (action.type) {
         case TableTypes.LOAD_DATA:
             return {...state,

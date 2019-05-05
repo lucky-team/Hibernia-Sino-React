@@ -43,7 +43,7 @@ export const assignClaim = (claimId) => (dispatch) => {
     .then(response => response.json())
     .then(response => {
         if (response.success) {
-            dispatch(assignClaim({
+            dispatch(receiveAssignClaim({
                 claimId: claimId,
                 msg: response.msg
             }));

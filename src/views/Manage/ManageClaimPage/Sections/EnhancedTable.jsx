@@ -67,6 +67,7 @@ const EnhancedTable = ({ ...props }) => {
         changeOrder,
         addSelected,
         removeSelected,
+        assignClaim
     } = props;
 
     const [headInterminate, setHeadInterminate] = useState(false);
@@ -151,10 +152,9 @@ const EnhancedTable = ({ ...props }) => {
                                 <TableCell>
                                     <Tooltip title={t('manageClaimPage.table.check')}>
                                         <IconButton 
-                                            onClick={(event) => {
+                                            onClick={(e) => {
                                                 alert('test');
-                                                console.log(event);
-                                                event.stopPropagation();
+                                                e.stopPropagation();
                                             }}
                                             aria-label={t('manageClaimPage.table.check')}>
                                             <InfoIcon />
@@ -162,7 +162,13 @@ const EnhancedTable = ({ ...props }) => {
                                     </Tooltip>
                                     {row.status === 'pending' && (
                                         <Tooltip title={t('manageClaimPage.table.assign')}>
-                                            <IconButton aria-label={t('manageClaimPage.table.assign')}>
+                                            <IconButton
+                                                aria-label={t('manageClaimPage.table.assign')}
+                                                onClick={(e) => {
+                                                    assignClaim(row._id);
+                                                    e.stopPropagation();
+                                                }}
+                                            >
                                                 <AssignmentIcon />
                                             </IconButton>
                                         </Tooltip>
