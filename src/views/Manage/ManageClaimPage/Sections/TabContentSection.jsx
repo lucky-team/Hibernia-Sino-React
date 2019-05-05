@@ -9,6 +9,7 @@ import { Toolbar, Tooltip, IconButton, Typography, TableHead, TableRow,
 import { Assignment as AssignmentIcon, Done as DoneIcon } from '@material-ui/icons';
 
 import EnhancedTable from 'views/Manage/ManageClaimPage/Sections/EnhancedTable.jsx';
+import EnhancedPagination from 'components/Pagination/EnhancedPagination.jsx';
 import Button from "components/CustomButtons/Button.jsx";
 
 const EnhancedTableToolbar = ({ ...props }) => {
@@ -57,7 +58,8 @@ const EnhancedTableToolbar = ({ ...props }) => {
             </div>
         </Toolbar>
     );
-}
+};
+
 
 const initialState = {
     data: [],
@@ -67,7 +69,7 @@ const initialState = {
     selected: [],
     order: 'desc',
     orderBy: '_id',
-}
+};
 
 const TabContentSection = ({ ...props }) => {
     const {
@@ -133,6 +135,12 @@ const TabContentSection = ({ ...props }) => {
                     flipPage={(page) => dispatch(TableActions.flipPage(page))}
                     addSelected={(selectedArray) => dispatch(TableActions.addSelected(selectedArray))}
                     removeSelected={(selectedArray) => dispatch(TableActions.removeSelected(selectedArray))}
+                />
+                <EnhancedPagination
+                    page={page}
+                    rowsPerPage={rowsPerPage}
+                    size={claims.length}
+                    flipPage={(page) => dispatch(TableActions.flipPage(page))}
                 />
             </Paper>
         </div>
