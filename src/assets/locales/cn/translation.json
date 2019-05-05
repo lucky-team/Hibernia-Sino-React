@@ -129,6 +129,7 @@
         "inactive": "已完成",
         "table": {
             "claimId": "理赔单号",
+            "type": "事故类型",
             "location": "事故发生地点",
             "amount": "损失金额",
             "date": "事故发生时间",
@@ -217,7 +218,26 @@
 
     "manageClaimPage": {
         "pageTitle": "管理理赔",
-        "title": "管理理赔"
+        "title": "管理理赔",
+        "table": {
+            "claimId": "理赔单号",
+            "type": "事故类型",
+            "location": "事故发生地点",
+            "amount": "损失金额",
+            "date": "事故发生时间",
+            "status": "状态",
+            "all": "全部理赔",
+            "pending": "等待处理",
+            "processing": "处理中",
+            "finished": "已处理",
+            "accepted": "通过",
+            "rejected": "拒绝",
+            "selectedText": "条",
+            "check": "查看",
+            "assign": "领取任务",
+            "accept": "接受理赔",
+            "reject": "拒绝理赔"
+        }
     },
 
     "actions": {

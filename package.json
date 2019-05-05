@@ -8,10 +8,12 @@
     "@material-ui/styles": "^3.0.0-alpha.10",
     "@types/googlemaps": "3.30.16",
     "@types/markerclustererplus": "2.1.33",
+    "add": "^2.0.6",
     "ajv": "6.9.1",
     "animate.css": "3.7.0",
     "axios": "^0.18.0",
     "classnames": "2.2.6",
+    "clsx": "^1.0.4",
     "cross-env": "^5.2.0",
     "eslint-plugin-react-hooks": "^1.6.0",
     "filepond": "^4.4.2",
@@ -43,7 +45,8 @@
     "react-tagsinput": "3.19.0",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "use-reducer-logger": "^1.0.0"
   },
   "scripts": {
     "start": "cross-env NODE_PATH=./src PORT=7001 react-scripts start",

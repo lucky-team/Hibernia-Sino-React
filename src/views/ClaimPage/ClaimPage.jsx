@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import moment from 'moment';
 import { withTranslation } from 'react-i18next';
 import withStyles from "@material-ui/core/styles/withStyles";
-import * as BaseUrl from 'routes/BaseUrl.jsx';
 
 import { TableSortLabel, Tooltip } from '@material-ui/core';
 
@@ -13,7 +12,6 @@ import Parallax from "components/Parallax/Parallax.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Table from "components/Table/Table.jsx";
-import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import NavPills from "components/NavPills/NavPills.jsx";

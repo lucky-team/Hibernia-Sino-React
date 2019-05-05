@@ -39,10 +39,8 @@ const ManageClaimPage = ({ ...props }) => {
             });
             history.push(BaseUrl.loginUrl);
         }
-    }, []);
+    }, [auth]);
 
-    console.log(props);
-    
     return (
         <div>
             <Header
@@ -59,7 +57,7 @@ const ManageClaimPage = ({ ...props }) => {
                 t={t}
                 classes={classes}
             />
-            <div className={classNames(classes.main, classes.mainRaised)}>
+            <div className={classNames(classes.main, classes.mainRaised, classes.container)}>
                 <Card plain>
                     <CardBody plain>
                         <NavpillsSection
