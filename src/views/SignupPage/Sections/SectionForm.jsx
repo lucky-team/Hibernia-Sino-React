@@ -36,7 +36,7 @@ class SectionForm extends Component {
     }
 
     render() {
-        const { classes, t, handleChange, handleRegister, username, password } = this.props;
+        const { classes, t, handleChange, handleRegister, username, password, confirm } = this.props;
 
         return (
             <GridItem xs={12} sm={5} md={5}>
@@ -132,8 +132,12 @@ class SectionForm extends Component {
                                 </InputAdornment>
                             ),
                             placeholder: t('signupPage.form.confirm'),
-                            type: 'password'
+                            type: 'password',
+                            onChange: handleChange,
+                            name: 'confirm',
+                            value: confirm
                         }}
+                        id={'confirm'}
                     />
                     <FormControlLabel
                         classes={{

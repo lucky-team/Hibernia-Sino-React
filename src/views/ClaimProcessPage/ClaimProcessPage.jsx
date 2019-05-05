@@ -174,7 +174,6 @@ class ClaimProcessPage extends Component {
     }
 
     handleSubmit = (e) => {
-        alert(JSON.stringify(this.state.claim));
         console.log(this.state.claim.files);
         this.props.fileClaim(this.state.claim);
         e.preventDefault();

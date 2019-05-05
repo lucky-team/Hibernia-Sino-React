@@ -47,7 +47,8 @@ class Signup extends Component {
         this.state = {
             checked: false,
             username: '',
-            password: ''
+            password: '',
+            confirm: ''
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleRegister = this.handleRegister.bind(this);
@@ -65,14 +66,48 @@ class Signup extends Component {
     }
 
     handleRegister(event) {
-        const { username, password } = this.state;
-        this.props.register({username: username, password: password}, this.props.history);
+        const { username, password, confirm, checked } = this.state;
+        if (password !== confirm) {
+            this.props.enqueueSnackbar({
+                message: 'Password is not same with confirm password',
+                options: {
+                    variant: 'error',
+                },
+                field: 'actions.auth'
+            });
+        } else if (username === '') {
+            this.props.enqueueSnackbar({
+                message: 'Please enter username',
+                options: {
+                    variant: 'error',
+                },
+                field: 'actions.auth'
+            });
+        } else if (password === '') {
+            this.props.enqueueSnackbar({
+                message: 'Please enter password',
+                options: {
+                    variant: 'error',
+                },
+                field: 'actions.auth'
+            });
+        } else if (!checked) {
+            this.props.enqueueSnackbar({
+                message: 'Please check the agreement',
+                options: {
+                    variant: 'error',
+                },
+                field: 'actions.auth'
+            });
+        } else {
+            this.props.register({username: username, password: password}, this.props.history);
+        }
         event.preventDefault();
     }
 
     render() {
         const { classes, t, changeLocale, ...rest } = this.props;
-        const { username, password } = this.state;
+        const { username, password, confirm } = this.state;
         const infos = Infos(t);
 
         return (
@@ -100,7 +135,7 @@ class Signup extends Component {
                                         <GridContainer justify='center'>
                                             <SectionInfo infos={infos} classes={classes} />
                                             <SectionForm classes={classes} t={t} handleChange={this.handleChange}
-                                                username={username} password={password} handleRegister={this.handleRegister} />
+                                                username={username} password={password} confirm={confirm} handleRegister={this.handleRegister} />
                                         </GridContainer>
                                     </CardBody>
                                 </Card>

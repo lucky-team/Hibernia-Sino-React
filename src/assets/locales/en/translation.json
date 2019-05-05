@@ -1,10 +1,22 @@
 {
+    "general": {
+        "titleSign": "Hibernia-Sino Travel Insurance Company",
+        "titleConnector": " ---- "
+    },
+
     "header": {
         "brand": "Hibernia-Sino",
-        "home": "home",
-        "myInsurances": "my insurances",
-        "myClaims": "my claims",
-        "aboutus": "aboutus"
+        "home": "Home",
+        "employee": "Management",
+        "myInsurances": "My Insurances",
+        "myClaims": "My Claims",
+        "aboutus": "About Us",
+        "signup": "Sign Up",
+        "manageClaims": "Management of Claims",
+        "profile": "Profile",
+        "exit": "logout",
+        "cn": "中文",
+        "en": "English"
     },
 
     "footer": {
@@ -12,29 +24,44 @@
     },
 
     "signupPage": {
-        "title": "Signup",
+        "pageTitle": "Signup to join in Hibernia-Sino",
+        "title": "Join in Hibernia-Sino !",
         "infos": {
             "infoA": {
-                "title": "Clients",
-                "description": "专注爱尔兰与中国旅行保险，用户年增长量排名第一。"
+                "title": "Members",
+                "description": "We focus on supplying travel insurance service between China and Ireland. The number of users is growing rapidly."
             },
             "infoB": {
-                "title": "范围",
-                "description": "提供不同等级、范围的保险服务，给您最贴心的服务。"
+                "title": "Scope",
+                "description": "Provide different levels and scope of insurance services, to give you the most intimate service."
             },
             "infoC": {
-                "title": "保险",
-                "description":  "我们提供最好的保险服务，安全守护您和您的家人。"
+                "title": "Secure",
+                "description":  "We provide the best insurance service to protect you and your family."
             }
         },
-        "socialTitle": "使用第三方账号登录",
-        "socialTail": "或注册 Hibernia-Sino 账号",
+        "socialTitle": "Oauth",
+        "socialTail": "or sign up",
         "form": {
-            "username": "用户名",
-            "password": "密码",
-            "hint": "为保障您的权益，请仔细阅读",
-            "declaration": "投保声明",
-            "confirm": "注册"
+            "username": "username",
+            "password": "password",
+            "confirm": "confirm your password",
+            "hint": "To protect your rights and interests, please read carefully",
+            "declaration": "Insurance Declaration",
+            "register": "Sign Up",
+            "login": "Already have an account? Click to log in"
+        }
+    },
+
+    "loginPage": {
+        "pageTitle": "Log in your Hibernia-Sino account",
+        "title": "Log in!",
+        "tip": "log in your Hibernia-Sino account",
+        "form": {
+            "username": "username",
+            "password": "password",
+            "login": "Log in",
+            "signup": "No account yet? Click to register"
         }
     },
 
@@ -48,7 +75,187 @@
     },
 
     "profilePage": {
+        "pageTitle": "Profile",
+        "title": "Personal Profile",
+        "tips": "To purchase insurance services, you need to fill in your personal information. Please fill in your personal information and save and modify it",
+        "form": {
+            "socialId": "ID number",
+            "age": "age",
+            "country": "Country",
+            "province": "Province",
+            "city": "City or county",
+            "gender": "gender",
+            "lastname": "firstname",
+            "firstname": "lastname",
+            "phone": "phone",
+            "dialCode": "dial code",
+            "email": "email",
+            "male": "male",
+            "female": "female",
+            "save": "Save",
+            "cancel": "Cancel",
+            "saveSuccess": "Profile Save successful!"
+        },
+        "msg": {
+            "Profile Update Successful!": "Profile Update Successful!"
+        }
+    },
 
+    "insurancePage": {
+        "pageTitle": "Insurance List",
+        "title": "My insurances",
+        "all": "All",
+        "valid": "Active",
+        "invalid": "Expired",
+        "table": {
+            "insuranceId": "Insurance Id",
+            "plan": "Plan",
+            "level": "Level",
+            "insured": "Insured",
+            "duration": "Duration",
+            "start": "Start At",
+            "expire": "Expire At",
+            "check": "Check",
+            "claim": "File a Claim",
+            "claiming": "In Claiming"
+        }
+    },
+
+    "claimPage": {
+        "pageTitle": "Claim List",
+        "title": "My Claims",
+        "all": "All",
+        "active": "Active",
+        "inactive": "Finished",
+        "table": {
+            "claimId": "Claim Id",
+            "type": "Accident Type",
+            "location": "Accident Location",
+            "amount": "Amount of Loss",
+            "date": "Accident Time",
+            "status": "Status",
+            "pending": "Pending",
+            "processing": "Processing",
+            "accepted": "Accepted",
+            "rejected": "Rejected"
+        }
+    },
+
+    "managementPage": {
+
+    },
+
+    "aboutusPage": {
+
+    },
+
+    "claimProcessPage": {
+        "pageTitle": "File Claim",
+        "title": "File Claim",
+        "steps": {
+            "chooseType": "Choose accident type",
+            "details": "Filling details",
+            "success": "Success"
+        },
+        "chooseTypeSection": {
+            "type1": {
+                "title": "Accident Type 1",
+                "description": "The vehicle suffered from rainstorm, lightning and other natural disasters",
+                "buttonText": "Confirm"
+            },
+            "type2": {
+                "title": "Accident Type 2",
+                "description": "The vehicle encountered fire, explosion, collision or overturn",
+                "buttonText": "Confirm"
+            },
+            "type3": {
+                "title": "Accident Type 3",
+                "description": "Fire, explosion, collision or capsizing of a vehicle, theft, robbery, loss of luggage",
+                "buttonText": "Confirm"
+            }
+        },
+        "form": {
+            "informationTitile": "Claim Application Details",
+            "insurance": "Insurance Id",
+            "type": "Accident Type",
+            "location": "Accident Location",
+            "date": "Accident Time *",
+            "reason": "Accident Details",
+            "amount": "Amount of Loss" ,
+            "file": "file list",
+            "submit": "Submit",
+            "cancel": "Cancel",
+            "submitSuccess": "Submit Successful",
+            "filelist": "File List"
+        },
+        "filelist1": {
+            "1": "The personal ID of the insured",
+            "2": "Certified documents of the travel of the insured",
+            "3": "The driver license of the insured",
+            "4": "Written accident report",
+            "5": "Police report",
+            "6": "Car rental contract",
+            "7": "Car rental company's loss amount and maintenance fee list",
+            "8": "Compensation certificate",
+            "9": "Rental vehicle collision insurance or stolen insurance policy(If necessary)",
+            "10": "Valid proof of rental vehicles(If necessary)",
+            "11": "Other certification materials"
+        },
+        "filelist2": {
+            "1": "Original proof of delay issued by the carrier, indicating the time and reason for the delay",
+            "2": "Air ticket, ferry ticket",
+            "3": "Express order of delayed baggage"
+        },
+        "filelist3": {
+            "1": "Local police original record( must alarm within 24 hours of the accident",
+            "2": "Original written certificates of hotel, carrier and other relevant department",
+            "3": "Loss list and invoice(specify the date and amount of purchase in detai)",
+            "4": "Proof of source of cash and cheque",
+            "5": "Reset the invoice for passport and travel documents or original receipt",
+            "6": "Invoice for travel and accommodation expenses for additional expenses or original receipt"
+        }
+    },
+
+    "manageClaimPage": {
+        "pageTitle": "Claims Management",
+        "title": "Claims Management",
+        "table": {
+            "claimId": "Claim Id",
+            "type": "Accident Type",
+            "location": "Accident Location",
+            "amount": "Amount of Loss",
+            "date": "Accident Time",
+            "status": "Status",
+            "all": "All",
+            "pending": "Pending",
+            "processing": "Processing",
+            "finished": "Finished",
+            "accepted": "Accepted",
+            "rejected": "Rejected",
+            "selectedText": "Selected",
+            "check": "Check",
+            "assign": "Assign",
+            "accept": "Accept",
+            "reject": "Reject"
+        }
+    },
+
+    "actions": {
+        "auth": {
+            "Please sign in!": "Please sign in!",
+            "Login Successfully!": "Login Successfully!",
+            "A user with the given username is already registered": "A user with the given username is already registered",
+            "Registration Successful!": "Registration Successful!",
+            "Not an Hibinia-Sino employee": "Not an Hibinia-Sino employee",
+            "Password is not same with confirm password": "Password is not same with confirm password",
+            "Please enter username": "Please enter username",
+            "Please enter password": "Please enter password",
+            "Please check the agreement": "Please check the agreement"
+        },
+        "claim": {
+            "Claim Assignment Successful!": "Claim Assignment Successful!",
+            "A claim cannot be assigned again": "A claim cannot be assigned again"
+        }
     }
     
 }

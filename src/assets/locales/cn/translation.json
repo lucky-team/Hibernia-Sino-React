@@ -209,7 +209,7 @@
         "filelist3": {
             "1": "当地警方原始记录(必须在事故发生后24小时内报警)",
             "2": "酒店、承运人及其他相关部门出具的书面证明原件",
-            "3": "丢失物品清单及物品发票（明确标注着购买日期和金额",
+            "3": "丢失物品清单及物品发票（明确标注着购买日期和金额）",
             "4": "现金及支票来源证明",
             "5": "补办护照以及旅行证件的发票或原始收据",
             "6": "旅行中产生的费用的发票或原始收据"
@@ -246,7 +246,11 @@
             "Login Successfully!": "登陆成功",
             "A user with the given username is already registered": "用户名被已注册",
             "Registration Successful!": "注册成功!",
-            "Not an Hibinia-Sino employee": "非 Hibernia-Sino 员工"
+            "Not an Hibinia-Sino employee": "非 Hibernia-Sino 员工",
+            "Password is not same with confirm password": "密码与确认密码不一致",
+            "Please enter username": "请输入用户名",
+            "Please enter password": "请输入密码",
+            "Please check the agreement": "请阅读并同意投保声明"
         },
         "claim": {
             "Claim Assignment Successful!": "理赔任务分配成功",

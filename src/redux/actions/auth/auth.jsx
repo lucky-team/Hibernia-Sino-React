@@ -3,6 +3,7 @@ import * as BaseUrl from 'routes/BaseUrl.jsx';
 import { CatchCodes } from 'redux/actions/settings.jsx';
 import { fetchProfiles } from 'redux/actions/profile/profile.jsx';
 import { fetchInsurances } from 'redux/actions/insurance/insurance.jsx';
+import { fetchClaims } from 'redux/actions/claim/claim.jsx';
 import { enqueueSnackbar } from 'redux/actions/notification/notification.jsx';
 
 export const logout = () => {
@@ -140,6 +141,7 @@ export const login = (creds, history) => (dispatch) => {
             }));
             dispatch(fetchProfiles());
             dispatch(fetchInsurances());
+            dispatch(fetchClaims());
             history.push(BaseUrl.profileUrl);
         } else {
             dispatch(loginError(response.err));

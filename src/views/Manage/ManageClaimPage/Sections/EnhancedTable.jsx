@@ -153,7 +153,6 @@ const EnhancedTable = ({ ...props }) => {
                                     <Tooltip title={t('manageClaimPage.table.check')}>
                                         <IconButton 
                                             onClick={(e) => {
-                                                alert('test');
                                                 e.stopPropagation();
                                             }}
                                             aria-label={t('manageClaimPage.table.check')}>

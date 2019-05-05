@@ -66,7 +66,6 @@ const RenderTable = ({ classes, content, t, history }) => {
                         <Button>{t('insurancePage.table.claiming')}</Button>
                         : (
                         <>
-                            <Button>{t('insurancePage.table.check')}</Button>
                             <Button
                                 onClick={() => {
                                     fileClaim(item._id, history);

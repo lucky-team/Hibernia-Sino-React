@@ -43,7 +43,25 @@ class LoginPage extends Component {
 
     handleLogin(event) {
         const { username, password } = this.state;
-        this.props.login({username: username, password: password}, this.props.history);
+        if (username === '') {
+            this.props.enqueueSnackbar({
+                message: 'Please enter username',
+                options: {
+                    variant: 'error',
+                },
+                field: 'actions.auth'
+            });
+        } else if (password === '') {
+            this.props.enqueueSnackbar({
+                message: 'Please enter password',
+                options: {
+                    variant: 'error',
+                },
+                field: 'actions.auth'
+            });
+        } else {
+            this.props.login({username: username, password: password}, this.props.history);
+        }
         event.preventDefault();
     }
 

@@ -54,7 +54,7 @@ class ProfilePage extends Component {
     componentDidMount() {
         console.log('Mount: profile page');
         const { t, profile, auth, enqueueSnackbar, history } = this.props;
-        document.title = t('profilePage.pageTitle');
+        document.title = `${t('profilePage.pageTitle')}${t('general.titleConnector')}${t('general.titleSign')}`;
         if (auth.isAuthenticated) {
             if (profile.self === null) {
                 this.resetEmptyProfile();

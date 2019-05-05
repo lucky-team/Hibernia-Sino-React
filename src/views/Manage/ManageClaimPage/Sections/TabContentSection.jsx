@@ -118,7 +118,6 @@ const TabContentSection = ({ ...props }) => {
 
     const assignMultiClaims = () => {
         selected.map((el) => {
-            alert(el);
             assignClaim(el);
             return null;
         });

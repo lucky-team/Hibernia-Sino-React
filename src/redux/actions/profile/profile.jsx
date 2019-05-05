@@ -1,6 +1,7 @@
 import ProfileTypes from 'redux/actions/profile/ProfileTypes.jsx';
 import { baseUrl } from 'routes/BaseUrl.jsx';
 import { CatchCodes } from 'redux/actions/settings.jsx';
+import { enqueueSnackbar } from 'redux/actions/notification/notification.jsx';
 
 // ******* fetch profile *******
 
@@ -129,8 +130,22 @@ export const createProfile = (profile) => (dispatch) => {
     .then(response => {
         if (response.success) {
             dispatch(receiveCreateProfile(response));
+            dispatch(enqueueSnackbar({
+                message: response.msg,
+                options: {
+                    variant: 'success',
+                },
+                field: 'actions.profile'
+            }));
         } else {
             dispatch(createProfileError(`${response.err.name}: ${response.err.message}`));
+            dispatch(enqueueSnackbar({
+                message: `${response.err.name}: ${response.err.message}`,
+                options: {
+                    variant: 'error',
+                },
+                field: 'actions.profile'
+            }));
         }
     })
 }
@@ -183,8 +198,22 @@ export const updateProfile = (profile) => (dispatch) => {
     .then(response => {
         if (response.success) {
             dispatch(receiveUpdateProfile(response));
+            dispatch(enqueueSnackbar({
+                message: response.msg,
+                options: {
+                    variant: 'success',
+                },
+                field: 'actions.profile'
+            }));
         } else {
             dispatch(updateProfileError(`${response.err.name}: ${response.err.message}`));
+            dispatch(enqueueSnackbar({
+                message: `${response.err.name}: ${response.err.message}`,
+                options: {
+                    variant: 'error',
+                },
+                field: 'actions.profile'
+            }));
         }
     })
     .catch(err => dispatch(updateProfileError(err.message)));

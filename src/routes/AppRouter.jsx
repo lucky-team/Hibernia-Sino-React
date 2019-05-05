@@ -33,13 +33,15 @@ class AppRouter extends Component {
 
     render () {
         const { register, login, auth, fetchProfiles, profile, createProfile,
-            updateProfile, insurance, fileClaim, claim, changeLocale, fetchInsurances } = this.props;
+            updateProfile, insurance, fileClaim, claim, changeLocale, fetchInsurances,
+            enqueueSnackbar } = this.props;
              
         const SignupPage = ({ ...props }) => (
             <Signup
                 register={register}
                 changeLocale={changeLocale}
                 auth={auth}
+                enqueueSnackbar={enqueueSnackbar}
                 {...props}
             />
         );
@@ -49,6 +51,7 @@ class AppRouter extends Component {
                 login={login}
                 auth={auth}
                 changeLocale={changeLocale}
+                enqueueSnackbar={enqueueSnackbar}
                 {...props}
             />
         );
