@@ -3,6 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import moment from 'moment';
 
+import ClaimDetail from 'views/Detail/ClaimDetail.jsx';
+
 import { Table, TableBody, TableCell, TableSortLabel, TableHead, TableRow,
      Checkbox, IconButton, Tooltip } from '@material-ui/core';
 import { Assignment as AssignmentIcon, Done as DoneIcon, Info as InfoIcon } from '@material-ui/icons';
@@ -72,6 +74,8 @@ const EnhancedTable = ({ ...props }) => {
 
     const [headInterminate, setHeadInterminate] = useState(false);
     const [headChecked, setHeadChecked] = useState(false);
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const [dialogClaim, setDialogClaim] = useState(null);
 
     useEffect(() => console.log('Mount: EnhancedTable'), []);
 
@@ -154,6 +158,8 @@ const EnhancedTable = ({ ...props }) => {
                                         <IconButton 
                                             onClick={(e) => {
                                                 e.stopPropagation();
+                                                setDialogClaim(row);
+                                                setDialogOpen(true);
                                             }}
                                             aria-label={t('manageClaimPage.table.check')}>
                                             <InfoIcon />
@@ -179,6 +185,12 @@ const EnhancedTable = ({ ...props }) => {
                     })}
                 </TableBody>
         </Table>
+        <ClaimDetail
+            t={t}
+            claim={dialogClaim}
+            open={dialogOpen}
+            handleClose={() => setDialogOpen(false)}
+        />
         </div>
     );
 };

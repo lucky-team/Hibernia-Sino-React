@@ -240,6 +240,19 @@
         }
     },
 
+    "claimDetail": {
+        "title": "理赔信息",
+        "claimId": "理赔单号",
+        "type": "事故类型",
+        "location": "事故发生地点",
+        "date": "事故发生时间",
+        "status": "状态",
+        "amount": "损失金额",
+        "reason": "事故详细信息",
+        "rejectReason": "理赔失败回复",
+        "reject": "拒绝理赔"
+    },
+
     "actions": {
         "auth": {
             "Please sign in!": "请登录账号",

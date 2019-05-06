@@ -240,6 +240,19 @@
         }
     },
 
+    "claimDetail": {
+        "title": "Claim Detail",
+        "claimId": "Claim Id",
+        "type": "Accident Type",
+        "location": "Accident Location",
+        "date": "Accident Time",
+        "status": "Status",
+        "amount": "Amount of Loss",
+        "reason": "Accident Details",
+        "rejectReason": "Reject Reason",
+        "reject": "Reject"
+    },
+
     "actions": {
         "auth": {
             "Please sign in!": "Please sign in!",
