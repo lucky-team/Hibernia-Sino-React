@@ -91,14 +91,6 @@ class Signup extends Component {
                 },
                 field: 'actions.auth'
             });
-        } else if (!checked) {
-            this.props.enqueueSnackbar({
-                message: 'Please check the agreement',
-                options: {
-                    variant: 'error',
-                },
-                field: 'actions.auth'
-            });
         } else {
             this.props.register({username: username, password: password}, this.props.history);
         }

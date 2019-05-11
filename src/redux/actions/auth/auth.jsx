@@ -64,7 +64,7 @@ export const register = (creds, history) => (dispatch) => {
                 },
                 field: 'actions.auth'
             }));
-            history.push(BaseUrl.loginUrl);
+            dispatch(login(creds, history));
         } else {
             dispatch(registerError(response.err));
             dispatch(enqueueSnackbar({

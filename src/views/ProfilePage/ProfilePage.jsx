@@ -59,7 +59,6 @@ class ProfilePage extends Component {
             if (profile.self === null) {
                 this.resetEmptyProfile();
             } else if (Array.isArray(profile.self)) {
-                enqueueSnackbar(t('profilePage.tips'), 'warning');
                 this.resetEmptyProfile();
             } else {
                 this.resetProfile();

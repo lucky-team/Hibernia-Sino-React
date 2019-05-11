@@ -69,6 +69,18 @@ export const fetchProfiles = (query) => (dispatch) => {
         } else {
             if (Array.isArray(response)) {
                 dispatch(receiveSelfProfile(response.length ? response[0] : response));
+                if (response.length) {
+                    dispatch(receiveSelfProfile(response[0]));
+                } else {
+                    dispatch(receiveSelfProfile(response));
+                    enqueueSnackbar({
+                        message: 'tips',
+                        options: {
+                            variant: 'warning',
+                        },
+                        field: 'profilePage'
+                    });
+                }
             } else {
                 let error = new Error(`Error ${response.status}: ${response.statusText}`);
                 error.response = response;

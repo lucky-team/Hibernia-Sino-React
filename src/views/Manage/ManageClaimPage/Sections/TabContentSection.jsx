@@ -18,7 +18,8 @@ const EnhancedTableToolbar = ({ ...props }) => {
         selectedText,
         tableType,
         title,
-        assignMultiClaims
+        assignMultiClaims,
+        acceptMultiClaims
     } = props;
 
     return (
@@ -55,7 +56,13 @@ const EnhancedTableToolbar = ({ ...props }) => {
                 )}
                 {numSelected > 0 && tableType === 'processing' && (
                     <Tooltip title="Done">
-                        <IconButton aria-label='Done'>
+                        <IconButton
+                            aria-label={t('manageClaimPage.table.accept')}
+                            onClick={(e) => {
+                                acceptMultiClaims();
+                                e.stopPropagation();
+                            }}
+                        >
                             <DoneIcon />
                         </IconButton>
                     </Tooltip>
@@ -83,7 +90,9 @@ const TabContentSection = ({ ...props }) => {
         t,
         history,
         tableType,
-        assignClaim
+        assignClaim,
+        acceptClaim,
+        rejectClaim
     } = props;
 
     const [state, dispatch] = useReducer(logger(tableReducer), initialState);
@@ -92,10 +101,8 @@ const TabContentSection = ({ ...props }) => {
     useEffect(() => {console.log('Mount: Tab content section');}, []);
 
     useEffect(() => {
-        if (claims.length !== 0) {
-            dispatch(TableActions.loadData(claims));
-            dispatch(TableActions.sortData());
-        }
+        dispatch(TableActions.loadData(claims));
+        dispatch(TableActions.sortData());
     }, [claims]);
 
     useEffect(() => {
@@ -103,9 +110,7 @@ const TabContentSection = ({ ...props }) => {
     }, [state.order, state.orderBy]);
 
     useEffect(() => {
-        if (data.length !== 0) {
-            dispatch(TableActions.updatePageData());
-        }
+        dispatch(TableActions.updatePageData());
     }, [page, rowsPerPage, order, orderBy, data]);
 
     const headRows = [
@@ -122,7 +127,15 @@ const TabContentSection = ({ ...props }) => {
             return null;
         });
         dispatch(TableActions.removeSelected(selected));
-    }
+    };
+
+    const acceptMultiClaims = () => {
+        selected.map((el) => {
+            acceptClaim(el);
+            return null;
+        });
+        dispatch(TableActions.removeSelected(selected));
+    };
 
     return (
         <div className={classes.tableRoot}>
@@ -135,6 +148,7 @@ const TabContentSection = ({ ...props }) => {
                     tableType={tableType}
                     title={t(`manageClaimPage.table.${tableType}`)}
                     assignMultiClaims={assignMultiClaims}
+                    acceptMultiClaims={acceptMultiClaims}
                 />
                 <EnhancedTable
                     t={t}
@@ -151,6 +165,8 @@ const TabContentSection = ({ ...props }) => {
                     addSelected={(selectedArray) => dispatch(TableActions.addSelected(selectedArray))}
                     removeSelected={(selectedArray) => dispatch(TableActions.removeSelected(selectedArray))}
                     assignClaim={assignClaim}
+                    acceptClaim={acceptClaim}
+                    rejectClaim={rejectClaim}
                 />
                 <EnhancedPagination
                     page={page}

@@ -40,7 +40,6 @@ const EnhancedTableHead = ({ ...props }) => {
                         className={clsx(classes.tableCell, classes.tabelHeadCell)}
                         key={row.id}
                         sortDirection={orderBy === row.id? order : false }
-
                     >
                         <TableSortLabel
                             active={orderBy === row.id}
@@ -69,7 +68,9 @@ const EnhancedTable = ({ ...props }) => {
         changeOrder,
         addSelected,
         removeSelected,
-        assignClaim
+        assignClaim,
+        acceptClaim,
+        rejectClaim
     } = props;
 
     const [headInterminate, setHeadInterminate] = useState(false);
@@ -190,6 +191,8 @@ const EnhancedTable = ({ ...props }) => {
             claim={dialogClaim}
             open={dialogOpen}
             handleClose={() => setDialogOpen(false)}
+            acceptClaim={acceptClaim}
+            rejectClaim={rejectClaim}
         />
         </div>
     );

@@ -28,7 +28,9 @@ const ClaimDetail = ({ ...props }) => {
         fetchInsurance,
         open,
         handleClose,
-        classes
+        classes,
+        acceptClaim,
+        rejectClaim
     } = props;
 
     const [rejectReason, setRejectReason] = useState('');
@@ -162,8 +164,21 @@ const ClaimDetail = ({ ...props }) => {
                                             <Button
                                                 round
                                                 onClick={() => {
-                                                    alert('Reject Successful');
+                                                    acceptClaim(claim._id);
                                                     handleClose();
+                                                    setRejectReason('');
+                                                }}
+                                            >
+                                                {t('claimDetail.accept')}
+                                            </Button>
+                                        </GridItem>
+                                        <GridItem xs={4}>
+                                            <Button
+                                                round
+                                                onClick={() => {
+                                                    rejectClaim(claim._id, rejectReason);
+                                                    handleClose();
+                                                    setRejectReason('');
                                                 }}
                                             >
                                                 {t('claimDetail.reject')}

@@ -250,6 +250,7 @@
         "amount": "损失金额",
         "reason": "事故详细信息",
         "rejectReason": "理赔失败回复",
+        "accept": "接受理赔",
         "reject": "拒绝理赔"
     },
 
@@ -267,7 +268,9 @@
         },
         "claim": {
             "Claim Assignment Successful!": "理赔任务分配成功",
-            "A claim cannot be assigned again": "无法分配该理赔任务"
+            "A claim cannot be assigned again": "无法分配该理赔任务",
+            "Claim Rejection Successful!": "拒绝理赔成功!",
+            "Claim Acception Successful!": "接受理赔成功!"
         }
     }
     

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames';
-import { connect } from 'react-redux';
 import { withTranslation  } from 'react-i18next';
 import withStyles from "@material-ui/core/styles/withStyles";
 import * as BaseUrl from 'routes/BaseUrl.jsx';

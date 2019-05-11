@@ -63,7 +63,11 @@ const RenderTable = ({ classes, content, t, history }) => {
                 moment(item.expireDate).format('LL').toString(),
                 <div>
                     {item.claim ?
-                        <Button>{t('insurancePage.table.claiming')}</Button>
+                        <Button
+                            onClick={() => {
+                                fileClaim(item._id, history);
+                            }}
+                        >{t('insurancePage.table.claiming')}</Button>
                         : (
                         <>
                             <Button

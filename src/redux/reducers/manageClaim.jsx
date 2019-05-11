@@ -8,8 +8,8 @@ export default (state, action) => {
 
         case ManageClaimTypes.ASSIGN_CLAIM_SUCCESS:
             let processingItem;
-            const newPendingClaims = pendingClaims.filter((el) => {
-                const match = el['_id'] === action.claimId;
+            let newPendingClaims = pendingClaims.filter((el) => {
+                let match = el['_id'] === action.claimId;
                 if (match) {
                     processingItem = el;
                     return false;
@@ -18,14 +18,50 @@ export default (state, action) => {
                 }
             });
             processingItem.status = 'processing';
-            const newProcessingClaims = processingClaims.concat([processingItem]);
+            let newProcessingClaimsAssign = processingClaims.concat([processingItem]);
             return {...state,
                 pendingClaims: newPendingClaims,
-                processingClaims: newProcessingClaims
+                processingClaims: newProcessingClaimsAssign
             }
 
         case ManageClaimTypes.ASSIGN_CLAIM_FAILURE:
             return state;
+        
+        case ManageClaimTypes.ACCEPT_CLAIM_SUCCESS:
+            let acceptItem;
+            let newProcessingClaimsAccept = processingClaims.filter((el) => {
+                let match = el['_id'] === action.claimId;
+                if (match) {
+                    acceptItem = el;
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+            acceptItem.status = 'accepted';
+            let newClosedClaimsAccept = processingClaims.concat([acceptItem]);
+            return {...state,
+                processingClaims: newProcessingClaimsAccept,
+                closedClaims: newClosedClaimsAccept
+            };
+
+        case ManageClaimTypes.REJECT_CLAIM_SUCCESS:
+            let rejectItem;
+            let newProcessingClaims = processingClaims.filter((el) => {
+                let match = el['_id'] === action.claimId;
+                if (match) {
+                    rejectItem = el;
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+            rejectItem.status = 'rejected';
+            let newClosedClaimsReject = processingClaims.concat([rejectItem]);
+            return {...state,
+                processingClaims: newPendingClaims,
+                closedClaims: newClosedClaimsReject
+            };
 
         case ManageClaimTypes.UPDATE_CLAIMS:
             return {...state,
