@@ -1,7 +1,7 @@
 import ManageClaimTypes from 'redux/actions/manageClaim/ManageClaimTypes.jsx';
 
 export default (state, action) => {
-    const { allClaims, pendingClaims, processingClaims, closedClaims } = state;
+    const { allClaims, pendingClaims, processingClaims, finishedClaims } = state;
     switch (action.type) {
         case ManageClaimTypes.ASSIGN_CLAIM_REQUEST:
             return state;
@@ -39,10 +39,10 @@ export default (state, action) => {
                 }
             });
             acceptItem.status = 'accepted';
-            let newClosedClaimsAccept = processingClaims.concat([acceptItem]);
+            let newFinishedClaims = finishedClaims.concat([acceptItem]);
             return {...state,
                 processingClaims: newProcessingClaimsAccept,
-                closedClaims: newClosedClaimsAccept
+                finishedClaims: newFinishedClaims
             };
 
         case ManageClaimTypes.REJECT_CLAIM_SUCCESS:
@@ -57,10 +57,10 @@ export default (state, action) => {
                 }
             });
             rejectItem.status = 'rejected';
-            let newClosedClaimsReject = processingClaims.concat([rejectItem]);
+            let newClosedClaimsReject = finishedClaims.concat([rejectItem]);
             return {...state,
-                processingClaims: newPendingClaims,
-                closedClaims: newClosedClaimsReject
+                processingClaims: newProcessingClaims,
+                finishedClaims: newClosedClaimsReject
             };
 
         case ManageClaimTypes.UPDATE_CLAIMS:

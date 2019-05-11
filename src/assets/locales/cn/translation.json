@@ -270,7 +270,8 @@
             "Claim Assignment Successful!": "理赔任务分配成功",
             "A claim cannot be assigned again": "无法分配该理赔任务",
             "Claim Rejection Successful!": "拒绝理赔成功!",
-            "Claim Acception Successful!": "接受理赔成功!"
+            "Claim Acception Successful!": "接受理赔成功!",
+            "No reject reason given": "未输入理赔拒绝原因"
         }
     }
     

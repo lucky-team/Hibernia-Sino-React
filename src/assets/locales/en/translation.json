@@ -269,7 +269,8 @@
             "Claim Assignment Successful!": "Claim Assignment Successful!",
             "A claim cannot be assigned again": "A claim cannot be assigned again",
             "Claim Rejection Successful!": "Claim Rejection Successful!",
-            "Claim Acception Successful!": "Claim Acception Successful!"
+            "Claim Acception Successful!": "Claim Acception Successful!",
+            "No reject reason given": "No reject reason given"
         }
     }
     

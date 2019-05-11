@@ -146,7 +146,7 @@ export const requestRejectClaim = (claimId) => ({
     claimId: claimId
 });
 
-export const receiveRejectClaim = (claimId, msg) => ({
+export const receiveRejectClaim = ({ claimId, msg }) => ({
     type: ManageClaimTypes.REJECT_CLAIM_SUCCESS,
     claimId: claimId,
     msg: msg
@@ -168,7 +168,8 @@ export const rejectClaim = (claimId, rejectReason) => dispatch => {
     return fetch(`${baseUrl}claims/reject/${claimId}`, {
         method: 'POST',
         headers: {
-            'Authorization': bearer
+            'Authorization': bearer,
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(body)
     })
@@ -188,20 +189,10 @@ export const rejectClaim = (claimId, rejectReason) => dispatch => {
                 claimId: claimId,
                 msg: response.msg
             }));
-            dispatch(enqueueSnackbar({
-                message: response.msg,
-                options: {variant: 'success'},
-                field: 'actions.claim'
-            }));
         } else {
             dispatch(rejectClaimError({
                 claimId: claimId,
                 err: `${response.err.name}: ${response.err.message}`
-            }));
-            dispatch(enqueueSnackbar({
-                message: response.err.message,
-                options: {variant: 'error'},
-                field: 'actions.claim'
             }));
         }
     })
