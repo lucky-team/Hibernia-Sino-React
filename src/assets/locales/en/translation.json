@@ -242,6 +242,7 @@
 
     "claimDetail": {
         "title": "Claim Detail",
+        "basic": "Basic Information",
         "claimId": "Claim Id",
         "type": "Accident Type",
         "location": "Accident Location",
@@ -249,8 +250,38 @@
         "status": "Status",
         "amount": "Amount of Loss",
         "reason": "Accident Details",
+        "supportingFiles": "Supporting Files",
         "rejectReason": "Reject Reason",
-        "reject": "Reject"
+        "accept": "Accept",
+        "reject": "Reject",
+        "handle": "Management"
+    },
+
+    "insuranceDetail": {
+        "title": "Insurance Detail",
+        "insuranceId": "Insurance Id",
+        "plan": "Plan",
+        "level": "Level",
+        "duration": "Duration",
+        "start": "Start At",
+        "expire": "Expire At"
+    },
+
+    "insuredDetail": {
+        "title": "Insured Information",
+        "insured": "Name",
+        "socialId": "Social ID",
+        "gender": "Gender",
+        "age": "Age",
+        "phone": "Phone",
+        "email": "Email"
+    },
+
+    "bankDetail": {
+        "title": "Bank Information",
+        "bankName": "Bank Name",
+        "bankAccount": "Bank Account",
+        "bankUsername": "Bank Username"
     },
 
     "actions": {

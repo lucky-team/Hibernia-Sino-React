@@ -9,6 +9,7 @@ import { Table, TableBody, TableCell, TableSortLabel, TableHead, TableRow,
      Checkbox, IconButton, Tooltip } from '@material-ui/core';
 import { Assignment as AssignmentIcon, Done as DoneIcon, Info as InfoIcon } from '@material-ui/icons';
 import Button from "components/CustomButtons/Button.jsx";
+import { baseUrl } from 'routes/BaseUrl';
 
 import enhancedTableStyle from "assets/jss/material-kit-pro-react/components/enhancedTableStyle.jsx";
 
@@ -55,6 +56,23 @@ const EnhancedTableHead = ({ ...props }) => {
     );
 }
 
+const fetchInsurance = (insuranceId, setInsurance) => {
+    const bearer = 'Bearer ' +  localStorage.getItem('token');
+    const url = baseUrl + `insurances?_id=${insuranceId}`;
+
+    fetch(url, {
+        headers: {
+            'Authorization': bearer
+        },
+        method: 'GET'
+    })
+    .then((response) => response.json())
+    .then((response) => {
+        console.log(response);
+        setInsurance(response[0]);
+    });
+}
+
 const EnhancedTable = ({ ...props }) => {
     const {
         t,
@@ -77,6 +95,7 @@ const EnhancedTable = ({ ...props }) => {
     const [headChecked, setHeadChecked] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [dialogClaim, setDialogClaim] = useState(null);
+    const [insurance, setInsurance] = useState(null);
 
     useEffect(() => console.log('Mount: EnhancedTable'), []);
 
@@ -161,6 +180,7 @@ const EnhancedTable = ({ ...props }) => {
                                                 e.stopPropagation();
                                                 setDialogClaim(row);
                                                 setDialogOpen(true);
+                                                fetchInsurance(row.insurance, (resp) => setInsurance(resp));
                                             }}
                                             aria-label={t('manageClaimPage.table.check')}>
                                             <InfoIcon />
@@ -189,6 +209,7 @@ const EnhancedTable = ({ ...props }) => {
         <ClaimDetail
             t={t}
             claim={dialogClaim}
+            insurance={insurance}
             open={dialogOpen}
             handleClose={() => setDialogOpen(false)}
             acceptClaim={acceptClaim}

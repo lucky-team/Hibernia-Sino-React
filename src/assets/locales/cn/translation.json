@@ -242,6 +242,7 @@
 
     "claimDetail": {
         "title": "理赔信息",
+        "basic": "基础信息",
         "claimId": "理赔单号",
         "type": "事故类型",
         "location": "事故发生地点",
@@ -249,9 +250,38 @@
         "status": "状态",
         "amount": "损失金额",
         "reason": "事故详细信息",
+        "supportingFiles": "文件列表",
         "rejectReason": "理赔失败回复",
         "accept": "接受理赔",
-        "reject": "拒绝理赔"
+        "reject": "拒绝理赔",
+        "handle": "处理理赔"
+    },
+
+    "insuranceDetail": {
+        "title": "保险信息",
+        "insuranceId": "保险单号",
+        "plan": "计划",
+        "level": "等级",
+        "duration": "持续时间",
+        "start": "开始时间",
+        "expire": "结束时间"
+    },
+
+    "insuredDetail": {
+        "title": "被保险人信息",
+        "insured": "被保险人",
+        "socialId": "身份证号",
+        "gender": "性别",
+        "age": "年龄",
+        "phone": "手机号",
+        "email": "邮箱"
+    },
+
+    "bankDetail": {
+        "title": "银行信息",
+        "bankName": "银行名称",
+        "bankAccount": "银行账户",
+        "bankUsername": "开户人姓名"
     },
 
     "actions": {
