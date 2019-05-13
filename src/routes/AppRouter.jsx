@@ -70,6 +70,7 @@ class AppRouter extends Component {
             <Insurance
                 insurance={insurance}
                 changeLocale={changeLocale}
+                enqueueSnackbar={enqueueSnackbar}
                 {...props}
             />
         );
@@ -99,7 +100,7 @@ class AppRouter extends Component {
                 fetchInsurances={fetchInsurances}
                 {...props}
             />
-        )
+        );
 
         return (
             <div>

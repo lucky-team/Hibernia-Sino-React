@@ -1,4 +1,4 @@
-import TableTypes from 'redux/actions/manageClaim/table/TableTypes.jsx';
+import TableTypes from 'redux/actions/table/TableTypes.jsx';
 
 export const loadData = (data) => ({
     type: TableTypes.LOAD_DATA,

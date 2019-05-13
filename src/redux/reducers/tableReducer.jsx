@@ -1,4 +1,4 @@
-import TableTypes from 'redux/actions/manageClaim/table/TableTypes.jsx';
+import TableTypes from 'redux/actions/table/TableTypes.jsx';
 
 const desc = (a, b, orderBy) => {
     if (b[orderBy] < a[orderBy]) {

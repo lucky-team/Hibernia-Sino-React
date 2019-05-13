@@ -3,12 +3,12 @@ import { withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import moment from 'moment';
 
-import ClaimDetail from 'views/Detail/ClaimDetail.jsx';
+import InsuranceDetail from 'views/Detail/InsuranceDetail';
 
 import { Table, TableBody, TableCell, TableSortLabel, TableHead, TableRow,
      Checkbox, IconButton, Tooltip } from '@material-ui/core';
-import { Assignment as AssignmentIcon, Done as DoneIcon, Info as InfoIcon } from '@material-ui/icons';
-import { baseUrl } from 'routes/BaseUrl';
+import { Info as InfoIcon, OfflineBolt as OfflineBoltIcon } from '@material-ui/icons';
+import * as BaseUrl from 'routes/BaseUrl';
 
 import enhancedTableStyle from "assets/jss/material-kit-pro-react/components/enhancedTableStyle.jsx";
 
@@ -58,23 +58,6 @@ const EnhancedTableHead = ({ ...props }) => {
     );
 };
 
-const fetchInsurance = (insuranceId, setInsurance) => {
-    const bearer = 'Bearer ' +  localStorage.getItem('token');
-    const url = baseUrl + `insurances?_id=${insuranceId}`;
-
-    fetch(url, {
-        headers: {
-            'Authorization': bearer
-        },
-        method: 'GET'
-    })
-    .then((response) => response.json())
-    .then((response) => {
-        console.log(response);
-        setInsurance(response[0]);
-    });
-}
-
 const EnhancedTable = ({ ...props }) => {
     const {
         t,
@@ -88,16 +71,14 @@ const EnhancedTable = ({ ...props }) => {
         changeOrder,
         addSelected,
         removeSelected,
-        assignClaim,
-        acceptClaim,
-        rejectClaim
+        enqueueSnackbar,
+        history
     } = props;
 
     const [headInterminate, setHeadInterminate] = useState(false);
     const [headChecked, setHeadChecked] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
-    const [dialogClaim, setDialogClaim] = useState(null);
-    const [insurance, setInsurance] = useState(null);
+    const [dialogContent, setDialogContent] = useState(null);
 
     useEffect(() => console.log('Mount: EnhancedTable'), []);
 
@@ -140,9 +121,7 @@ const EnhancedTable = ({ ...props }) => {
 
     return (
         <div className={classes.tableWrapper}>
-            <Table
-                className={classes.table}
-            >
+            <Table className={classes.table}>
                 <EnhancedTableHead
                     classes={classes}
                     order={order}
@@ -172,53 +151,48 @@ const EnhancedTable = ({ ...props }) => {
                                     <Checkbox checked={isItemSelected} />
                                 </TableCell>
                                 <TableCell>{row._id}</TableCell>
-                                <TableCell>{moment(row.date).format('LL').toString()}</TableCell>
-                                <TableCell>{row.amount}</TableCell>
-                                <TableCell>{row.status}</TableCell>
+                                <TableCell>{row.plan}</TableCell>
+                                <TableCell>{row.level}</TableCell>
+                                <TableCell>{moment(row.expireDate).format('LL').toString()}</TableCell>
                                 <TableCell>
-                                    <Tooltip title={t('manageClaimPage.table.check')}>
-                                        <IconButton 
+                                    <Tooltip title={t('insurancePage.table.check')}>
+                                        <IconButton
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                setDialogClaim(row);
+                                                setDialogContent(row);
                                                 setDialogOpen(true);
-                                                fetchInsurance(row.insurance, (resp) => setInsurance(resp));
                                             }}
-                                            aria-label={t('manageClaimPage.table.check')}>
+                                            aria-label={t('insurancePage.table.check')}
+                                        >
                                             <InfoIcon />
                                         </IconButton>
                                     </Tooltip>
-                                    {row.status === 'pending' && (
-                                        <Tooltip title={t('manageClaimPage.table.assign')}>
-                                            <IconButton
-                                                aria-label={t('manageClaimPage.table.assign')}
-                                                onClick={(e) => {
-                                                    assignClaim(row._id);
-                                                    e.stopPropagation();
-                                                }}
-                                            >
-                                                <AssignmentIcon />
-                                            </IconButton>
-                                        </Tooltip>
-                                    )}
+                                    <Tooltip title={t('insurancePage.table.claim')}>
+                                        <IconButton
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                history.push(BaseUrl.claimProcessUrl + `#${row._id}`)
+                                            }}
+                                            aria-label={t('insurancePage.table.claim')}
+                                        >
+                                            <OfflineBoltIcon />
+                                        </IconButton>
+                                    </Tooltip>
                                 </TableCell>
                             </TableRow>
                         );
                     })}
                 </TableBody>
-        </Table>
-        <ClaimDetail
-            t={t}
-            claim={dialogClaim}
-            insurance={insurance}
-            open={dialogOpen}
-            handleClose={() => setDialogOpen(false)}
-            acceptClaim={acceptClaim}
-            rejectClaim={rejectClaim}
-        />
+            </Table>
+            <InsuranceDetail
+                t={t}
+                insurance={dialogContent}
+                open={dialogOpen}
+                handleClose={() => setDialogOpen(false)}
+            />
         </div>
     );
-};
 
+};
 
 export default withStyles(enhancedTableStyle)(EnhancedTable);

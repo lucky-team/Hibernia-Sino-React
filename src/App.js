@@ -10,14 +10,19 @@ import "assets/scss/material-kit-pro-react.scss?v=1.3.0";
 import momentLocale from 'moment/locale/zh-cn';
 
 const store = ConfigureStore();
-moment.updateLocale('cn', momentLocale);
+moment.updateLocale('zh-cn', momentLocale);
 
 const App  = (...props) => {
     const [locale, setLocale] = useState('cn');
 
     useEffect(() => {
-        moment.locale(locale);
+        console.log(`Change locale: ${locale}`);
         i18nSetting.changeLanguage(locale);
+        if (locale === 'cn') {
+            moment.locale('zh-cn');
+        } else {
+            moment.locale(locale);
+        }
     }, [locale]);
     
     const changeLocale = (newLocale) => {

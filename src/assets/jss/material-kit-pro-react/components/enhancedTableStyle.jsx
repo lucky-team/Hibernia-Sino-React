@@ -56,7 +56,7 @@ import {
       lineHeight: "1.5em",
       verticalAlign: "middle",
       fontSize: "0.875rem",
-      borderBottom: "none",
+      borderBottom: "1px solid " + grayColor[6],
       borderTop: "1px solid " + grayColor[6],
       position: "relative",
       color: grayColor[1]

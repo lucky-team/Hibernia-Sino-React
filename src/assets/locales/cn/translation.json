@@ -105,8 +105,8 @@
         "pageTitle": "保单列表",
         "title": "我的保单",
         "all": "全部保单",
-        "valid": "有效保单",
-        "invalid": "历史保单",
+        "active": "有效保单",
+        "inactive": "历史保单",
         "table": {
             "insuranceId": "保险单号",
             "plan": "计划",
@@ -117,7 +117,11 @@
             "expire": "结束时间",
             "check": "查看",
             "claim": "快速理赔",
-            "claiming": "理赔中"
+            "claiming": "理赔中",
+            "selectedText": "条",
+            "all": "全部保单",
+            "active": "有效保单",
+            "inactive": "历史保单"
         }
     },
 
@@ -259,6 +263,7 @@
 
     "insuranceDetail": {
         "title": "保险信息",
+        "basic": "基础信息",
         "insuranceId": "保险单号",
         "plan": "计划",
         "level": "等级",

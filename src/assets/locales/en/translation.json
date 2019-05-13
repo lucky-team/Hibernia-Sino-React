@@ -105,8 +105,8 @@
         "pageTitle": "Insurance List",
         "title": "My insurances",
         "all": "All",
-        "valid": "Active",
-        "invalid": "Expired",
+        "active": "Active",
+        "inactive": "Expired",
         "table": {
             "insuranceId": "Insurance Id",
             "plan": "Plan",
@@ -117,7 +117,11 @@
             "expire": "Expire At",
             "check": "Check",
             "claim": "File a Claim",
-            "claiming": "In Claiming"
+            "claiming": "In Claiming",
+            "selectedText": "Selected",
+            "all": "All",
+            "active": "Active",
+            "inactive": "Inactive"
         }
     },
 
@@ -259,6 +263,7 @@
 
     "insuranceDetail": {
         "title": "Insurance Detail",
+        "basic": "Basic Information",
         "insuranceId": "Insurance Id",
         "plan": "Plan",
         "level": "Level",

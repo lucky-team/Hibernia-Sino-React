@@ -23,7 +23,6 @@ const ManageClaimPage = ({ ...props }) => {
         history,
         changeLocale,
         classes,
-        fetchInsurances,
     } = props;
 
     useEffect(() => {
