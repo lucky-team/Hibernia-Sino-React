@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import moment from 'moment';
 
-import ClaimDetail from 'views/Detail/ClaimDetail.jsx';
+import ClaimDetail from 'views/Detail/ManageClaimDetail.jsx';
 
 import { Table, TableBody, TableCell, TableSortLabel, TableHead, TableRow,
      Checkbox, IconButton, Tooltip } from '@material-ui/core';
@@ -73,7 +73,7 @@ const fetchInsurance = (insuranceId, setInsurance) => {
         console.log(response);
         setInsurance(response[0]);
     });
-}
+};
 
 const EnhancedTable = ({ ...props }) => {
     const {
@@ -180,9 +180,9 @@ const EnhancedTable = ({ ...props }) => {
                                         <IconButton 
                                             onClick={(e) => {
                                                 e.stopPropagation();
+                                                fetchInsurance(row.insurance, (resp) => setInsurance(resp));
                                                 setDialogClaim(row);
                                                 setDialogOpen(true);
-                                                fetchInsurance(row.insurance, (resp) => setInsurance(resp));
                                             }}
                                             aria-label={t('manageClaimPage.table.check')}>
                                             <InfoIcon />

@@ -7,7 +7,7 @@ import * as TableActions from 'redux/actions/table/tableActions.jsx';
 import { Toolbar, Tooltip, IconButton, Typography, Paper } from '@material-ui/core';
 import { Assignment as AssignmentIcon, Done as DoneIcon } from '@material-ui/icons';
 
-import EnhancedTable from 'views/InsurancePage/Sections/EnhancedTable.jsx';
+import EnhancedTable from 'views/ClaimPage/Sections/EnhancedTable.jsx';
 import EnhancedPagination from 'components/Pagination/EnhancedPagination.jsx';
 
 const EnhancedTableToolbar = ({ ...props }) => {
@@ -54,7 +54,7 @@ const initialState = {
 const TabContentSection = ({ ...props }) => {
     const {
         classes,
-        insurances,
+        claims,
         t,
         tableType,
         enqueueSnackbar,
@@ -67,23 +67,23 @@ const TabContentSection = ({ ...props }) => {
     useEffect(() => {console.log('Mount: tab content section');}, []);
 
     useEffect(() => {
-        dispatch(TableActions.loadData(insurances));
+        dispatch(TableActions.loadData(claims));
         dispatch(TableActions.sortData());
-    }, [insurances]);
+    }, [claims]);
 
     useEffect(() => {
         dispatch(TableActions.sortData());
     }, [state.order, state.orderBy]);
-    
+
     useEffect(() => {
         dispatch(TableActions.updatePageData());
     }, [page, rowsPerPage, order, orderBy, data]);
 
     const headRows = [
-        { id: '_id', label: t('insuranceDetail.insuranceId') },
-        { id: 'plan', label: t('insuranceDetail.plan') },
-        { id: 'level', label: t('insuranceDetail.level') },
-        { id: 'expireDate', label: t('insuranceDetail.expire') },
+        { id: '_id', label: t('claimDetail.claimId') },
+        { id: 'location', label: t('claimDetail.location') },
+        { id: 'amount', label: t('claimDetail.amount') },
+        { id: 'createAt', label: t('claimDetail.createAt') },
         { label: '' }
     ];
 
@@ -94,9 +94,9 @@ const TabContentSection = ({ ...props }) => {
                     t={t}
                     classes={classes}
                     numSelected={selected.length}
-                    selectedText={t('insurancePage.table.selectedText')}
+                    selectedText={t('claimPage.selectedText')}
                     tableType={tableType}
-                    title={t(`insurancePage.table.${tableType}`)}
+                    title={t(`claimPage.${tableType}`)}
                 />
                 <EnhancedTable
                     t={t}
@@ -118,12 +118,12 @@ const TabContentSection = ({ ...props }) => {
                 <EnhancedPagination
                     page={page}
                     rowsPerPage={rowsPerPage}
-                    size={insurances.length}
+                    size={claims.length}
                     flipPage={(page) => dispatch(TableActions.flipPage(page))}
                 />
             </Paper>
         </div>
     );
-};
+}
 
 export default TabContentSection;

@@ -36,7 +36,6 @@ const InsurancePage = ({ ...props }) => {
 
     useEffect(() => {
         let insurances = insurance.content;
-        let newAllInsurances = [];
         let newActiveInsurances = [];
         let newFinishedInsurances = [];
         const now = moment();
@@ -48,9 +47,8 @@ const InsurancePage = ({ ...props }) => {
                 } else {
                     newFinishedInsurances.push(item);
                 }
-                newAllInsurances.push(item);
             });
-            setAllInsurances(newAllInsurances);
+            setAllInsurances(insurances);
             setActiveInsurances(newActiveInsurances);
             setFinished(newFinishedInsurances);
         }

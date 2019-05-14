@@ -38,7 +38,7 @@ const NavpillsSection = ({ ...props }) => {
             color='rose'
             tabs={[
                 {
-                    tabButton: t('manageClaimPage.table.all'),
+                    tabButton: t('claimPage.all'),
                     tabContent: (
                         <TabContentSection
                             classes={classes}
@@ -53,7 +53,7 @@ const NavpillsSection = ({ ...props }) => {
                     )
                 },
                 {
-                    tabButton: t('manageClaimPage.table.pending'),
+                    tabButton: t('claimPage.pending'),
                     tabContent: (
                         <TabContentSection
                             classes={classes}
@@ -66,7 +66,7 @@ const NavpillsSection = ({ ...props }) => {
                     )
                 },
                 {
-                    tabButton: t('manageClaimPage.table.processing'),
+                    tabButton: t('claimPage.processing'),
                     tabContent: (
                         <TabContentSection
                             classes={classes}
@@ -80,7 +80,7 @@ const NavpillsSection = ({ ...props }) => {
                     )
                 },
                 {
-                    tabButton: t('manageClaimPage.table.finished'),
+                    tabButton: t('claimPage.finished'),
                     tabContent: (
                         <TabContentSection
                             classes={classes}

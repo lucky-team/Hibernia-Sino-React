@@ -18,7 +18,7 @@ function PaperComponent(props) {
         <Paper {...props} />
       </Draggable>
     );
-}
+  }
 
 const fetchClaimFile = (claimId, filename) => {
     const bearer = 'Bearer ' +  localStorage.getItem('token');
@@ -40,17 +40,21 @@ const fetchClaimFile = (claimId, filename) => {
         link.click();
         link.parentNode.removeChild(link);
     });
-};
+}
 
-const ClaimDetail = ({ ...props }) => {
+const ManageClaimDetail = ({ ...props }) => {
     const {
         t,
         claim,
         insurance,
         open,
         handleClose,
-        classes
+        classes,
+        acceptClaim,
+        rejectClaim
     } = props;
+
+    const [rejectReason, setRejectReason] = useState('');
 
     if (claim === null) {
         return null;
@@ -129,7 +133,7 @@ const ClaimDetail = ({ ...props }) => {
                                     }}
                                     inputProps={{
                                         name: 'status',
-                                        value: t(`claimPage.table.${claim.status}`)
+                                        value: t(`manageClaimPage.table.${claim.status}`)
                                     }}
                                 />
                             </GridItem>
@@ -391,12 +395,65 @@ const ClaimDetail = ({ ...props }) => {
                                 </GridItem>
                                 </>
                             )}
+                            {claim.status === 'processing' && (
+                                <>
+                                <GridItem xs={12}>
+                                    <h4><strong>{t('claimDetail.handle')}</strong></h4>
+                                </GridItem>
+                                <GridItem xs={12}>
+                                    <CustomInput
+                                        labelText={t('claimDetail.rejectReason')}
+                                        id="rejectReason"
+                                        formControlProps={{
+                                            fullWidth: true,
+                                        }}
+                                        inputProps={{
+                                            name: 'rejectReason',
+                                            value: rejectReason,
+                                            onChange: (e) => setRejectReason(e.target.value),
+                                            multiline: true,
+                                            rows: 7
+                                        }}
+                                    />
+                                </GridItem>
+                                <GridItem xs={12}>
+                                    <GridContainer>
+                                        <GridItem xs={2}>
+                                            <Button
+                                                round
+                                                color='rose'
+                                                onClick={() => {
+                                                    acceptClaim(claim._id);
+                                                    handleClose();
+                                                    setRejectReason('');
+                                                }}
+                                            >
+                                                {t('claimDetail.accept')}
+                                            </Button>
+                                        </GridItem>
+                                        <GridItem xs={2}>
+                                            <Button
+                                                round
+                                                onClick={() => {
+                                                    rejectClaim(claim._id, rejectReason);
+                                                    handleClose();
+                                                    setRejectReason('');
+                                                }}
+                                            >
+                                                {t('claimDetail.reject')}
+                                            </Button>
+                                        </GridItem>
+                                    </GridContainer>
+                                </GridItem>
+                                </>
+                            )}
                         </GridContainer>
                     </div>
                 </DialogContent>
             </Dialog>
         );
     }
-}
+    
+};
 
-export default withStyles(insuranceDetailStyle)(ClaimDetail);
+export default withStyles(insuranceDetailStyle)(ManageClaimDetail);

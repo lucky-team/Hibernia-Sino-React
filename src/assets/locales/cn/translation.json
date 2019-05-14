@@ -129,8 +129,10 @@
         "pageTitle": "理赔列表",
         "title": "理赔列表",
         "all": "全部理赔",
-        "active": "正在理赔",
-        "inactive": "已完成",
+        "pending": "等待受理",
+        "processing": "处理中",
+        "finished": "历史理赔",
+        "selectedText": "Selected",
         "table": {
             "claimId": "理赔单号",
             "type": "事故类型",
@@ -138,10 +140,11 @@
             "amount": "损失金额",
             "date": "事故发生时间",
             "status": "状态",
-            "pending": "等待处理",
+            "pending": "等待受理",
             "processing": "处理中",
             "accepted": "通过",
-            "rejected": "拒绝"
+            "rejected": "拒绝",
+            "check": "查看"
         }
     },
 
@@ -253,6 +256,7 @@
         "type": "事故类型",
         "location": "事故发生地点",
         "date": "事故发生时间",
+        "createAt": "申请时间",
         "status": "状态",
         "amount": "损失金额",
         "reason": "事故详细信息",

@@ -105,8 +105,9 @@
         "pageTitle": "Insurance List",
         "title": "My insurances",
         "all": "All",
-        "active": "Active",
-        "inactive": "Expired",
+        "pending": "等待受理",
+        "processing": "处理中",
+        "finished": "历史理赔",
         "table": {
             "insuranceId": "Insurance Id",
             "plan": "Plan",
@@ -129,8 +130,10 @@
         "pageTitle": "Claim List",
         "title": "My Claims",
         "all": "All",
-        "active": "Active",
-        "inactive": "Finished",
+        "pending": "Pending",
+        "processing": "Processing",
+        "finished": "Finished",
+        "selectedText": "Selected",
         "table": {
             "claimId": "Claim Id",
             "type": "Accident Type",
@@ -141,7 +144,8 @@
             "pending": "Pending",
             "processing": "Processing",
             "accepted": "Accepted",
-            "rejected": "Rejected"
+            "rejected": "Rejected",
+            "check": "Check"
         }
     },
 
@@ -253,6 +257,7 @@
         "type": "Accident Type",
         "location": "Accident Location",
         "date": "Accident Time",
+        "createAt": "Applied At",
         "status": "Status",
         "amount": "Amount of Loss",
         "reason": "Accident Details",

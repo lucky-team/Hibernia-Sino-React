@@ -3,12 +3,12 @@ import { withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import moment from 'moment';
 
-import InsuranceDetail from 'views/Detail/InsuranceDetail';
+import ClaimDetail from 'views/Detail/ClaimDetail';
 
 import { Table, TableBody, TableCell, TableSortLabel, TableHead, TableRow,
      Checkbox, IconButton, Tooltip } from '@material-ui/core';
 import { Info as InfoIcon, OfflineBolt as OfflineBoltIcon } from '@material-ui/icons';
-import * as BaseUrl from 'routes/BaseUrl';
+import { baseUrl } from 'routes/BaseUrl';
 
 import enhancedTableStyle from "assets/jss/material-kit-pro-react/components/enhancedTableStyle.jsx";
 
@@ -58,6 +58,23 @@ const EnhancedTableHead = ({ ...props }) => {
     );
 };
 
+const fetchInsurance = (insuranceId, setInsurance) => {
+    const bearer = 'Bearer ' +  localStorage.getItem('token');
+    const url = baseUrl + `insurances?_id=${insuranceId}`;
+
+    fetch(url, {
+        headers: {
+            'Authorization': bearer
+        },
+        method: 'GET'
+    })
+    .then((response) => response.json())
+    .then((response) => {
+        console.log(response);
+        setInsurance(response[0]);
+    });
+};
+
 const EnhancedTable = ({ ...props }) => {
     const {
         t,
@@ -79,6 +96,7 @@ const EnhancedTable = ({ ...props }) => {
     const [headChecked, setHeadChecked] = useState(false);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [dialogContent, setDialogContent] = useState(null);
+    const [insurance, setInsurance] = useState(null);
 
     useEffect(() => console.log('Mount: enhanced table'), []);
 
@@ -151,44 +169,33 @@ const EnhancedTable = ({ ...props }) => {
                                     <Checkbox checked={isItemSelected} />
                                 </TableCell>
                                 <TableCell>{row._id}</TableCell>
-                                <TableCell>{row.plan}</TableCell>
-                                <TableCell>{row.level}</TableCell>
-                                <TableCell>{moment(row.expireDate).format('LL').toString()}</TableCell>
+                                <TableCell>{row.location}</TableCell>
+                                <TableCell>{row.amount}</TableCell>
+                                <TableCell>{moment(row.createdAt).format('LL').toString()}</TableCell>
                                 <TableCell>
-                                    <Tooltip title={t('insurancePage.table.check')}>
+                                    <Tooltip title={t('claimPage.table.check')}>
                                         <IconButton
                                             onClick={(e) => {
                                                 e.stopPropagation();
+                                                fetchInsurance(row.insurance, (resp) => setInsurance(resp));
                                                 setDialogContent(row);
                                                 setDialogOpen(true);
                                             }}
-                                            aria-label={t('insurancePage.table.check')}
+                                            aria-label={t('claimPage.table.check')}
                                         >
                                             <InfoIcon />
                                         </IconButton>
                                     </Tooltip>
-                                    {row.claim === undefined && (
-                                        <Tooltip title={t('insurancePage.table.claim')}>
-                                            <IconButton
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    history.push(BaseUrl.claimProcessUrl + `#${row._id}`)
-                                                }}
-                                                aria-label={t('insurancePage.table.claim')}
-                                            >
-                                                <OfflineBoltIcon />
-                                            </IconButton>
-                                        </Tooltip>
-                                    )}
                                 </TableCell>
                             </TableRow>
                         );
                     })}
                 </TableBody>
             </Table>
-            <InsuranceDetail
+            <ClaimDetail
                 t={t}
-                insurance={dialogContent}
+                claim={dialogContent}
+                insurance={insurance}
                 open={dialogOpen}
                 handleClose={() => setDialogOpen(false)}
             />
