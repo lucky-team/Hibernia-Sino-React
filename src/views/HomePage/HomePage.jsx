@@ -4,8 +4,9 @@ import Carousel from "react-slick";
 import { withTranslation } from 'react-i18next';
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Dashboard, ViewCarousel, Code, FormatPaint, AccessTime,
-    AttachMoney, Weekend, Home, AccountBalance, Business } from "@material-ui/icons";
+    AttachMoney, Weekend, Home, AccountBalance, Business, ShoppingCart } from "@material-ui/icons";
 import Header from 'views/Header/Header.jsx';
+import * as BaseUrl from 'routes/BaseUrl';
 
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
@@ -26,7 +27,8 @@ const HomePage = ({ ...props }) => {
     const {
         classes,
         changeLocale,
-        t
+        t,
+        history
     } = props;
 
     const settings = {
@@ -40,9 +42,10 @@ const HomePage = ({ ...props }) => {
 
     const Pricing = () => (
         <div
-        className={`${classes.pricing} ${classes.pricing1} ${classes.section}`}
-        style={{ backgroundImage: `url(${bg11})` }}
-      >
+            id='pricing'
+            className={`${classes.pricing} ${classes.pricing1} ${classes.section}`}
+            style={{ backgroundImage: `url(${bg11})` }}
+        >
         <div className={classes.container}>
           <GridContainer>
             <GridItem
@@ -53,15 +56,14 @@ const HomePage = ({ ...props }) => {
                 classes.textCenter
               }`}
             >
-              <h2 className={classes.title}>Pick the best plan for you</h2>
+              <h2 className={classes.title}>{t('homePage.pricing.title')}</h2>
               <h5 className={classes.description}>
-                You have Free Unlimited Updates and Premium Support on each
-                package.
+                {t('homePage.pricing.content')}
               </h5>
               <div className={classes.sectionSpace} />
             </GridItem>
           </GridContainer>
-          <GridContainer>
+          <GridContainer justify='center'>
             <GridItem xs={12} sm={6} md={6} lg={3}>
               <Card pricing plain>
                 <CardBody pricing plain>
@@ -70,7 +72,7 @@ const HomePage = ({ ...props }) => {
                       classes.marginBottom20
                     }`}
                   >
-                    Freelancer
+                    {t('homePage.pricing.1.title')}
                   </h6>
                   <div className={classes.icon}>
                     <Weekend className={classes.iconWhite} />
@@ -80,40 +82,13 @@ const HomePage = ({ ...props }) => {
                       classes.marginTop30
                     }`}
                   >
-                    FREE
+                    {t('homePage.pricing.1.price')}
                   </h3>
                   <p className={classes.cardCategory}>
-                    This is good if your company size is between 2 and 10
-                    Persons.
+                    {t('homePage.pricing.1.content')}
                   </p>
                   <Button round color="white">
-                    Choose plan
-                  </Button>
-                </CardBody>
-              </Card>
-            </GridItem>
-            <GridItem xs={12} sm={6} md={6} lg={3}>
-              <Card pricing raised>
-                <CardBody pricing>
-                  <h6
-                    className={`${classes.cardDescription} ${
-                      classes.marginBottom20
-                    }`}
-                  >
-                    SMALL COMPANY
-                  </h6>
-                  <div className={classes.icon}>
-                    <Home className={classes.iconRose} />
-                  </div>
-                  <h3 className={`${classes.cardTitle} ${classes.marginTop30}`}>
-                    $29
-                  </h3>
-                  <p className={classes.cardDescription}>
-                    This is good if your company size is between 2 and 10
-                    Persons.
-                  </p>
-                  <Button round color="rose">
-                    Choose plan
+                    {t('homePage.pricing.choose')}
                   </Button>
                 </CardBody>
               </Card>
@@ -126,7 +101,7 @@ const HomePage = ({ ...props }) => {
                       classes.marginBottom20
                     }`}
                   >
-                    MEDIUM COMPANY
+                    {t('homePage.pricing.2.title')}
                   </h6>
                   <div className={classes.icon}>
                     <Business className={classes.iconWhite} />
@@ -136,14 +111,13 @@ const HomePage = ({ ...props }) => {
                       classes.marginTop30
                     }`}
                   >
-                    $69
+                    {t('homePage.pricing.2.price')}
                   </h3>
                   <p className={classes.cardCategory}>
-                    This is good if your company size is between 11 and 99
-                    Persons.
+                    {t('homePage.pricing.2.content')}
                   </p>
                   <Button round color="white">
-                    Choose plan
+                    {t('homePage.pricing.choose')}
                   </Button>
                 </CardBody>
               </Card>
@@ -156,7 +130,7 @@ const HomePage = ({ ...props }) => {
                       classes.marginBottom20
                     }`}
                   >
-                    ENTERPRISE
+                    {t('homePage.pricing.3.title')}
                   </h6>
                   <div className={classes.icon}>
                     <AccountBalance className={classes.iconWhite} />
@@ -166,13 +140,13 @@ const HomePage = ({ ...props }) => {
                       classes.marginTop30
                     }`}
                   >
-                    $159
+                    {t('homePage.pricing.3.price')}
                   </h3>
                   <p className={classes.cardCategory}>
-                    This is good if your company size is 99+ persons.
+                    {t('homePage.pricing.3.content')}
                   </p>
                   <Button round color="white">
-                    Choose plan
+                    {t('homePage.pricing.choose')}
                   </Button>
                 </CardBody>
               </Card>
@@ -196,7 +170,7 @@ const HomePage = ({ ...props }) => {
               classes.textCenter
             }`}
           >
-            <h2 className={classes.title}>Your life will be much easier</h2>
+            <h2 className={classes.title}>{t('homePage.features.title')}</h2>
           </GridItem>
           <div className={classes.container}>
             <GridContainer className={classes.gridContainer}>
@@ -205,12 +179,13 @@ const HomePage = ({ ...props }) => {
                   vertical
                   className={classes.infoArea5}
                   icon={Code}
-                  title="Hibernia-sino"
+                  title={t('homePage.features.1.title')}
                   description={
-                    <p>
-                        Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
-                        , Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
-                    </p>
+                    <div>
+                        <p>{t('homePage.features.1.1')}</p>
+                        <p>{t('homePage.features.1.2')}</p>
+                        <p>{t('homePage.features.1.3')}</p>
+                    </div>
                   }
                   iconColor="info"
                 />
@@ -220,12 +195,12 @@ const HomePage = ({ ...props }) => {
                   vertical
                   className={classes.infoArea5}
                   icon={FormatPaint}
-                  title="Hibernia-sino"
+                  title={t('homePage.features.2.title')}
                   description={
-                    <p>
-                        Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
-                        , Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
-                    </p>
+                    <div>
+                        <p>{t('homePage.features.2.1')}</p>
+                        <p>{t('homePage.features.2.2')}</p>
+                    </div>
                   }
                   iconColor="danger"
                 />
@@ -235,12 +210,12 @@ const HomePage = ({ ...props }) => {
                   vertical
                   className={classes.infoArea5}
                   icon={Dashboard}
-                  title="Hibernia-sino"
+                  title={t('homePage.features.3.title')}
                   description={
-                    <p>
-                        Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
-                        , Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
-                    </p>
+                    <div>
+                        <p>{t('homePage.features.3.1')}</p>
+                        <p>{t('homePage.features.3.2')}</p>
+                    </div>
                   }
                   iconColor="primary"
                 />
@@ -252,12 +227,12 @@ const HomePage = ({ ...props }) => {
                   vertical
                   className={classes.infoArea5}
                   icon={ViewCarousel}
-                  title="Hibernia-sino"
+                  title={t('homePage.features.4.title')}
                   description={
-                    <p>
-                        Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
-                        , Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
-                    </p>
+                    <div>
+                        <p>{t('homePage.features.4.1')}</p>
+                        <p>{t('homePage.features.4.2')}</p>
+                    </div>
                   }
                 />
               </GridItem>
@@ -266,12 +241,12 @@ const HomePage = ({ ...props }) => {
                   vertical
                   className={classes.infoArea5}
                   icon={AccessTime}
-                  title="Hibernia-sino"
+                  title={t('homePage.features.5.title')}
                   description={
-                    <p>
-                        Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
-                        , Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
-                    </p>
+                    <div>
+                        <p>{t('homePage.features.5.1')}</p>
+                        <p>{t('homePage.features.5.2')}</p>
+                    </div>
                   }
                 />
               </GridItem>
@@ -280,12 +255,12 @@ const HomePage = ({ ...props }) => {
                   vertical
                   className={classes.infoArea5}
                   icon={AttachMoney}
-                  title="Hibernia-sino"
+                  title={t('homePage.features.6.title')}
                   description={
-                    <p>
-                      Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
-                            , Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
-                    </p>
+                    <div>
+                        <p>{t('homePage.features.6.1')}</p>
+                        <p>{t('homePage.features.6.2')}</p>
+                    </div>
                   }
                 />
               </GridItem>
@@ -318,9 +293,30 @@ const HomePage = ({ ...props }) => {
                                 <GridItem xs={12} sm={6} md={6}>
                                     <h1 className={classes.title}>Hibernia-sino</h1>
                                     <h4>
-                                        Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
-                                        , Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
+                                        {t('homePage.ad')}
                                     </h4>
+                                    <br />
+                                    <div>
+                                        <Button
+                                            color="danger"
+                                            size="lg"
+                                            onClick={() => {
+                                                document.getElementById('pricing').scrollIntoView();
+                                            }}
+                                        >
+                                            <ShoppingCart />{t('homePage.shop')}
+                                        </Button>
+                                        <Button
+                                            color="white"
+                                            simple
+                                            size="lg"
+                                            onClick={() => {
+                                                history.push(BaseUrl.signupUrl);
+                                            }}
+                                        >
+                                            {t('homePage.signup')}
+                                        </Button>
+                                    </div>
                                 </GridItem>
                             </GridContainer>
                         </div>

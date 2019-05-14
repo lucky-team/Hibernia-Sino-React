@@ -65,13 +65,65 @@
         }
     },
 
-    "landingPage": {
-
-    },
-
-
     "homePage": {
-
+        "pageTitle": "Home",
+        "ad": "May the luggage be with you",
+        "signup": "Become Hibernia-Sino members",
+        "shop": "Purchase Now!",
+        "features": {
+            "title": "Your life will be much easier",
+            "1": {
+                "title": "1 System = 2 Work Models",
+                "1": "Efficiently satisfy different user requests.",
+                "2": "Different log-in channel for clients and employees.",
+                "3": "The client cannot log into the employee page, so as employee."
+            },
+            "2": {
+                "title": "Quick & Comprehend",
+                "1": "The new user needs to create an account.",
+                "2": "The system will check whether the username exists, and the password meets the requirement."
+            },
+            "3": {
+                "title": "Exclusive Information Management, No Third-Party Sharing",
+                "1": "After sign up a new account, the user will be asked to fill in the profile information.",
+                "2": "The profile information will used in the later claim process."
+            },
+            "4": {
+                "title": "Information Updating at Any Time",
+                "1": "The information in profile can be modified by the user.",
+                "2": "The system will check the user’s inputs, and update to the latest profile."
+            },
+            "5": {
+                "title": "Cellphone Verification Guarantee",
+                "1": "If the user forgets the password, he or she can input the phone number in the profile.",
+                "2": "The server will send a verification code to that phone, and the user can use it to set a new password."
+            },
+            "6": {
+                "title": "Global Common System",
+                "1": "The system is designed into two languages: English and Chinese.",
+                "2": "This is convenient for users in different countries, and meets the international requirements."
+            }
+        },
+        "pricing": {
+            "title": "Pick the best plan for you",
+            "content": "You can choose whatever suits you best",
+            "choose": "Choose plan",
+            "1": {
+                "title": "Basic",
+                "price": "$300",
+                "content": "Travel on three of the most common models of transport, train, plane, and long-distance bus."
+            },
+            "2": {
+                "title": "Medium",
+                "price": "$400",
+                "content": "Loss of your luggage in the event of natural and man-made disasters"
+            },
+            "3": {
+                "title": "Premium",
+                "price": "$500",
+                "content": "Travel by train, plane, coach, taxi or steamship."
+            }
+        }
     },
 
     "profilePage": {

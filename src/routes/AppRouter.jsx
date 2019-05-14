@@ -40,6 +40,7 @@ class AppRouter extends Component {
         const HomePage = ({ ...props }) => (
             <Home
                 changeLocale={changeLocale}
+                {...props}
             />
         );
              
