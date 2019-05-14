@@ -85,19 +85,6 @@ const InsuranceDetail = ({ ...props }) => {
                             </GridItem>
                             <GridItem xs={4}>
                                 <CustomInput
-                                    labelText={t('insuranceDetail.insuranceId')}
-                                    id="_id"
-                                    formControlProps={{
-                                        fullWidth: true,
-                                    }}
-                                    inputProps={{
-                                        name: '_id',
-                                        value: insurance._id
-                                    }}
-                                />
-                            </GridItem>
-                            <GridItem xs={4}>
-                                <CustomInput
                                     labelText={t('insuranceDetail.plan')}
                                     id="plan"
                                     formControlProps={{
@@ -173,7 +160,7 @@ const InsuranceDetail = ({ ...props }) => {
                                     }}
                                     inputProps={{
                                         name: 'bankName',
-                                        value: insurance.bankName
+                                        value: insurance.insured.bankName
                                     }}
                                 />
                             </GridItem>
@@ -186,7 +173,7 @@ const InsuranceDetail = ({ ...props }) => {
                                     }}
                                     inputProps={{
                                         name: 'bankAccount',
-                                        value: insurance.bankAccount
+                                        value: insurance.insured.bankAccount
                                     }}
                                 />
                             </GridItem>
@@ -199,7 +186,7 @@ const InsuranceDetail = ({ ...props }) => {
                                     }}
                                     inputProps={{
                                         name: 'bankUsername',
-                                        value: insurance.bankUsername
+                                        value: insurance.insured.bankUsername
                                     }}
                                 />
                             </GridItem>
@@ -284,7 +271,7 @@ const InsuranceDetail = ({ ...props }) => {
                                     }}
                                 />
                             </GridItem>
-                            {insurance.claim && (
+                            {insurance.claim !== undefined && (
                                 <>
                                     <GridItem xs={12}>
                                         <h5><strong>{t('claimDetail.title')}</strong></h5>
@@ -354,7 +341,7 @@ const InsuranceDetail = ({ ...props }) => {
                                             }}
                                         />
                                     </GridItem>
-                                    <GridItem xs={4}>
+                                    <GridItem xs={8}>
                                         <CustomInput
                                             labelText={t('claimDetail.reason')}
                                             id="reason"
@@ -366,19 +353,6 @@ const InsuranceDetail = ({ ...props }) => {
                                                 value: insurance.claim.reason,
                                                 multiline: true,
                                                 rows: 7
-                                            }}
-                                        />
-                                    </GridItem>
-                                    <GridItem xs={4}>
-                                        <CustomInput
-                                            labelText={t('claimDetail.amount')}
-                                            id="amount"
-                                            formControlProps={{
-                                                fullWidth: true,
-                                            }}
-                                            inputProps={{
-                                                name: 'amount',
-                                                value: insurance.claim.amount
                                             }}
                                         />
                                     </GridItem>

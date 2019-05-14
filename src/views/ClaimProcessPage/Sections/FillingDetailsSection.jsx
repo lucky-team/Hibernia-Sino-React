@@ -73,8 +73,9 @@ class FillingDetailsSection extends Component {
                 </GridItem>
                 <GridItem sm={8}>
                     <form onSubmit={(e) => {
-                        handleSubmit(e);
+                        e.preventDefault();
                         handleNext();
+                        handleSubmit(e);
                     }}>
                         <GridContainer spacing={32}>
                             <GridItem md={4} sm={6}>
@@ -217,7 +218,7 @@ class FillingDetailsSection extends Component {
                                 <Button type='submit' round color='info'>
                                     {t('claimProcessPage.form.submit')}
                                 </Button>
-                                <Button round color='secondary' onClick={handleBack}>
+                                <Button round color='secondary' onClick={() => handleBack()}>
                                     {t('claimProcessPage.form.cancel')}
                                 </Button>
                             </GridItem>

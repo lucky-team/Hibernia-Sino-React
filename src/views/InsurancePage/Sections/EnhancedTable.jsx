@@ -167,17 +167,19 @@ const EnhancedTable = ({ ...props }) => {
                                             <InfoIcon />
                                         </IconButton>
                                     </Tooltip>
-                                    <Tooltip title={t('insurancePage.table.claim')}>
-                                        <IconButton
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                history.push(BaseUrl.claimProcessUrl + `#${row._id}`)
-                                            }}
-                                            aria-label={t('insurancePage.table.claim')}
-                                        >
-                                            <OfflineBoltIcon />
-                                        </IconButton>
-                                    </Tooltip>
+                                    {row.claim === undefined && (
+                                        <Tooltip title={t('insurancePage.table.claim')}>
+                                            <IconButton
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    history.push(BaseUrl.claimProcessUrl + `#${row._id}`)
+                                                }}
+                                                aria-label={t('insurancePage.table.claim')}
+                                            >
+                                                <OfflineBoltIcon />
+                                            </IconButton>
+                                        </Tooltip>
+                                    )}
                                 </TableCell>
                             </TableRow>
                         );

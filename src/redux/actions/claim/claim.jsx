@@ -7,20 +7,20 @@ import axios from 'axios';
 
 export const requestFileClaim = () => {
     return {
-        type: ClaimTypes.FILE_CLAIM_REQUEST
+        type: ClaimTypes.FILE_CLAIMS_REQUEST
     }
 }
 
 export const receiveFileClaim = (msg) => {
     return {
-        type: ClaimTypes.FILE_CLAIM_SUCCESS,
+        type: ClaimTypes.FILE_CLAIMS_SUCCESS,
         msg: msg
     }
 }
 
 export const fileClaimError = (err) => {
     return {
-        type: ClaimTypes.FILE_CLAIM_FAILURE,
+        type: ClaimTypes.FILE_CLAIMS_FAILURE,
         err: err
     }
 }
@@ -73,7 +73,7 @@ export const fileClaim = (claim) => (dispatch) => {
 
 export const requestFetchClaims = () => {
     return {
-        type: ClaimTypes.FILE_CLAIMS_REQUEST
+        type: ClaimTypes.FETCH_CLAIMS_REQUEST
     }
 }
 

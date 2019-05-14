@@ -79,6 +79,7 @@ class AppRouter extends Component {
             <ClaimProcess
                 fileClaim={fileClaim}
                 changeLocale={changeLocale}
+                fetchInsurances={fetchInsurances}
                 {...props}
             />
         );

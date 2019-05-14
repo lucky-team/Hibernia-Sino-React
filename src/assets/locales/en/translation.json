@@ -156,6 +156,8 @@
     "claimProcessPage": {
         "pageTitle": "File Claim",
         "title": "File Claim",
+        "congrautulations": "Claim Successfully！",
+        "skip": "Back to insurances page in 2 seconds",
         "steps": {
             "chooseType": "Choose accident type",
             "details": "Filling details",

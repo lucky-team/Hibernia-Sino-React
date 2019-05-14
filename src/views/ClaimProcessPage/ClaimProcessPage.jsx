@@ -48,9 +48,11 @@ const StepContent = ({ ...props }) => {
         handleUpdateFiles,
         handleSubmit,
         handleNext,
+        handleBack,
         history,
         t,
-        claim
+        claim,
+        fetchInsurances
     } = props;
 
     switch(activeStep) {
@@ -72,15 +74,26 @@ const StepContent = ({ ...props }) => {
                     handleUpdateFiles={handleUpdateFiles}
                     handleSubmit={handleSubmit}
                     handleNext={handleNext}
+                    handleBack={handleBack}
                     claim={claim}
                 />
             );
         case 2:
             setTimeout(() => {
-                history.push(BaseUrl.myInsurancesUrl)
-            }, 5000);
+                fetchInsurances();
+            }, 2000);
+            setTimeout(() => {
+                history.push(BaseUrl.myInsurancesUrl);
+            }, 2100);
             return (
-                <div>Success</div>
+                <GridContainer spacing={16}>
+                    <GridItem xs={12}>
+                        <h4><strong>{t('claimProcessPage.congrautulations')}</strong></h4>
+                    </GridItem>
+                    <GridItem xs={12}>
+                        <p>{t('claimProcessPage.skip')}</p>
+                    </GridItem>
+                </GridContainer>
             );
     }
 }
@@ -98,7 +111,8 @@ const ClaimBody = ({ ...props }) => {
         handleUpdateFiles,
         handleSubmit,
         history,
-        claim
+        claim,
+        fetchInsurances
     } = props;
 
     return (
@@ -119,9 +133,11 @@ const ClaimBody = ({ ...props }) => {
                 handleUpdateFiles={handleUpdateFiles}
                 handleSubmit={handleSubmit}
                 handleNext={handleNext}
+                handleBack={handleBack}
                 t={t}
                 claim={claim}
                 history={history}
+                fetchInsurances={fetchInsurances}
             />
         </div>
     );
@@ -176,7 +192,6 @@ class ClaimProcessPage extends Component {
     handleSubmit = (e) => {
         console.log(this.state.claim.files);
         this.props.fileClaim(this.state.claim);
-        e.preventDefault();
     }
 
     handleNext = () => {
@@ -199,7 +214,7 @@ class ClaimProcessPage extends Component {
     };
 
     render() {
-        const { t, classes, history, changeLocale } = this.props;
+        const { t, classes, history, changeLocale, fetchInsurances } = this.props;
         const { activeStep, claim } = this.state;
 
         const steps = [
@@ -237,6 +252,7 @@ class ClaimProcessPage extends Component {
                             t={t}
                             claim={claim}
                             history={history}
+                            fetchInsurances={fetchInsurances}
                         />
 
                     </div>

@@ -156,6 +156,8 @@
     "claimProcessPage": {
         "pageTitle": "快速理赔",
         "title": "快速理赔",
+        "congrautulations": "理赔成功！",
+        "skip": "2秒后返回保单页面",
         "steps": {
             "chooseType": "选择事故类型",
             "details": "填写表单",
