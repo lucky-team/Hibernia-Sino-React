@@ -9,6 +9,7 @@ import { fetchInsurances } from 'redux/actions/insurance/insurance.jsx';
 import { fileClaim, fetchClaims } from 'redux/actions/claim/claim.jsx';
 import { removeSnackbar, enqueueSnackbar } from 'redux/actions/notification/notification.jsx';
 import * as BaseUrl from 'routes/BaseUrl.jsx';
+import Home from 'views/HomePage/HomePage.jsx';
 import Signup from 'views/SignupPage/SignupPage.jsx';
 import Login from 'views/LoginPage/LoginPage.jsx';
 import Profile from 'views/ProfilePage/ProfilePage.jsx';
@@ -35,6 +36,12 @@ class AppRouter extends Component {
         const { register, login, auth, fetchProfiles, profile, createProfile,
             updateProfile, insurance, fileClaim, claim, changeLocale, fetchInsurances,
             enqueueSnackbar } = this.props;
+
+        const HomePage = ({ ...props }) => (
+            <Home
+                changeLocale={changeLocale}
+            />
+        );
              
         const SignupPage = ({ ...props }) => (
             <Signup
@@ -108,6 +115,7 @@ class AppRouter extends Component {
                 <Notifier />
                 <Router history={history}>
                     <Switch>
+                        <Route exact path={BaseUrl.homeUrl} component={HomePage} />
                         <Route exact path={BaseUrl.signupUrl} component={SignupPage} />
                         <Route exact path={BaseUrl.loginUrl} component={LoginPage} />
                         <PrivateRoute exact path={BaseUrl.profileUrl} component={ProfilePage} />
@@ -115,7 +123,7 @@ class AppRouter extends Component {
                         <PrivateRoute exact path={BaseUrl.myClaimsUrl} component={ClaimPage} />
                         <PrivateRoute exact path={BaseUrl.claimProcessUrl} component={ClaimProcessPage} />
                         <PrivateRoute exact path={BaseUrl.manageClaimsUrl} component={ManageClaimPage} />
-                        <Redirect to={BaseUrl.manageClaimsUrl} />
+                        <Redirect to={BaseUrl.homeUrl} />
                     </Switch>
                 </Router>
             </div>
