@@ -6,6 +6,7 @@ export const myInsurancesUrl = '/my-insurances';
 export const myClaimsUrl = '/my-claims';
 export const profileUrl = '/profile';
 export const aboutusUrl = '/aboutus';
+export const purchaseUrl = '/purchase';
 
 export const managementUrl = '/management';
 export const manageInsurancesUrl = managementUrl + '/insurances';

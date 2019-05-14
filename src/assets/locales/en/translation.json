@@ -157,9 +157,8 @@
         "pageTitle": "Insurance List",
         "title": "My insurances",
         "all": "All",
-        "pending": "等待受理",
-        "processing": "处理中",
-        "finished": "历史理赔",
+        "active": "Active",
+        "inactive": "Inactive",
         "table": {
             "insuranceId": "Insurance Id",
             "plan": "Plan",
@@ -278,6 +277,30 @@
         }
     },
 
+    "purchasePage": {
+        "pageTitle": "Purchase Insurance",
+        "title": "Purchase Insurance",
+        "table": {
+            "plan": "Plan",
+            "level": "Level",
+            "startDate": "Start At",
+            "duration": "Duration (30 days per cycle)",
+            "expireDate": "Expire At",
+            "lastname": "Lastname",
+            "firstname": "Firstname",
+            "socialId": "Social ID",
+            "gender": "Gender",
+            "age": "Age",
+            "phone": "Phone",
+            "email": "Email",
+            "bankName": "Bank Name",
+            "bankAccount": "Bank Account",
+            "bankUsername": "Bank Username",
+            "confirm": "Confirm",
+            "cancel": "Cancel"
+        }
+    },
+
     "manageClaimPage": {
         "pageTitle": "Claims Management",
         "title": "Claims Management",
@@ -366,6 +389,9 @@
             "Claim Rejection Successful!": "Claim Rejection Successful!",
             "Claim Acception Successful!": "Claim Acception Successful!",
             "No reject reason given": "No reject reason given"
+        },
+        "insurance": {
+            "Insurance Creation Successful!": "Insurance Creation Successful!"
         }
     }
     

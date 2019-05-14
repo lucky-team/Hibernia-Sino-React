@@ -5,7 +5,7 @@ import createHistory from 'history/createBrowserHistory';
 import { connect } from 'react-redux';
 import { register, login } from 'redux/actions/auth/auth.jsx';
 import { fetchProfiles, createProfile, updateProfile } from 'redux/actions/profile/profile.jsx';
-import { fetchInsurances } from 'redux/actions/insurance/insurance.jsx';
+import { fetchInsurances, createInsurance } from 'redux/actions/insurance/insurance.jsx';
 import { fileClaim, fetchClaims } from 'redux/actions/claim/claim.jsx';
 import { removeSnackbar, enqueueSnackbar } from 'redux/actions/notification/notification.jsx';
 import * as BaseUrl from 'routes/BaseUrl.jsx';
@@ -17,6 +17,7 @@ import Insurance from 'views/InsurancePage/InsurancePage.jsx';
 import ClaimProcess from 'views/ClaimProcessPage/ClaimProcessPage.jsx';
 import Claim from 'views/ClaimPage/ClaimPage.jsx';
 import ManageClaim from 'views/Manage/ManageClaimPage/ManageClaimPage.jsx';
+import Purchase from 'views/PurchasePage/PurchasePage.jsx';
 import Notifier from 'views/notifier.jsx';
 
 var history = createHistory();
@@ -35,7 +36,7 @@ class AppRouter extends Component {
     render () {
         const { register, login, auth, fetchProfiles, profile, createProfile,
             updateProfile, insurance, fileClaim, claim, changeLocale, fetchInsurances,
-            enqueueSnackbar } = this.props;
+            enqueueSnackbar, createInsurance } = this.props;
 
         const HomePage = ({ ...props }) => (
             <Home
@@ -111,6 +112,14 @@ class AppRouter extends Component {
             />
         );
 
+        const PurchasePage = ({ ...props }) => (
+            <Purchase
+                changeLocale={changeLocale}
+                createInsurance={createInsurance}
+                {...props}
+            />
+        );
+
         return (
             <div>
                 <Notifier />
@@ -124,6 +133,7 @@ class AppRouter extends Component {
                         <PrivateRoute exact path={BaseUrl.myClaimsUrl} component={ClaimPage} />
                         <PrivateRoute exact path={BaseUrl.claimProcessUrl} component={ClaimProcessPage} />
                         <PrivateRoute exact path={BaseUrl.manageClaimsUrl} component={ManageClaimPage} />
+                        <PrivateRoute exact path={BaseUrl.purchaseUrl} component={PurchasePage} />
                         <Redirect to={BaseUrl.homeUrl} />
                     </Switch>
                 </Router>
@@ -149,6 +159,7 @@ const mapDispatchToProps = dispatch => ({
     createProfile: (profile) => dispatch(createProfile(profile)),
     updateProfile: (profile) => dispatch(updateProfile(profile)),
     fetchInsurances: (query) => dispatch(fetchInsurances(query)),
+    createInsurance: (insurance) => dispatch(createInsurance(insurance)),
     fileClaim: (claim) => dispatch(fileClaim(claim)),
     fetchClaims: (query) => dispatch(fetchClaims(query)),
     removeSnackbar: (key) => dispatch(removeSnackbar(key)),

@@ -225,7 +225,6 @@ class ClaimProcessPage extends Component {
 
         return (
             <div>
-
                 <Header
                     absolute
                     fixed

@@ -215,7 +215,7 @@ const InsuranceDetail = ({ ...props }) => {
                                     }}
                                     inputProps={{
                                         name: 'socialId',
-                                        value: `${insurance.insured.socialId} ${insurance.insured.lastname}`
+                                        value: insurance.insured.socialId
                                     }}
                                 />
                             </GridItem>

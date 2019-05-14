@@ -87,7 +87,13 @@ const HomePage = ({ ...props }) => {
                   <p className={classes.cardCategory}>
                     {t('homePage.pricing.1.content')}
                   </p>
-                  <Button round color="white">
+                  <Button
+                    round
+                    color="white"
+                    onClick={() => {
+                        history.push(BaseUrl.purchaseUrl + '#plan=1');
+                    }}
+                  >
                     {t('homePage.pricing.choose')}
                   </Button>
                 </CardBody>
@@ -116,7 +122,13 @@ const HomePage = ({ ...props }) => {
                   <p className={classes.cardCategory}>
                     {t('homePage.pricing.2.content')}
                   </p>
-                  <Button round color="white">
+                  <Button
+                    round
+                    color="white"
+                    onClick={() => {
+                        history.push(BaseUrl.purchaseUrl + '#plan=2');
+                    }}
+                  >
                     {t('homePage.pricing.choose')}
                   </Button>
                 </CardBody>
@@ -145,7 +157,13 @@ const HomePage = ({ ...props }) => {
                   <p className={classes.cardCategory}>
                     {t('homePage.pricing.3.content')}
                   </p>
-                  <Button round color="white">
+                  <Button
+                    round
+                    color="white"
+                    onClick={() => {
+                        history.push(BaseUrl.purchaseUrl + '#plan=3');
+                    }}
+                  >
                     {t('homePage.pricing.choose')}
                   </Button>
                 </CardBody>

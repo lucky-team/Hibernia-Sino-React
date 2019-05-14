@@ -258,6 +258,30 @@
         }
     },
 
+    "purchasePage": {
+        "pageTitle": "购买保险",
+        "title": "购买保险",
+        "table": {
+            "plan": "计划",
+            "level": "等级",
+            "startDate": "开始时间",
+            "duration": "持续时间 (30倍数)",
+            "expireDate": "结束时间",
+            "lastname": "姓氏 (拼音)",
+            "firstname": "名 (拼音)",
+            "socialId": "身份证号",
+            "gender": "性别",
+            "age": "年龄",
+            "phone": "手机号",
+            "email": "邮箱",
+            "bankName": "银行名称",
+            "bankAccount": "银行账户",
+            "bankUsername": "开户人姓名",
+            "confirm": "确认",
+            "cancel": "取消"
+        }
+    },
+
     "manageClaimPage": {
         "pageTitle": "管理理赔",
         "title": "管理理赔",
@@ -346,6 +370,9 @@
             "Claim Rejection Successful!": "拒绝理赔成功!",
             "Claim Acception Successful!": "接受理赔成功!",
             "No reject reason given": "未输入理赔拒绝原因"
+        },
+        "insurance": {
+            "Insurance Creation Successful!": "保险购买成功!"
         }
     }
     
