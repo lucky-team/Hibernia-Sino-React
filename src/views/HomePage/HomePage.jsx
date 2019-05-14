@@ -12,7 +12,6 @@ import GridItem from "components/Grid/GridItem.jsx";
 import InfoArea from "components/InfoArea/InfoArea.jsx";
 import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import homePageStyle from 'assets/jss/material-kit-pro-react/views/homePageStyle.jsx';
 
@@ -206,12 +205,11 @@ const HomePage = ({ ...props }) => {
                   vertical
                   className={classes.infoArea5}
                   icon={Code}
-                  title="For Developers"
+                  title="Hibernia-sino"
                   description={
                     <p>
-                      The moment you use Material Kit, you know you’ve never
-                      felt anything like it. With a single use, this powerfull
-                      UI Kit lets you do more than ever before.
+                        Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
+                        , Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
                     </p>
                   }
                   iconColor="info"
@@ -222,12 +220,11 @@ const HomePage = ({ ...props }) => {
                   vertical
                   className={classes.infoArea5}
                   icon={FormatPaint}
-                  title="For Designers"
+                  title="Hibernia-sino"
                   description={
                     <p>
-                      Divide details about your product or agency work into
-                      parts. Write a few lines about each one. A paragraph
-                      describing a feature will be enough.
+                        Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
+                        , Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
                     </p>
                   }
                   iconColor="danger"
@@ -238,12 +235,11 @@ const HomePage = ({ ...props }) => {
                   vertical
                   className={classes.infoArea5}
                   icon={Dashboard}
-                  title="Material-UI Grid"
+                  title="Hibernia-sino"
                   description={
                     <p>
-                      Divide details about your product or agency work into
-                      parts. Write a few lines about each one. A paragraph
-                      describing a feature will be enough.
+                        Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
+                        , Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
                     </p>
                   }
                   iconColor="primary"
@@ -256,12 +252,11 @@ const HomePage = ({ ...props }) => {
                   vertical
                   className={classes.infoArea5}
                   icon={ViewCarousel}
-                  title="Example Pages Included"
+                  title="Hibernia-sino"
                   description={
                     <p>
-                      The moment you use Material Kit, you know you’ve never
-                      felt anything like it. With a single use, this powerfull
-                      UI Kit lets you do more than ever before.
+                        Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
+                        , Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
                     </p>
                   }
                 />
@@ -271,12 +266,11 @@ const HomePage = ({ ...props }) => {
                   vertical
                   className={classes.infoArea5}
                   icon={AccessTime}
-                  title="Save Time"
+                  title="Hibernia-sino"
                   description={
                     <p>
-                      The moment you use Material Kit, you know you’ve never
-                      felt anything like it. With a single use, this powerfull
-                      UI Kit lets you do more than ever before.
+                        Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
+                        , Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
                     </p>
                   }
                 />
@@ -286,12 +280,11 @@ const HomePage = ({ ...props }) => {
                   vertical
                   className={classes.infoArea5}
                   icon={AttachMoney}
-                  title="Save Money"
+                  title="Hibernia-sino"
                   description={
                     <p>
-                      The moment you use Material Kit, you know you’ve never
-                      felt anything like it. With a single use, this powerfull
-                      UI Kit lets you do more than ever before.
+                      Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
+                            , Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
                     </p>
                   }
                 />
@@ -323,12 +316,10 @@ const HomePage = ({ ...props }) => {
                         <div className={classes.container}>
                             <GridContainer>
                                 <GridItem xs={12} sm={6} md={6}>
-                                    <h1 className={classes.title}>Material Kit PRO React</h1>
+                                    <h1 className={classes.title}>Hibernia-sino</h1>
                                     <h4>
-                                        Dolce & Gabbana is a luxury Italian fashion house founded
-                                        in 1985 in Legnano by Italian designers Domenico Dolce and
-                                        Stefano Gabbana. The two met in Milan in 1980 and designed
-                                        for the same fashion house.
+                                        Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
+                                        , Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
                                     </h4>
                                 </GridItem>
                             </GridContainer>
@@ -352,12 +343,10 @@ const HomePage = ({ ...props }) => {
                                         classes.textCenter
                                     )}
                                 >
-                                    <h1 className={classes.title}>Material Kit PRO React</h1>
+                                    <h1 className={classes.title}>Hibernia-sino</h1>
                                     <h4>
-                                        Dolce & Gabbana is a luxury Italian fashion house founded
-                                        in 1985 in Legnano by Italian designers Domenico Dolce and
-                                        Stefano Gabbana. The two met in Milan in 1980 and designed
-                                        for the same fashion house.
+                                        Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
+                                        , Hibernia-sino, Hibernia-sino, Hibernia-sino, Hibernia-sino
                                     </h4>
                                 </GridItem>
                             </GridContainer>
